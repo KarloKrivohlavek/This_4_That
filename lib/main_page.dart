@@ -6,7 +6,7 @@ Widget build(BuildContext context) {
     body: Column(
       children: [
         Container(
-          margin: EdgeInsets.all(10),
+          margin: const EdgeInsets.all(10),
           child: Row(
             children: [
               Expanded(
@@ -31,20 +31,20 @@ Widget build(BuildContext context) {
                                   Container(
                                     width: 50,
                                     height: 50,
-                                    margin: EdgeInsets.all(10),
-                                    child: Image.asset('images/mouse.jpg'),
+                                    margin: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(20)),
+                                    child: Image.asset('images/mouse.jpg'),
                                   ),
                                   Container(
                                     width: 50,
                                     height: 100,
-                                    margin: EdgeInsets.all(10),
-                                    child: Image.asset('images/lamp.jpg'),
+                                    margin: const EdgeInsets.all(10),
                                     decoration: BoxDecoration(
                                         borderRadius:
                                             BorderRadius.circular(20)),
+                                    child: Image.asset('images/lamp.jpg'),
                                   ),
                                 ],
                               ),
@@ -81,13 +81,14 @@ Widget build(BuildContext context) {
                                 children: [
                                   Expanded(
                                     child: Container(
-                                      margin: EdgeInsets.all(20),
-                                      padding: EdgeInsets.all(20),
+                                      margin: const EdgeInsets.all(20),
+                                      padding: const EdgeInsets.all(20),
                                       decoration: BoxDecoration(
                                           color: Colors.orange,
                                           borderRadius:
                                               BorderRadius.circular(20)),
-                                      child: Center(child: Text('Primjeni')),
+                                      child:
+                                          const Center(child: Text('Primjeni')),
                                       // width: MediaQuery.of(context).size.width *
                                       //     0.8,
                                     ),
@@ -107,8 +108,8 @@ Widget build(BuildContext context) {
                       ),
                       Expanded(
                           child: Container(
-                        margin: EdgeInsets.only(left: 10),
-                        child: Text(
+                        margin: const EdgeInsets.only(left: 10),
+                        child: const Text(
                           'Logitech Mis',
                           style: TextStyle(
                             color: Colors.black,
@@ -121,8 +122,8 @@ Widget build(BuildContext context) {
               ),
               Center(
                 child: Container(
-                  padding: EdgeInsets.only(left: 20, right: 20),
-                  child: Icon(Icons.settings),
+                  padding: const EdgeInsets.only(left: 20, right: 20),
+                  child: const Icon(Icons.settings),
                 ),
               )
             ],
@@ -132,24 +133,24 @@ Widget build(BuildContext context) {
           child: Column(
             children: [
               Container(
-                margin: EdgeInsets.all(10),
+                margin: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(20)),
                 child: Column(
                   children: [
                     Container(
-                        margin: EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(10),
                         child: Image.asset('images/wallet.jpg')),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                     Container(
-                      margin: EdgeInsets.only(left: 15, right: 15),
+                      margin: const EdgeInsets.only(left: 15, right: 15),
                       child: Column(
                         children: [
                           Row(
-                            children: [
+                            children: const [
                               Text(
                                 'Muski Novcanik',
                                 style: TextStyle(
@@ -159,13 +160,13 @@ Widget build(BuildContext context) {
                               )
                             ],
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 30,
                           ),
                           Column(
                             children: [
                               Row(
-                                children: [
+                                children: const [
                                   Icon(Icons.location_pin),
                                   Text(
                                     'Zagreb',
@@ -173,11 +174,11 @@ Widget build(BuildContext context) {
                                   ),
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 30,
                               ),
                               Row(
-                                children: [
+                                children: const [
                                   Icon(Icons.cake),
                                   Text(
                                     '3 godine',
@@ -185,11 +186,11 @@ Widget build(BuildContext context) {
                                   ),
                                 ],
                               ),
-                              SizedBox(
+                              const SizedBox(
                                 height: 30,
                               ),
                               Row(
-                                children: [
+                                children: const [
                                   Icon(Icons.search),
                                   Text(
                                     'Rabljeno s tragovima koristenja',
@@ -202,7 +203,7 @@ Widget build(BuildContext context) {
                         ],
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 200,
                     ),
                     Row(
@@ -211,12 +212,12 @@ Widget build(BuildContext context) {
                         Container(
                           width: 50,
                           color: Colors.green,
-                          child: Icon(Icons.check),
+                          child: const Icon(Icons.check),
                         ),
                         Container(
                           width: 50,
                           color: Colors.green,
-                          child: Icon(Icons.crop),
+                          child: const Icon(Icons.crop),
                         ),
                         // FloatingActionButton(
                         //   onPressed: () {},

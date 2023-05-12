@@ -1,13 +1,13 @@
 import 'dart:io';
-import 'package:this_4_that/add_item_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../widget/addImageContainer.dart';
 
 class AddItemPage1 extends StatefulWidget {
+  const AddItemPage1({super.key});
+
   @override
   State<AddItemPage1> createState() => _AddItemPage1State();
 }
@@ -19,15 +19,13 @@ class _AddItemPage1State extends State<AddItemPage1> {
     try {
       final pickedImage =
           await ImagePicker().pickImage(source: ImageSource.gallery);
-      print(image);
-      print(pickedImage);
+
       if (pickedImage == null) return;
       final imageTemporary = File(pickedImage!.path);
       setState(() {
         image = imageTemporary;
         if (imageList.length < 5) {
           imageList.insert(0, image);
-          print(image);
         }
       });
     } on PlatformException catch (e) {
@@ -38,22 +36,22 @@ class _AddItemPage1State extends State<AddItemPage1> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(14),
+      padding: const EdgeInsets.all(14),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
+          const Text(
             'Dodaj slike predmeta',
             style: TextStyle(fontSize: 40, fontWeight: FontWeight.w700),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
-          Text(
+          const Text(
             'Biste li sami uzeli predmet bez slike? Pokažite ostalima što nudite.',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           TextButton(

@@ -3,9 +3,8 @@ import 'package:logger_fork/logger_fork.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:this_4_that/data.dart';
 import 'package:this_4_that/swappablePage.dart';
-import 'package:this_4_that/profile_page.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
-import 'package:logger_fork/logger_fork.dart';
+
 import 'package:this_4_that/widget/button_widget.dart';
 
 class HomePage extends StatefulWidget {
@@ -179,7 +178,7 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               Expanded(
                                 child: Padding(
-                                  padding: EdgeInsets.all(10),
+                                  padding: const EdgeInsets.all(10),
                                   child: ButtonWidget(
                                       color: Colors.black,
                                       text: 'Primjeni',
@@ -410,31 +409,33 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         floatingActionButton: cards.isEmpty
-            ? SizedBox()
+            ? const SizedBox()
             : Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: (Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       width: 100,
                     ),
                     FloatingActionButton(
                       onPressed: () {
                         controller.swipeLeft();
                       },
-                      child: Icon(MdiIcons.closeThick, color: Colors.black),
                       backgroundColor: Colors.redAccent,
+                      child:
+                          const Icon(MdiIcons.closeThick, color: Colors.black),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 80,
                     ),
                     FloatingActionButton(
                       onPressed: () {
                         controller.swipeRight();
                       },
-                      child: Icon(MdiIcons.checkBold, color: Colors.black),
                       backgroundColor: Colors.greenAccent,
+                      child:
+                          const Icon(MdiIcons.checkBold, color: Colors.black),
                     ),
                   ],
                 )),

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:this_4_that/src/edit_profile_page.dart';
 import 'package:this_4_that/swappablePage.dart';
-import 'package:this_4_that/swappable_item.dart';
-import 'package:this_4_that/user.dart';
 import 'package:this_4_that/user_preferences.dart';
 import 'package:this_4_that/widget/profile_widget.dart';
 
@@ -32,8 +30,8 @@ class _ProfilePageState extends State<ProfilePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: EdgeInsets.all(10),
-              margin: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.all(20),
               decoration: BoxDecoration(
                 color: Colors.orange,
                 borderRadius: BorderRadius.circular(50),
@@ -61,10 +59,10 @@ class _ProfilePageState extends State<ProfilePage> {
                       children: [
                         Text(
                           currentUser.name,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontWeight: FontWeight.w700, fontSize: 24),
                         ),
-                        Text(
+                        const Text(
                           'Bozidar Bozic',
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
@@ -82,27 +80,27 @@ class _ProfilePageState extends State<ProfilePage> {
                                   builder: (context) => EditProfilePage()))
                           .then((value) => setState(() {}));
                     },
-                    child: Icon(MdiIcons.pencil),
                     backgroundColor: Colors.white,
                     foregroundColor: Colors.black,
                     elevation: 0,
+                    child: const Icon(MdiIcons.pencil),
                   )
                 ],
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(left: 16),
               child: Text(
                 'Moji oglasi',
                 style: TextStyle(fontWeight: FontWeight.w700, fontSize: 24),
               ),
             ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Container(
+            Center(
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.95,
+                child: Row(
+                  children: [
+                    Expanded(
                       child: TextButton(
                         onPressed: () {
                           setState(() {
@@ -113,47 +111,70 @@ class _ProfilePageState extends State<ProfilePage> {
                         },
                         child: (Container(
                           width: MediaQuery.of(context).size.width,
-                          height: 60,
-                          child: Text('Aktivni'),
+                          height: MediaQuery.of(context).size.height * 0.05,
                           decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.orange,
+                              width: 3,
+                            ),
                             color: isActiveButtonOn
                                 ? Colors.orange
-                                : Colors.greenAccent,
-                            borderRadius: BorderRadius.circular(10),
+                                : Colors.transparent,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: Center(
+                            child: const Text(
+                              'Aktivni',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black),
+                            ),
                           ),
                         )),
                         // style: TextButton.styleFrom(
                         //   textStyle: const TextStyle(fontSize: 20),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            if (isActiveButtonOn == true) {
-                              isActiveButtonOn = !isActiveButtonOn;
-                            }
-                          });
-                        },
-                        child: (Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 60,
-                          child: Text('Arhivirani'),
-                          decoration: BoxDecoration(
-                            color: isActiveButtonOn
-                                ? Colors.greenAccent
-                                : Colors.orange,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                        )),
-                        // style: TextButton.styleFrom(
-                        //   textStyle: const TextStyle(fontSize: 20),
+                    Expanded(
+                      child: Container(
+                        child: TextButton(
+                          onPressed: () {
+                            setState(() {
+                              if (isActiveButtonOn == true) {
+                                isActiveButtonOn = !isActiveButtonOn;
+                              }
+                            });
+                          },
+                          child: (Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color: Colors.orange,
+                                width: 3,
+                              ),
+                              color: isActiveButtonOn
+                                  ? Colors.transparent
+                                  : Colors.orange,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            child: Center(
+                                child: const Text(
+                              'Arhivirani',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.black),
+                            )),
+                          )),
+                          // style: TextButton.styleFrom(
+                          //   textStyle: const TextStyle(fontSize: 20),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             isActiveButtonOn
@@ -169,7 +190,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           pictureURL: currentUserItems[index].imagesURLs[0],
                         );
                       else {
-                        return SizedBox();
+                        return const SizedBox();
                       }
                     },
                   )
@@ -185,7 +206,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           pictureURL: currentUserItems[index].imagesURLs[0],
                         );
                       else {
-                        return SizedBox();
+                        return const SizedBox();
                       }
                     },
                   ),
@@ -216,7 +237,7 @@ class _userProfileItemPreviewState extends State<userProfileItemPreview> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.all(20),
+        margin: const EdgeInsets.all(20),
         child: Column(
           children: [
             Container(
@@ -234,7 +255,7 @@ class _userProfileItemPreviewState extends State<userProfileItemPreview> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 20,
                   ),
                   Container(
@@ -244,18 +265,18 @@ class _userProfileItemPreviewState extends State<userProfileItemPreview> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          margin: EdgeInsets.only(right: 20),
+                          margin: const EdgeInsets.only(right: 20),
                           child: Column(
                             children: [
                               Text(
                                 widget.itemName,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.w500, fontSize: 16),
                               ),
                             ],
                           ),
                         ),
-                        SizedBox(height: 30),
+                        const SizedBox(height: 30),
                         Container(
                           width: MediaQuery.of(context).size.width * 0.35,
                           child: widget.isActiveButtonOn
@@ -272,13 +293,14 @@ class _userProfileItemPreviewState extends State<userProfileItemPreview> {
                                         });
                                       },
                                       child: Container(
-                                        margin: EdgeInsets.only(bottom: 5),
+                                        margin:
+                                            const EdgeInsets.only(bottom: 5),
                                         width: 35,
                                         height: 35,
-                                        child: Icon(MdiIcons.pencil),
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: Colors.orange),
+                                        child: const Icon(MdiIcons.pencil),
                                       ),
                                     ),
                                     GestureDetector(
@@ -290,45 +312,82 @@ class _userProfileItemPreviewState extends State<userProfileItemPreview> {
                                                   StateSetter setState) {
                                             return Center(
                                                 child: Container(
-                                              padding: EdgeInsets.all(20),
-                                              color: Colors.yellow,
+                                              decoration: BoxDecoration(
+                                                color: Color(0xFF262626),
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                              padding: const EdgeInsets.all(20),
                                               height: MediaQuery.of(context)
                                                       .size
                                                       .height *
-                                                  0.4,
+                                                  0.35,
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width *
                                                   0.7,
-                                              child: Column(children: [
-                                                Text(
-                                                  'Arhiviraj',
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                      fontSize: 24),
-                                                ),
-                                                TextButton(
-                                                    onPressed: () {
-                                                      currentUserItems[
-                                                              widget.index] =
-                                                          currentUserItems[
-                                                                  widget.index]
-                                                              .copyWith(
-                                                                  isArchived:
-                                                                      true);
+                                              child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    const Text(
+                                                      'Arhiviraj',
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.w700,
+                                                          fontSize: 24),
+                                                    ),
+                                                    SizedBox(
+                                                      height: 10,
+                                                    ),
+                                                    Text(
+                                                      'Jeste li sigurni da želite arhivirati ovaj oglas? Oglas će biti premješten u arhivu i više ga nećete vidjeti u glavnom prikazu aplikacije. Ako u budućnosti želite ponovno aktivirati ovaj oglas, moći ćete ga izvući iz arhive',
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                    Row(
+                                                      children: [
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            currentUserItems[
+                                                                    widget
+                                                                        .index] =
+                                                                currentUserItems[
+                                                                        widget
+                                                                            .index]
+                                                                    .copyWith(
+                                                                        isArchived:
+                                                                            true);
 
-                                                      Navigator.pop(context);
-                                                      setState(() {});
-                                                    },
-                                                    child: Text('Arhiviraj')),
-                                                TextButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Text('Odustani'),
-                                                )
-                                              ]),
+                                                            Navigator.pop(
+                                                                context);
+                                                            setState(() {});
+                                                          },
+                                                          child: const Text(
+                                                            'Arhiviraj',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .orange),
+                                                          ),
+                                                        ),
+                                                        TextButton(
+                                                          onPressed: () {
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: const Text(
+                                                            'Odustani',
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .orange),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    )
+                                                  ]),
                                             ));
                                           }),
                                         );
@@ -340,10 +399,11 @@ class _userProfileItemPreviewState extends State<userProfileItemPreview> {
                                       child: Container(
                                         width: 35,
                                         height: 35,
-                                        child: Icon(MdiIcons.archiveOutline),
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: Colors.orange),
+                                        child:
+                                            const Icon(MdiIcons.archiveOutline),
                                       ),
                                     ),
                                   ],
@@ -355,25 +415,27 @@ class _userProfileItemPreviewState extends State<userProfileItemPreview> {
                                     GestureDetector(
                                       onTap: () {},
                                       child: Container(
-                                        margin: EdgeInsets.only(bottom: 5),
+                                        margin:
+                                            const EdgeInsets.only(bottom: 5),
                                         width: 35,
                                         height: 35,
-                                        child: Icon(MdiIcons.upload),
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: Colors.orange),
+                                        child: const Icon(MdiIcons.upload),
                                       ),
                                     ),
                                     GestureDetector(
                                       onTap: () {},
                                       child: Container(
-                                        margin: EdgeInsets.only(bottom: 5),
+                                        margin:
+                                            const EdgeInsets.only(bottom: 5),
                                         width: 35,
                                         height: 35,
-                                        child: Icon(MdiIcons.pencil),
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: Colors.orange),
+                                        child: const Icon(MdiIcons.pencil),
                                       ),
                                     ),
                                     GestureDetector(
@@ -385,10 +447,10 @@ class _userProfileItemPreviewState extends State<userProfileItemPreview> {
                                       child: Container(
                                         width: 35,
                                         height: 35,
-                                        child: Icon(MdiIcons.trashCan),
-                                        decoration: BoxDecoration(
+                                        decoration: const BoxDecoration(
                                             shape: BoxShape.circle,
                                             color: Colors.orange),
+                                        child: const Icon(MdiIcons.trashCan),
                                       ),
                                     ),
                                   ],
