@@ -15,6 +15,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  bool isActiveButtonOn = true;
   List<SwappablePage> cards = cardsElements;
   // all available cards with item image description etc.
   int numberOfCardsDisplayed = 2;
@@ -98,38 +99,96 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
             Container(
               width: MediaQuery.of(context).size.width,
-              height: 30,
               child: Row(
                 children: [
                   Expanded(
-                    child: TextButton(
-                      onPressed: () {},
-                      child: (Container(
-                        child: Text('Aktivni'),
-                        decoration: BoxDecoration(
-                          color: Colors.orange,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      )),
-                      // style: TextButton.styleFrom(
-                      //   textStyle: const TextStyle(fontSize: 20),
+                    child: Container(
+                      child: TextButton(
+                        onPressed: () {
+                          setState(() {
+                            if (isActiveButtonOn == false) {
+                              isActiveButtonOn = !isActiveButtonOn;
+                            }
+                          });
+                        },
+                        child: (Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 60,
+                          child: Text('Aktivni'),
+                          decoration: BoxDecoration(
+                            color: isActiveButtonOn
+                                ? Colors.orange
+                                : Colors.greenAccent,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        )),
+                        // style: TextButton.styleFrom(
+                        //   textStyle: const TextStyle(fontSize: 20),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      child: TextButton(
+                        onPressed: () {
+                          setState(() {
+                            if (isActiveButtonOn == true) {
+                              isActiveButtonOn = !isActiveButtonOn;
+                            }
+                          });
+                        },
+                        child: (Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 60,
+                          child: Text('Arhivirani'),
+                          decoration: BoxDecoration(
+                            color: isActiveButtonOn
+                                ? Colors.greenAccent
+                                : Colors.orange,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        )),
+                        // style: TextButton.styleFrom(
+                        //   textStyle: const TextStyle(fontSize: 20),
+                      ),
                     ),
                   ),
                 ],
               ),
             ),
-            userProfileItemPreview(
-              itemName: 'Logitech mis',
-              pictureURL: 'images/mouse.jpg',
-            ),
-            userProfileItemPreview(
-              itemName: 'Kozni novcanik',
-              pictureURL: 'images/novcanik2.jpg',
-            ),
-            userProfileItemPreview(
-              itemName: 'Sat',
-              pictureURL: 'images/watch.jpg',
-            ),
+            isActiveButtonOn
+                ? ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: currentUserItems.length,
+                    itemBuilder: (context, index) {
+                      if (currentUserItems[index].isArchived == false)
+                        return userProfileItemPreview(
+                          isActiveButtonOn: isActiveButtonOn,
+                          index: index,
+                          itemName: currentUserItems[index].title,
+                          pictureURL: currentUserItems[index].imagesURLs[0],
+                        );
+                      else {
+                        return SizedBox();
+                      }
+                    },
+                  )
+                : ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: currentUserItems.length,
+                    itemBuilder: (context, index) {
+                      if (currentUserItems[index].isArchived == true)
+                        return userProfileItemPreview(
+                          isActiveButtonOn: isActiveButtonOn,
+                          index: index,
+                          itemName: currentUserItems[index].title,
+                          pictureURL: currentUserItems[index].imagesURLs[0],
+                        );
+                      else {
+                        return SizedBox();
+                      }
+                    },
+                  ),
           ],
         ),
       ),
@@ -137,12 +196,23 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 }
 
-class userProfileItemPreview extends StatelessWidget {
+class userProfileItemPreview extends StatefulWidget {
   const userProfileItemPreview(
-      {required this.itemName, required this.pictureURL});
+      {required this.itemName,
+      required this.pictureURL,
+      required this.index,
+      required this.isActiveButtonOn});
   final String itemName;
   final String pictureURL;
+  final bool isActiveButtonOn;
 
+  final int index;
+
+  @override
+  State<userProfileItemPreview> createState() => _userProfileItemPreviewState();
+}
+
+class _userProfileItemPreviewState extends State<userProfileItemPreview> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -160,7 +230,7 @@ class userProfileItemPreview extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                       image: DecorationImage(
                         fit: BoxFit.cover,
-                        image: AssetImage(pictureURL),
+                        image: AssetImage(widget.pictureURL),
                       ),
                     ),
                   ),
@@ -178,7 +248,7 @@ class userProfileItemPreview extends StatelessWidget {
                           child: Column(
                             children: [
                               Text(
-                                itemName,
+                                widget.itemName,
                                 style: TextStyle(
                                     fontWeight: FontWeight.w500, fontSize: 16),
                               ),
@@ -188,46 +258,141 @@ class userProfileItemPreview extends StatelessWidget {
                         SizedBox(height: 30),
                         Container(
                           width: MediaQuery.of(context).size.width * 0.35,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                  margin: EdgeInsets.only(bottom: 5),
-                                  width: 35,
-                                  height: 35,
-                                  child: Icon(MdiIcons.pencil),
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.orange),
+                          child: widget.isActiveButtonOn
+                              ? Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          currentUserItems[widget.index] =
+                                              currentUserItems[widget.index]
+                                                  .copyWith(isArchived: true);
+                                        });
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.only(bottom: 5),
+                                        width: 35,
+                                        height: 35,
+                                        child: Icon(MdiIcons.pencil),
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.orange),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => StatefulBuilder(
+                                              builder: (context,
+                                                  StateSetter setState) {
+                                            return Center(
+                                                child: Container(
+                                              padding: EdgeInsets.all(20),
+                                              color: Colors.yellow,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.4,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.7,
+                                              child: Column(children: [
+                                                Text(
+                                                  'Arhiviraj',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      fontSize: 24),
+                                                ),
+                                                TextButton(
+                                                    onPressed: () {
+                                                      currentUserItems[
+                                                              widget.index] =
+                                                          currentUserItems[
+                                                                  widget.index]
+                                                              .copyWith(
+                                                                  isArchived:
+                                                                      true);
+
+                                                      Navigator.pop(context);
+                                                      setState(() {});
+                                                    },
+                                                    child: Text('Arhiviraj')),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Text('Odustani'),
+                                                )
+                                              ]),
+                                            ));
+                                          }),
+                                        );
+                                        ;
+                                        // currentUserItems[index] =
+                                        //     currentUserItems[index]
+                                        //         .copyWith(isArchived: true);
+                                      },
+                                      child: Container(
+                                        width: 35,
+                                        height: 35,
+                                        child: Icon(MdiIcons.archiveOutline),
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.orange),
+                                      ),
+                                    ),
+                                  ],
+                                )
+                              : Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Container(
+                                        margin: EdgeInsets.only(bottom: 5),
+                                        width: 35,
+                                        height: 35,
+                                        child: Icon(MdiIcons.upload),
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.orange),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {},
+                                      child: Container(
+                                        margin: EdgeInsets.only(bottom: 5),
+                                        width: 35,
+                                        height: 35,
+                                        child: Icon(MdiIcons.pencil),
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.orange),
+                                      ),
+                                    ),
+                                    GestureDetector(
+                                      onTap: () {
+                                        currentUserItems[widget.index] =
+                                            currentUserItems[widget.index]
+                                                .copyWith(isArchived: true);
+                                      },
+                                      child: Container(
+                                        width: 35,
+                                        height: 35,
+                                        child: Icon(MdiIcons.trashCan),
+                                        decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.orange),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                  margin: EdgeInsets.only(bottom: 5),
-                                  width: 35,
-                                  height: 35,
-                                  child: Icon(MdiIcons.message),
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.orange),
-                                ),
-                              ),
-                              GestureDetector(
-                                onTap: () {},
-                                child: Container(
-                                  width: 35,
-                                  height: 35,
-                                  child: Icon(MdiIcons.trashCan),
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.orange),
-                                ),
-                              ),
-                            ],
-                          ),
                         )
                       ],
                     ),

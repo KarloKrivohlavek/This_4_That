@@ -62,7 +62,7 @@ class _SwappablePageState extends State<SwappablePage> {
                           }
                         },
                         child: SizedBox(
-                          height: 900,
+                          height: 1200,
                           child: PageView.builder(
                             physics: const NeverScrollableScrollPhysics(),
                             onPageChanged: (value) {
@@ -145,9 +145,9 @@ class _SwappablePageState extends State<SwappablePage> {
                                   ),
                                 ],
                               ),
-                              // const SizedBox(
-                              //   height: 120,
-                              // ),
+                              const SizedBox(
+                                height: 130,
+                              ),
                               Row(
                                 children: const [
                                   Text(
@@ -192,7 +192,6 @@ class _SwappablePageState extends State<SwappablePage> {
                                 height: 20,
                               ),
                               Container(
-                                color: Colors.red,
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
@@ -244,8 +243,6 @@ class _SwappablePageState extends State<SwappablePage> {
                               const SizedBox(
                                 height: 20,
                               ),
-                              Text(
-                                  'Number of images: ${widget.item.imagesURLs.length}'),
                             ],
                           ),
                         ),

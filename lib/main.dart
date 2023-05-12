@@ -33,24 +33,35 @@ class BottomTabBar extends StatefulWidget {
 }
 
 class _BottomTabBarState extends State<BottomTabBar> {
-  int _currentIndex = 0;
-  final pages = [
-    HomePage(),
-    MessagesPage(),
-    ChatPage(),
-    ProfilePage(),
-  ];
+  int currentIndex = 0;
+
+  List<Widget> pages = [];
+
+  _BottomTabBarState() {
+    pages = [
+      HomePage(),
+      MessagesPage(onReturn: returnToHOme),
+      ChatPage(),
+      ProfilePage(),
+    ];
+  }
+
+  void returnToHOme() {
+    setState(() {
+      currentIndex = 0;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final user = UserPreferences.getUser();
     return Scaffold(
-      body: pages[_currentIndex],
+      body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
+        currentIndex: currentIndex,
         onTap: (value) {
           setState(() {
-            _currentIndex = value;
+            currentIndex = value;
           });
         },
         iconSize: 30,

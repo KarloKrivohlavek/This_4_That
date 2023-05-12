@@ -13,6 +13,9 @@ class SwapItem {
   final String image;
   final String userProfilePicture;
   final List<String> imagesURLs;
+  final String userID;
+  final String itemID;
+  final bool isArchived;
   final bool isMatched;
 
   SwapItem({
@@ -27,7 +30,10 @@ class SwapItem {
     required this.userName,
     required this.userProfilePicture,
     required this.rating,
+    required this.userID,
+    required this.itemID,
     this.isMatched = false,
+    this.isArchived = false,
   });
 
   SwapItem copyWith({
@@ -42,7 +48,10 @@ class SwapItem {
     double? rating,
     String? image,
     List<String>? imagesURLs,
+    String? userID,
+    String? itemID,
     bool? isMatched,
+    bool? isArchived,
   }) =>
       SwapItem(
         title: title ?? this.title,
@@ -55,8 +64,11 @@ class SwapItem {
         userProfilePicture: image ?? this.userProfilePicture,
         image: image ?? this.image,
         rating: rating ?? this.rating,
+        userID: userID ?? this.userID,
+        itemID: itemID ?? this.itemID,
         imagesURLs: imagesURLs ?? this.imagesURLs,
         isMatched: isMatched ?? this.isMatched,
+        isArchived: isArchived ?? this.isArchived,
       );
 
   Map<String, dynamic> toMap() => {
@@ -71,7 +83,10 @@ class SwapItem {
         'image': image,
         'rating': rating,
         'imagesURLs': imagesURLs,
+        'userID': userID,
+        'itemID': itemID,
         'isMatched': isMatched,
+        'isArchived': isArchived,
       };
 
   factory SwapItem.fromMap(Map<String, dynamic> map) => SwapItem(
@@ -85,8 +100,11 @@ class SwapItem {
         userProfilePicture: map['userProfilePicture'] ?? '',
         image: map['image'] ?? '',
         rating: map['rating'] ?? '',
+        userID: map['userID'] ?? '',
+        itemID: map['itemID'] ?? '',
         imagesURLs: map['imagesURLs'] ?? [],
         isMatched: map['isMatched'] ?? false,
+        isArchived: map['isArchived'] ?? false,
       );
 
   String toJson() => json.encode(toMap());
@@ -96,7 +114,7 @@ class SwapItem {
 
   @override
   String toString() =>
-      'SwapItem(title: $title, subtitle: $subtitle, description: $description,location: $location, age: $age, condition: $condition,image:$image, userName: $userName,userProfilePicture:$userProfilePicture, imagesNames: $imagesURLs,rating:$rating isMatched: $isMatched)';
+      'SwapItem(title: $title, subtitle: $subtitle, description: $description,location: $location, age: $age, condition: $condition,image:$image, userName: $userName,userProfilePicture:$userProfilePicture, imagesNames: $imagesURLs,rating:$rating, itemId:$itemID, userID:$userID, isMatched: $isMatched,isArchived: $isArchived)';
 
   @override
   bool operator ==(Object other) {
@@ -116,7 +134,10 @@ class SwapItem {
         other.image == image &&
         other.rating == rating &&
         other.imagesURLs == imagesURLs &&
-        other.isMatched == isMatched;
+        other.userID == userID &&
+        other.itemID == itemID &&
+        other.isMatched == isMatched &&
+        other.isArchived == isArchived;
   }
 
   @override
@@ -132,5 +153,8 @@ class SwapItem {
       image.hashCode ^
       rating.hashCode ^
       imagesURLs.hashCode ^
+      userID.hashCode ^
+      itemID.hashCode ^
+      isArchived.hashCode ^
       isMatched.hashCode;
 }

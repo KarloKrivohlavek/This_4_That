@@ -25,7 +25,7 @@ class _AddItemPage1State extends State<AddItemPage1> {
       final imageTemporary = File(pickedImage!.path);
       setState(() {
         image = imageTemporary;
-        if (imageList.length < 4) {
+        if (imageList.length < 5) {
           imageList.insert(0, image);
           print(image);
         }
@@ -54,7 +54,7 @@ class _AddItemPage1State extends State<AddItemPage1> {
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
           ),
           SizedBox(
-            height: 30,
+            height: 10,
           ),
           TextButton(
             onPressed: () {
@@ -68,7 +68,7 @@ class _AddItemPage1State extends State<AddItemPage1> {
                 crossAxisSpacing: 20,
                 mainAxisSpacing: 20,
               ),
-              itemCount: imageList.length,
+              itemCount: imageList.length < 5 ? imageList.length : 4,
               itemBuilder: (BuildContext context, index) {
                 return GestureDetector(
                     onTap: () {
