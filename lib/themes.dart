@@ -7,7 +7,7 @@ class MyThemes {
   static final darkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.grey.shade900,
     primaryColorDark: primaryColor,
-    accentColor: Colors.orange,
+    hintColor: Colors.orange,
     colorScheme: ColorScheme.dark(primary: primary),
     dividerColor: Colors.white,
   );

@@ -1,11 +1,18 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:this_4_that/app_router.dart';
 import 'package:this_4_that/chat_page.dart';
-import 'package:this_4_that/home_page.dart';
+import 'package:this_4_that/scratch_files/home_page.dart';
 import 'package:this_4_that/add_item_page.dart';
+import 'package:this_4_that/pages.dart';
 import 'package:this_4_that/profile_page.dart';
+import 'package:this_4_that/services/firebase_service.dart';
+import 'package:this_4_that/services/logger_service.dart';
+import 'package:this_4_that/services/storage_service.dart';
 
 import 'package:this_4_that/user_preferences.dart';
 import 'package:this_4_that/user.dart';
@@ -13,16 +20,33 @@ import 'package:this_4_that/user.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  Get.put(LoggerService());
+  await GetStorage.init();
   await UserPreferences.init();
-  runApp(MyApp());
+  await SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+  runApp(This4ThatApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class InitialBinding extends Bindings {
+  @override
+  void dependencies() {
+    Get
+      ..put(StorageService())
+      ..put(FirebaseService());
+  }
+}
+
+class This4ThatApp extends StatelessWidget {
+  const This4ThatApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: BottomTabBar(),
+    return ScreenUtilInit(
+      builder: (_, __) => GetMaterialApp(
+        initialRoute: MyRoutes.mainPageScreen,
+        initialBinding: InitialBinding(),
+        getPages: pages,
+      ),
     );
   }
 }

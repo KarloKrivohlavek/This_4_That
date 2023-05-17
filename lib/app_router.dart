@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:this_4_that/chat_page.dart';
-import 'package:this_4_that/home_page.dart';
+import 'package:this_4_that/scratch_files/home_page.dart';
 import 'package:this_4_that/add_item_page.dart';
 import 'package:this_4_that/main.dart';
 

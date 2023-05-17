@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:this_4_that/authentification_screens/authentification_screen_1_login.dart';
 import 'package:this_4_that/models/user/user.dart';
 import 'package:this_4_that/src/edit_profile_page.dart';
 import 'package:this_4_that/swappablePage.dart';
@@ -477,7 +478,22 @@ class _userProfileItemPreviewState extends State<userProfileItemPreview> {
                                     ),
                                   ],
                                 ),
-                        )
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        AuthentificationScreen1Login()),
+                              );
+                            },
+                            child: Container(
+                              width: 30,
+                              height: 20,
+                              color: Colors.pink,
+                              child: Text('Auth Screen 1'),
+                            ))
                       ],
                     ),
                   )
