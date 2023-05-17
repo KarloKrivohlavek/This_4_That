@@ -34,18 +34,22 @@ class _HomePageState extends State<HomePage> {
     {
       'name': 'Lampa',
       'url': 'images/lamp.jpg',
+      'isOn': false,
     },
     {
       'name': 'Logitech mis',
       'url': 'images/mouse.jpg',
+      'isOn': false,
     },
     {
       'name': 'Novcanik',
       'url': 'images/wallet.jpg',
+      'isOn': false,
     },
     {
       'name': 'Sat',
       'url': 'images/watch.jpg',
+      'isOn': false,
     },
   ];
   void _onContainerTapped(int index) {
@@ -127,46 +131,72 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
-                                        onTap: () => _onContainerTapped(index),
+                                        onTap: () {
+                                          _onContainerTapped(index);
+                                          // setState(() {
+                                          //   if (_images[index]['isOn'] < 3) {
+                                          //     _images[index]['isOn'] =
+                                          //         !_images[index]['isOn'];
+                                          //     print(_images[index]
+                                          //     ['isOn']));
+                                          //   } else if (_images[index]
+                                          //   ['isOn']) ==
+                                          //           3 &&
+                                          //   _images[index]
+                                          //   ['isOn']) {
+                                          //     setState(() {
+                                          //   _images[index]
+                                          //   ['isOn'] = !_images[index]
+                                          //   ['isOn'];
+                                          //     });
+                                          //   }
+                                          // });
+                                        },
                                         child: Container(
                                           decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(20),
                                           ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Expanded(
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
-                                                    image: DecorationImage(
-                                                      fit: BoxFit.cover,
-                                                      image: AssetImage(
-                                                          _images[index]
-                                                              ['url']),
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.orange,
+                                                    width: 2)),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Expanded(
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                      image: DecorationImage(
+                                                        fit: BoxFit.cover,
+                                                        image: AssetImage(
+                                                            _images[index]
+                                                                ['url']),
+                                                      ),
                                                     ),
                                                   ),
+                                                  // child: Image.asset(
+                                                  //   _images[index]['url'],
+                                                  //   fit: BoxFit.cover,
+                                                  // ),
                                                 ),
-                                                // child: Image.asset(
-                                                //   _images[index]['url'],
-                                                //   fit: BoxFit.cover,
-                                                // ),
-                                              ),
-                                              Container(
-                                                  padding:
-                                                      const EdgeInsets.all(3),
-                                                  child: Text(
-                                                    _images[index]['name'],
-                                                    style: const TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.w400),
-                                                  ))
-                                            ],
+                                                Container(
+                                                    padding:
+                                                        const EdgeInsets.all(3),
+                                                    child: Text(
+                                                      _images[index]['name'],
+                                                      style: const TextStyle(
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w400),
+                                                    ))
+                                              ],
+                                            ),
                                           ),
                                         ));
                                   },
@@ -410,13 +440,14 @@ class _HomePageState extends State<HomePage> {
         ),
         floatingActionButton: cards.isEmpty
             ? const SizedBox()
-            : Padding(
+            : Container(
+                width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: (Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const SizedBox(
-                      width: 100,
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.25,
                     ),
                     FloatingActionButton(
                       onPressed: () {
@@ -426,8 +457,8 @@ class _HomePageState extends State<HomePage> {
                       child:
                           const Icon(MdiIcons.closeThick, color: Colors.black),
                     ),
-                    const SizedBox(
-                      width: 80,
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.25,
                     ),
                     FloatingActionButton(
                       onPressed: () {

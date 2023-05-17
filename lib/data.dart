@@ -42,7 +42,7 @@ List<SwapItem> currentUserItems = [
 final List<SwappablePage> cardsElements = [
   SwappablePage(
     item: SwapItem(
-      title: 'Title 1',
+      title: 'Racunalni mis',
       subtitle: 'Subtitle 1',
       description:
           'Računalni miš je uređaj koji se koristi za upravljanje kursorom na računalnom zaslonu. On se sastoji od tijela koje se drži u ruci, gumba za lijevi i desni klik, te kotačića za pomicanje po stranicama.',
@@ -60,10 +60,11 @@ final List<SwappablePage> cardsElements = [
   ),
   SwappablePage(
     item: SwapItem(
-      title: 'Title 2',
+      title: 'Novcanik',
       subtitle: 'Subtitle 2',
-      description: 'Description 2',
-      location: 'Karlovac',
+      description:
+          'Kozni novcanik kupljen prije par mjeseci ne svida mi se pa ga mijenjam',
+      location: 'Zagreb',
       age: '3',
       condition: 'Neotvoreno',
       userName: 'BeroHrvat',
@@ -77,9 +78,9 @@ final List<SwappablePage> cardsElements = [
   ),
   SwappablePage(
     item: SwapItem(
-      title: 'Title 3',
+      title: 'Smedi novcanik nov,',
       subtitle: 'Subtitle 3',
-      description: 'Description 3',
+      description: ' nikada koristen ima tri crtice na sebi',
       location: 'Beli Dol',
       age: '4',
       condition: 'Jako koristeno',

@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:this_4_that/models/user/user.dart';
 import 'package:this_4_that/src/edit_profile_page.dart';
 import 'package:this_4_that/swappablePage.dart';
 import 'package:this_4_that/user_preferences.dart';
@@ -20,6 +22,25 @@ class _ProfilePageState extends State<ProfilePage> {
   // number of cards that are displayed on the main screen
   List<int> removedItemsFromList = [];
   // list of indices of items that will be removed from the list when the end is reached
+  User thisUser = User(
+      dateOfBirth: '',
+      description: '',
+      fullName: '',
+      location: '',
+      userID: '',
+      username: '');
+  @override
+  void initState() {
+    super.initState();
+    () async {
+      List<User> allUsers = await getAllUsers();
+      setState(() {
+        thisUser = allUsers[0];
+        print(thisUser);
+      });
+    }();
+  }
+
   @override
   Widget build(BuildContext context) {
     final user = UserPreferences.getUser();
@@ -62,8 +83,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           style: const TextStyle(
                               fontWeight: FontWeight.w700, fontSize: 24),
                         ),
-                        const Text(
-                          'Bozidar Bozic',
+                        Text(
+                          thisUser.fullName,
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
                             fontSize: 16,
@@ -285,12 +306,13 @@ class _userProfileItemPreviewState extends State<userProfileItemPreview> {
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
                                     GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          currentUserItems[widget.index] =
-                                              currentUserItems[widget.index]
-                                                  .copyWith(isArchived: true);
-                                        });
+                                      onTap: () async {
+                                        // setState(() {
+                                        //   currentUserItems[widget.index] =
+                                        //       currentUserItems[widget.index]
+                                        //           .copyWith(isArchived: true);
+                                        // });
+                                        await getAllUsers();
                                       },
                                       child: Container(
                                         margin:
@@ -465,4 +487,14 @@ class _userProfileItemPreviewState extends State<userProfileItemPreview> {
           ],
         ));
   }
+}
+
+Future<List<User>> getAllUsers() async {
+  final allUsers = await FirebaseFirestore.instance
+      .collection('users')
+      .get()
+      .then((value) =>
+          value.docs.map((doc) => User.fromJson(doc.data())).toList());
+  print(allUsers);
+  return allUsers;
 }
