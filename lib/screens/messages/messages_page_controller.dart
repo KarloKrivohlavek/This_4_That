@@ -1,19 +1,18 @@
-import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class MessagesPageController extends GetxController {
   /// DEPENDENCIES
 
   ///REACTIVE VARIABLES
+  final List messages = [
+    'message 1',
+    'message 2',
+    'message 3',
+  ];
 
-  final RxInt _currentIndex = 0.obs;
-
-  int get currentIndex => _currentIndex.value;
-
-  set currentIndex(int value) => _currentIndex.value = value;
+  bool isActiveButton1On = false;
+  bool isActiveButton2On = false;
+  bool isActiveButton3On = false;
 
   // final logger = Get.find<LoggerService>();
 

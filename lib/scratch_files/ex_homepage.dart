@@ -10,6 +10,8 @@ import 'package:this_4_that/profile_page.dart';
 class HomePage extends StatefulWidget {
   static const String routeName = '/';
 
+  const HomePage({super.key});
+
   static Route route() {
     return MaterialPageRoute(
       builder: (_) => HomePage(),
@@ -347,7 +349,7 @@ class ItemPicker extends StatelessWidget {
 }
 
 class ItemPreviewImage extends StatelessWidget {
-  const ItemPreviewImage({required this.imagePath});
+  const ItemPreviewImage({super.key, required this.imagePath});
   final String imagePath;
   @override
   Widget build(BuildContext context) {

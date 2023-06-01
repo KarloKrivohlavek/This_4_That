@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "735826958531-k42c6ltm9v5lf9a1th5em4m7dv7qkj7g.apps.googleusercontent.com",
+          "client_id": "735826958531-cf40qhp0anmuf1abto0i2aq1eplg9cgg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.KarloKrivohlavek.this_4_that",
+            "certificate_hash": "5138c265db4e44c6ca20a4bb1f536d7237c9c59d"
+          }
+        },
+        {
+          "client_id": "735826958531-cjfulgp0ni1m51ivbomslj4kpbvual2u.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,7 +35,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "735826958531-k42c6ltm9v5lf9a1th5em4m7dv7qkj7g.apps.googleusercontent.com",
+              "client_id": "735826958531-cjfulgp0ni1m51ivbomslj4kpbvual2u.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

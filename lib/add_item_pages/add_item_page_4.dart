@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:this_4_that/categories.dart';
+import 'package:this_4_that/constants/colors.dart';
 
 class AddItemPage4 extends StatefulWidget {
   const AddItemPage4({super.key});
@@ -72,7 +73,7 @@ class _AddItemPage4State extends State<AddItemPage4> {
                             (Set<MaterialState> states) {
                               if (states.contains(MaterialState.pressed) ||
                                   selectedIndex == index) {
-                                return Colors.orange;
+                                return MyColors.orange;
                               }
                               return Colors.transparent;
                             },
@@ -106,7 +107,7 @@ class _AddItemPage4State extends State<AddItemPage4> {
                         height: 0,
                         indent: 25,
                         endIndent: 25,
-                        color: Colors.orange,
+                        color: MyColors.orange,
                         thickness: 2,
                       ),
                   ]);

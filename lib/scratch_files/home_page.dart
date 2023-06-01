@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:logger_fork/logger_fork.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:this_4_that/data.dart';
-import 'package:this_4_that/swappablePage.dart';
+import 'package:this_4_that/swappable_page.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 
 import 'package:this_4_that/widget/button_widget.dart';
@@ -541,7 +541,8 @@ class _HomePageState extends State<HomePage> {
 }
 
 class FilterWidgetPreview extends StatelessWidget {
-  FilterWidgetPreview({required this.filterType, required this.filterValue});
+  const FilterWidgetPreview(
+      {super.key, required this.filterType, required this.filterValue});
   final String filterType;
   final String filterValue;
   @override

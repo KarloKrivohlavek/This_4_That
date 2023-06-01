@@ -3,6 +3,7 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/screens/home/widgets/filter_widget_preview.dart';
 
 import '../../widget/button_widget.dart';
@@ -18,7 +19,7 @@ class HomePageScreen extends GetView<HomePageController> {
   @override
   Widget build(BuildContext context) {
     return Obx(() => Scaffold(
-        backgroundColor: Colors.orange,
+        backgroundColor: MyColors.orange,
         body:
 
             /// Stack widget with two children:
@@ -74,8 +75,8 @@ class HomePageScreen extends GetView<HomePageController> {
                                           child: Container(
                                             decoration: BoxDecoration(
                                                 border: Border.all(
-                                                    color: Colors.orange,
-                                                    width: 2)),
+                                                    color: MyColors.orange,
+                                                    width: 2.w)),
                                             child: Column(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -148,14 +149,14 @@ class HomePageScreen extends GetView<HomePageController> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(40)),
                     height: 60,
-                    width: MediaQuery.of(context).size.width * 0.8,
+                    width: Get.width * 0.8,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Container(
                           margin: const EdgeInsets.only(top: 5, bottom: 5),
-                          width: 75,
-                          height: 75,
+                          width: 75.w,
+                          height: 75.h,
                           decoration: BoxDecoration(
                             image: DecorationImage(
                                 image: AssetImage(
@@ -171,7 +172,7 @@ class HomePageScreen extends GetView<HomePageController> {
                         ),
                         const SizedBox(width: 25),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.4,
+                          width: Get.width * 0.4,
                           child: Text(
                             controller.getSelectedImageName(),
                             style: const TextStyle(
@@ -232,8 +233,6 @@ class HomePageScreen extends GetView<HomePageController> {
                                                 Navigator.pop(context);
                                               },
                                             ),
-                                            // width: MediaQuery.of(context).size.width *
-                                            //     0.8,
                                           ),
                                         ),
                                       ],
@@ -260,8 +259,6 @@ class HomePageScreen extends GetView<HomePageController> {
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(20)),
-                          // width: MediaQuery.of(context).size.width,
-                          // height: MediaQuery.of(context).size.height * 0.75,
                           child: Center(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -280,7 +277,7 @@ class HomePageScreen extends GetView<HomePageController> {
                                   child: const Icon(
                                     Icons.settings,
                                     size: 70,
-                                    color: Colors.orange,
+                                    color: MyColors.orange,
                                   ),
                                 ),
                                 const SizedBox(
@@ -307,12 +304,10 @@ class HomePageScreen extends GetView<HomePageController> {
                                 TextButton(
                                   onPressed: () {},
                                   child: (Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.85,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.06,
+                                    width: Get.width * 0.85,
+                                    height: Get.height * 0.06,
                                     decoration: BoxDecoration(
-                                      color: Colors.orange,
+                                      color: MyColors.orange,
                                       borderRadius: BorderRadius.circular(56),
                                     ),
                                     child: const Center(
@@ -355,13 +350,13 @@ class HomePageScreen extends GetView<HomePageController> {
         floatingActionButton: controller.cards.isEmpty
             ? const SizedBox()
             : Container(
-                width: MediaQuery.of(context).size.width,
+                width: Get.size.width,
                 padding: const EdgeInsets.symmetric(horizontal: 10),
                 child: (Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.25,
+                      width: Get.size.width * 0.25,
                     ),
                     FloatingActionButton(
                       onPressed: () {
@@ -372,7 +367,7 @@ class HomePageScreen extends GetView<HomePageController> {
                           const Icon(MdiIcons.closeThick, color: Colors.black),
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.25,
+                      width: Get.size.width * 0.25,
                     ),
                     FloatingActionButton(
                       onPressed: () {

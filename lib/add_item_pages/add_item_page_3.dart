@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:this_4_that/categories.dart';
+import 'package:this_4_that/constants/colors.dart';
 
 class AddItemPage3 extends StatefulWidget {
+  const AddItemPage3({super.key});
+
   @override
   State<AddItemPage3> createState() => _AddItemPage3State();
 }
@@ -41,11 +44,11 @@ class _AddItemPage3State extends State<AddItemPage3> {
               prefixIcon: Icon(Icons.search),
               hintText: 'Pretraži',
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 3, color: Colors.grey),
+                borderSide: BorderSide(width: 3, color: MyColors.grey),
                 borderRadius: BorderRadius.circular(50.0),
               ),
               focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(width: 3, color: Colors.orange),
+                borderSide: BorderSide(width: 3, color: MyColors.orange),
                 borderRadius: BorderRadius.circular(50.0),
               ),
             ),
@@ -80,10 +83,10 @@ class _AddItemPage3State extends State<AddItemPage3> {
                             padding: EdgeInsets.all(10),
                             decoration: BoxDecoration(
                                 color:
-                                    value.isOn ? Colors.orange : Colors.white,
+                                    value.isOn ? MyColors.orange : Colors.white,
                                 borderRadius: BorderRadius.circular(20),
-                                border:
-                                    Border.all(color: Colors.orange, width: 2)),
+                                border: Border.all(
+                                    color: MyColors.orange, width: 2)),
                           ),
                         ),
                       ))

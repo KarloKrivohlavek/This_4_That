@@ -2,7 +2,7 @@ import 'dart:ffi';
 
 import 'package:get/get.dart';
 import 'package:this_4_that/data.dart';
-import 'package:this_4_that/swappablePage.dart';
+import 'package:this_4_that/swappable_page.dart';
 
 import '../../flutter_card_swiper.dart';
 

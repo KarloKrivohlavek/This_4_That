@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/screens/add_item/add_item_page_controller.dart';
 import 'package:this_4_that/screens/main_page/main_page_controller.dart';
 
@@ -8,7 +9,7 @@ Widget nextButton() {
   return Expanded(
     child: ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.orange,
+        backgroundColor: MyColors.orange,
         foregroundColor: Colors.black,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
       ),

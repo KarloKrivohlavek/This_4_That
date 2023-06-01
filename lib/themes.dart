@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:this_4_that/constants/colors.dart';
 
 class MyThemes {
-  static final primary = Colors.orange;
-  static final primaryColor = Colors.orange.shade300;
+  static final primary = MyColors.orange;
+  static final primaryColor = MyColors.orange;
 
   static final darkTheme = ThemeData(
     scaffoldBackgroundColor: Colors.grey.shade900,
     primaryColorDark: primaryColor,
-    hintColor: Colors.orange,
+    hintColor: MyColors.orange,
     colorScheme: ColorScheme.dark(primary: primary),
     dividerColor: Colors.white,
   );

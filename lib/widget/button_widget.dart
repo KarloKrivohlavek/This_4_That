@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:this_4_that/constants/colors.dart';
 
 class ButtonWidget extends StatelessWidget {
   final String text;
@@ -15,11 +16,11 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) => ElevatedButton(
         style: ElevatedButton.styleFrom(
-            shape: StadiumBorder(),
+            shape: const StadiumBorder(),
             foregroundColor: color,
-            padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-            backgroundColor: Colors.orange),
-        child: Text(text),
+            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
+            backgroundColor: MyColors.orange),
         onPressed: onClicked,
+        child: Text(text),
       );
 }

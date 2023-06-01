@@ -1,5 +1,5 @@
 import 'package:this_4_that/swappable_item.dart';
-import 'package:this_4_that/swappablePage.dart';
+import 'package:this_4_that/swappable_page.dart';
 import 'package:this_4_that/user.dart';
 
 int globalCurrentIndex = 0;
@@ -78,14 +78,14 @@ final List<SwappablePage> cardsElements = [
   ),
   SwappablePage(
     item: SwapItem(
-      title: 'Smedi novcanik nov,',
+      title: 'Smedi novcanik nov',
       subtitle: 'Subtitle 3',
       description: ' nikada koristen ima tri crtice na sebi',
       location: 'Beli Dol',
       age: '4',
       condition: 'Jako koristeno',
       userName: 'Dragi iz Belog Dola',
-      userProfilePicture: 'images/covjek.jpg',
+      userProfilePicture: '',
       image: 'images/watch.jpg',
       rating: 5.0,
       imagesURLs: [
@@ -104,4 +104,7 @@ User currentUser = User(
     name: 'Korisnik 1',
     email: 'korisnik@mail.com',
     about: 'Ovo je moj profil',
-    isDarkMode: false);
+    isDarkMode: false
+    // userRating: 3.0)
+
+    );

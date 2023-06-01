@@ -3,6 +3,7 @@ class User {
   final String name;
   final String email;
   final String about;
+  // final double userRating;
   final bool isDarkMode;
 
   const User({
@@ -10,6 +11,7 @@ class User {
     required this.name,
     required this.email,
     required this.about,
+    // required this.userRating,
     required this.isDarkMode,
   });
 
@@ -18,6 +20,7 @@ class User {
     String? name,
     String? email,
     String? about,
+    // double? userRating,
     bool? isDarkMode,
   }) =>
       User(
@@ -25,6 +28,7 @@ class User {
         name: name ?? this.name,
         email: email ?? this.email,
         about: about ?? this.about,
+        // userRating: userRating ?? this.userRating,
         isDarkMode: isDarkMode ?? this.isDarkMode,
       );
 
@@ -33,6 +37,7 @@ class User {
         name: json['name'],
         email: json['email'],
         about: json['about'],
+        // userRating: json['userRating'],
         isDarkMode: json['isDarkMode'],
       );
 
@@ -41,6 +46,7 @@ class User {
         'name': name,
         'email': email,
         'about': about,
+        // 'userRating': userRating,
         'isDarkMode': isDarkMode,
       };
 }

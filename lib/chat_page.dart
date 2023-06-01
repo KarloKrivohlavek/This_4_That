@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:this_4_that/chatMessagePreview.dart';
 
 class ChatPage extends StatefulWidget {
+  const ChatPage({super.key});
+
   @override
   State<ChatPage> createState() => _ChatPageState();
 }
@@ -28,22 +30,7 @@ class _ChatPageState extends State<ChatPage> {
                 children: [
                   Expanded(
                     child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          if (isActiveButton3On == false ||
-                              isActiveButton2On == false) {
-                            isActiveButton1On = true;
-                          } else if (isActiveButton3On == false ||
-                              isActiveButton2On == true) {
-                            isActiveButton1On = true;
-                          } else if (isActiveButton3On == true ||
-                              isActiveButton2On == false) {
-                            isActiveButton1On = true;
-                          } else if (isActiveButton1On = true) {
-                            isActiveButton1On = false;
-                          }
-                        });
-                      },
+                      onPressed: () {},
                       child: (Container(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height * 0.05,
@@ -73,14 +60,7 @@ class _ChatPageState extends State<ChatPage> {
                   ),
                   Expanded(
                     child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          if (isActiveButton1On == false ||
-                              isActiveButton3On == false) {
-                            isActiveButton2On = true;
-                          }
-                        });
-                      },
+                      onPressed: () {},
                       child: (Container(
                         width: MediaQuery.of(context).size.width,
                         height: MediaQuery.of(context).size.height * 0.05,
@@ -111,14 +91,7 @@ class _ChatPageState extends State<ChatPage> {
                   Expanded(
                     child: Container(
                       child: TextButton(
-                        onPressed: () {
-                          setState(() {
-                            if (isActiveButton1On == false ||
-                                isActiveButton2On == false) {
-                              isActiveButton3On = true;
-                            }
-                          });
-                        },
+                        onPressed: () {},
                         child: (Container(
                           width: MediaQuery.of(context).size.width,
                           height: MediaQuery.of(context).size.height * 0.05,

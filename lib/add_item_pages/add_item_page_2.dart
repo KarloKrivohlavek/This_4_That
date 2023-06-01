@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:this_4_that/constants/colors.dart';
 
 class AddItemPage2 extends StatefulWidget {
+  const AddItemPage2({super.key});
+
   @override
   State<AddItemPage2> createState() => _AddItemPage2State();
 }
@@ -24,15 +27,15 @@ class _AddItemPage2State extends State<AddItemPage2> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
-        padding: EdgeInsets.all(14),
+        padding: const EdgeInsets.all(14),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Napišite nešto o predmetu',
               style: TextStyle(fontSize: 40, fontWeight: FontWeight.w700),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             TextField(
@@ -43,11 +46,13 @@ class _AddItemPage2State extends State<AddItemPage2> {
               controller: titleController,
               decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 3, color: Colors.grey),
+                    borderSide:
+                        const BorderSide(width: 3, color: MyColors.grey),
                     borderRadius: BorderRadius.circular(50.0),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 3, color: Colors.orange),
+                    borderSide:
+                        const BorderSide(width: 3, color: MyColors.orange),
                     borderRadius: BorderRadius.circular(50.0),
                   ),
                   hintText: 'Naslov predmeta',
@@ -56,13 +61,16 @@ class _AddItemPage2State extends State<AddItemPage2> {
                           width: 0,
                         )
                       : IconButton(
-                          icon: Icon(Icons.close),
+                          icon: const Icon(
+                            Icons.close,
+                            color: MyColors.grey,
+                          ),
                           onPressed: () {
                             titleController.clear();
                           },
                         )),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             SizedBox(
@@ -75,11 +83,13 @@ class _AddItemPage2State extends State<AddItemPage2> {
                 maxLines: 9,
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 3, color: Colors.grey),
+                      borderSide:
+                          const BorderSide(width: 3, color: MyColors.grey),
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(width: 3, color: Colors.orange),
+                      borderSide:
+                          const BorderSide(width: 3, color: MyColors.orange),
                       borderRadius: BorderRadius.circular(30.0),
                     ),
                     hintText: 'Opis predmeta'),

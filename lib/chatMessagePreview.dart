@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:this_4_that/constants/colors.dart';
 
 class MessagePreview extends StatelessWidget {
   const MessagePreview({Key? key}) : super(key: key);
@@ -69,7 +70,7 @@ class MessagePreview extends StatelessWidget {
                           ),
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Colors.orange,
+                            color: MyColors.orange,
                           ),
                           width: 24,
                           height: 24,

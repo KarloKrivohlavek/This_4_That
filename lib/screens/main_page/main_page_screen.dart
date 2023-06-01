@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/screens/home/home_page_screen.dart';
 import 'package:this_4_that/screens/messages/messages_page_screen.dart';
 import 'package:this_4_that/screens/profile/profile_page_screen.dart';
@@ -34,11 +34,11 @@ class MainPageScreen extends GetView<MainPageController> {
               iconSize: 30,
               showSelectedLabels: false,
               showUnselectedLabels: false,
-              backgroundColor: Colors.orange,
-              selectedIconTheme: IconThemeData(color: Colors.white, size: 40),
+              backgroundColor: MyColors.orange,
+              selectedIconTheme: IconThemeData(color: MyColors.white, size: 40),
               selectedItemColor: Colors.amberAccent,
               unselectedIconTheme: IconThemeData(
-                color: Colors.black,
+                color: MyColors.black,
               ),
               unselectedItemColor: Colors.black,
               type: BottomNavigationBarType.fixed,
