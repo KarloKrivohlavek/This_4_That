@@ -11,7 +11,7 @@ class ProfilePageController extends GetxController {
   bool get isActiveButtonOn => _isActiveButtonOn.value;
   set isActiveButtonOn(bool value) => _isActiveButtonOn.value = value;
 
-  User thisUser = User(
+  UserData thisUser = UserData(
       dateOfBirth: '',
       description: '',
       fullName: '',
@@ -26,19 +26,19 @@ class ProfilePageController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    List<User> allUsers = await getAllUsers();
+    List<UserData> allUsers = await getAllUsers();
     thisUser = allUsers[0];
   }
 
   ///
   /// METHODS
 
-  Future<List<User>> getAllUsers() async {
+  Future<List<UserData>> getAllUsers() async {
     final allUsers = await FirebaseFirestore.instance
         .collection('users')
         .get()
         .then((value) =>
-            value.docs.map((doc) => User.fromJson(doc.data())).toList());
+            value.docs.map((doc) => UserData.fromJson(doc.data())).toList());
     return allUsers;
   }
 }

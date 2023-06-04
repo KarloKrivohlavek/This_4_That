@@ -1,22 +1,22 @@
-class Category {
+class CategoryType {
   final String title;
   bool isOn;
 
-  Category({required this.title, required this.isOn});
+  CategoryType({required this.title, required this.isOn});
 }
 
-List<Category> allCategories = [
-  Category(title: 'Namještaj', isOn: false),
-  Category(title: 'Dekoracije', isOn: false),
-  Category(title: 'Posuđe', isOn: false),
-  Category(title: 'Kućanski aparati', isOn: false),
-  Category(title: 'Vrtlarska oprema', isOn: false),
-  Category(title: 'Glazbeni instrumenti', isOn: false),
-  Category(title: 'Periferija', isOn: false),
-  Category(title: 'Laptopi', isOn: false),
-  Category(title: 'Mobiteli', isOn: false),
-  Category(title: 'Knjige', isOn: false),
-  Category(title: 'CD', isOn: false),
-  Category(title: 'Ploče', isOn: false),
-  Category(title: 'Trading Card Game', isOn: false)
+List<CategoryType> allCategories = [
+  CategoryType(title: 'Namještaj', isOn: false),
+  CategoryType(title: 'Dekoracije', isOn: false),
+  CategoryType(title: 'Posuđe', isOn: false),
+  CategoryType(title: 'Kućanski aparati', isOn: false),
+  CategoryType(title: 'Vrtlarska oprema', isOn: false),
+  CategoryType(title: 'Glazbeni instrumenti', isOn: false),
+  CategoryType(title: 'Periferija', isOn: false),
+  CategoryType(title: 'Laptopi', isOn: false),
+  CategoryType(title: 'Mobiteli', isOn: false),
+  CategoryType(title: 'Knjige', isOn: false),
+  CategoryType(title: 'CD', isOn: false),
+  CategoryType(title: 'Ploče', isOn: false),
+  CategoryType(title: 'Trading Card Game', isOn: false)
 ];

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:this_4_that/constants/colors.dart';
+import 'package:this_4_that/screens/add_item/add_item_page_controller.dart';
 import 'package:this_4_that/screens/home/home_page_screen.dart';
 import 'package:this_4_that/screens/messages/messages_page_screen.dart';
 import 'package:this_4_that/screens/profile/profile_page_screen.dart';
@@ -30,6 +31,10 @@ class MainPageScreen extends GetView<MainPageController> {
               currentIndex: controller.currentIndex,
               onTap: (value) {
                 controller.currentIndex = value;
+                if (controller.currentIndex == 1) {
+                  // ovo treba dodati
+                  Get.find<AddItemPageController>().onInit();
+                }
               },
               iconSize: 30,
               showSelectedLabels: false,

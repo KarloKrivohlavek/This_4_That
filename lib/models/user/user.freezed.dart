@@ -14,12 +14,12 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-User _$UserFromJson(Map<String, dynamic> json) {
-  return _User.fromJson(json);
+UserData _$UserDataFromJson(Map<String, dynamic> json) {
+  return _UserData.fromJson(json);
 }
 
 /// @nodoc
-mixin _$User {
+mixin _$UserData {
   @JsonKey(name: 'date_of_birth')
   String get dateOfBirth => throw _privateConstructorUsedError;
   @JsonKey(name: 'description')
@@ -41,13 +41,14 @@ mixin _$User {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
+  $UserDataCopyWith<UserData> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserCopyWith<$Res> {
-  factory $UserCopyWith(User value, $Res Function(User) then) =
-      _$UserCopyWithImpl<$Res, User>;
+abstract class $UserDataCopyWith<$Res> {
+  factory $UserDataCopyWith(UserData value, $Res Function(UserData) then) =
+      _$UserDataCopyWithImpl<$Res, UserData>;
   @useResult
   $Res call(
       {@JsonKey(name: 'date_of_birth') String dateOfBirth,
@@ -62,9 +63,9 @@ abstract class $UserCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$UserCopyWithImpl<$Res, $Val extends User>
-    implements $UserCopyWith<$Res> {
-  _$UserCopyWithImpl(this._value, this._then);
+class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
+    implements $UserDataCopyWith<$Res> {
+  _$UserDataCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -126,9 +127,10 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
 }
 
 /// @nodoc
-abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
-  factory _$$_UserCopyWith(_$_User value, $Res Function(_$_User) then) =
-      __$$_UserCopyWithImpl<$Res>;
+abstract class _$$_UserDataCopyWith<$Res> implements $UserDataCopyWith<$Res> {
+  factory _$$_UserDataCopyWith(
+          _$_UserData value, $Res Function(_$_UserData) then) =
+      __$$_UserDataCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -144,9 +146,11 @@ abstract class _$$_UserCopyWith<$Res> implements $UserCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
-    implements _$$_UserCopyWith<$Res> {
-  __$$_UserCopyWithImpl(_$_User _value, $Res Function(_$_User) _then)
+class __$$_UserDataCopyWithImpl<$Res>
+    extends _$UserDataCopyWithImpl<$Res, _$_UserData>
+    implements _$$_UserDataCopyWith<$Res> {
+  __$$_UserDataCopyWithImpl(
+      _$_UserData _value, $Res Function(_$_UserData) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -162,7 +166,7 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
     Object? userID = null,
     Object? username = null,
   }) {
-    return _then(_$_User(
+    return _then(_$_UserData(
       dateOfBirth: null == dateOfBirth
           ? _value.dateOfBirth
           : dateOfBirth // ignore: cast_nullable_to_non_nullable
@@ -205,8 +209,8 @@ class __$$_UserCopyWithImpl<$Res> extends _$UserCopyWithImpl<$Res, _$_User>
 
 /// @nodoc
 @JsonSerializable()
-class _$_User with DiagnosticableTreeMixin implements _User {
-  _$_User(
+class _$_UserData with DiagnosticableTreeMixin implements _UserData {
+  _$_UserData(
       {@JsonKey(name: 'date_of_birth')
           required this.dateOfBirth,
       @JsonKey(name: 'description')
@@ -228,7 +232,8 @@ class _$_User with DiagnosticableTreeMixin implements _User {
       : _matchedItemListIds = matchedItemListIds,
         _userItemListIDs = userItemListIDs;
 
-  factory _$_User.fromJson(Map<String, dynamic> json) => _$$_UserFromJson(json);
+  factory _$_UserData.fromJson(Map<String, dynamic> json) =>
+      _$$_UserDataFromJson(json);
 
   @override
   @JsonKey(name: 'date_of_birth')
@@ -277,14 +282,14 @@ class _$_User with DiagnosticableTreeMixin implements _User {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'User(dateOfBirth: $dateOfBirth, description: $description, fullName: $fullName, location: $location, matchedItemListIds: $matchedItemListIds, userItemListIDs: $userItemListIDs, profilePicture: $profilePicture, userID: $userID, username: $username)';
+    return 'UserData(dateOfBirth: $dateOfBirth, description: $description, fullName: $fullName, location: $location, matchedItemListIds: $matchedItemListIds, userItemListIDs: $userItemListIDs, profilePicture: $profilePicture, userID: $userID, username: $username)';
   }
 
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty('type', 'User'))
+      ..add(DiagnosticsProperty('type', 'UserData'))
       ..add(DiagnosticsProperty('dateOfBirth', dateOfBirth))
       ..add(DiagnosticsProperty('description', description))
       ..add(DiagnosticsProperty('fullName', fullName))
@@ -300,7 +305,7 @@ class _$_User with DiagnosticableTreeMixin implements _User {
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_User &&
+            other is _$_UserData &&
             (identical(other.dateOfBirth, dateOfBirth) ||
                 other.dateOfBirth == dateOfBirth) &&
             (identical(other.description, description) ||
@@ -337,19 +342,19 @@ class _$_User with DiagnosticableTreeMixin implements _User {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_UserCopyWith<_$_User> get copyWith =>
-      __$$_UserCopyWithImpl<_$_User>(this, _$identity);
+  _$$_UserDataCopyWith<_$_UserData> get copyWith =>
+      __$$_UserDataCopyWithImpl<_$_UserData>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_UserToJson(
+    return _$$_UserDataToJson(
       this,
     );
   }
 }
 
-abstract class _User implements User {
-  factory _User(
+abstract class _UserData implements UserData {
+  factory _UserData(
       {@JsonKey(name: 'date_of_birth')
           required final String dateOfBirth,
       @JsonKey(name: 'description')
@@ -367,9 +372,9 @@ abstract class _User implements User {
       @JsonKey(name: 'user_ID')
           required final String userID,
       @JsonKey(name: 'username')
-          required final String username}) = _$_User;
+          required final String username}) = _$_UserData;
 
-  factory _User.fromJson(Map<String, dynamic> json) = _$_User.fromJson;
+  factory _UserData.fromJson(Map<String, dynamic> json) = _$_UserData.fromJson;
 
   @override
   @JsonKey(name: 'date_of_birth')
@@ -400,5 +405,6 @@ abstract class _User implements User {
   String get username;
   @override
   @JsonKey(ignore: true)
-  _$$_UserCopyWith<_$_User> get copyWith => throw _privateConstructorUsedError;
+  _$$_UserDataCopyWith<_$_UserData> get copyWith =>
+      throw _privateConstructorUsedError;
 }

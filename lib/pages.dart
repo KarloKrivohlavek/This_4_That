@@ -1,6 +1,10 @@
 import 'package:get/get.dart';
+import 'package:this_4_that/authentification_screens/authentification_binding.dart';
+import 'package:this_4_that/authentification_screens/authentification_screen_1_login.dart';
+import 'package:this_4_that/authentification_screens/authentification_screen_2_name_surname.dart';
 import 'package:this_4_that/screens/add_item/add_item_page_binding.dart';
 import 'package:this_4_that/screens/add_item/add_item_page_screen.dart';
+import 'package:this_4_that/screens/add_item_page_0/add_item_page_0.dart';
 import 'package:this_4_that/screens/home/home_page_binding.dart';
 import 'package:this_4_that/screens/home/home_page_screen.dart';
 import 'package:this_4_that/screens/main_page/main_page_binding.dart';
@@ -12,6 +16,8 @@ import 'package:this_4_that/screens/messages/messages_page_screen.dart';
 import 'package:this_4_that/screens/profile/edit_profile/edit_profile_page_screen.dart';
 import 'package:this_4_that/screens/profile/profile_page_binding.dart';
 import 'package:this_4_that/screens/profile/profile_page_screen.dart';
+import '';
+import 'screens/add_item_page_0/add_item_page_0_binding.dart';
 
 ///
 /// All pages used in the application
@@ -55,6 +61,21 @@ final pages = [
     page: ChatPageScreen.new,
     binding: ChatPageBinding(),
   ),
+  GetPage(
+    name: MyRoutes.authentificationScreen,
+    page: AuthentificationScreen1Login.new,
+    binding: AuthentificationBinding(),
+  ),
+  GetPage(
+    name: MyRoutes.authentificationScreenNameSurname,
+    page: AuthentificationScreen2NameSurname.new,
+    binding: AuthentificationBinding(),
+  ),
+  GetPage(
+    name: MyRoutes.addItemPage0,
+    page: AddItemPage0.new,
+    binding: AddItemPage0Binding(),
+  ),
 ];
 
 /// All pages have their designated names which can be found here
@@ -66,5 +87,8 @@ class MyRoutes {
   static const profilePageScreen = '/profile_page_screen';
   static const editProfilePageScreen = '/edit_profile_page_screen';
   static const chatPageScreen = '/chat_page_screen';
-
+  static const authentificationScreen = '/authentification_screen_1_login';
+  static const authentificationScreenNameSurname =
+      '/authentification_screen_2_name_surname';
+  static const addItemPage0 = '/add_item_page_0';
 }

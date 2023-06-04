@@ -5,8 +5,8 @@ part 'user.freezed.dart';
 part 'user.g.dart';
 
 @freezed
-class User with _$User {
-  factory User({
+class UserData with _$UserData {
+  factory UserData({
     @JsonKey(name: 'date_of_birth') required String dateOfBirth,
     @JsonKey(name: 'description') required String description,
     @JsonKey(name: 'full_name') required String fullName,
@@ -16,7 +16,8 @@ class User with _$User {
     @JsonKey(name: 'profile_picture') String? profilePicture,
     @JsonKey(name: 'user_ID') required String userID,
     @JsonKey(name: 'username') required String username,
-  }) = _User;
+  }) = _UserData;
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory UserData.fromJson(Map<String, dynamic> json) =>
+      _$UserDataFromJson(json);
 }

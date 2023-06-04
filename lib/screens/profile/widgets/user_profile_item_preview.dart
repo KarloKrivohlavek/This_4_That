@@ -92,16 +92,18 @@ class _UserProfileItemPreviewState extends State<UserProfileItemPreview> {
                                                     button1: 'Arhiviraj',
                                                     button2: 'Odustani',
                                                     action: () {
-                                                      currentUserItems[
-                                                              widget.index] =
-                                                          currentUserItems[
-                                                                  widget.index]
-                                                              .copyWith(
-                                                                  isArchived:
-                                                                      true);
+                                                      setState(() {
+                                                        currentUserItems[
+                                                                widget.index] =
+                                                            currentUserItems[
+                                                                    widget
+                                                                        .index]
+                                                                .copyWith(
+                                                                    isArchived:
+                                                                        true);
 
-                                                      Navigator.pop(context);
-                                                      setState(() {});
+                                                        Navigator.pop(context);
+                                                      });
                                                     },
                                                   ));
                                         },

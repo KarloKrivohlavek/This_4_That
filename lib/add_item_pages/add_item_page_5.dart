@@ -1,31 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:this_4_that/constants/colors.dart';
+import 'package:this_4_that/screens/add_item/add_item_page_controller.dart';
 
-class AddItemPage5 extends StatefulWidget {
-  const AddItemPage5({super.key});
+class AddItemPage5 extends GetView<AddItemPageController> {
+  AddItemPage5({super.key});
 
-  @override
-  State<AddItemPage5> createState() => _AddItemPage5State();
-}
-
-class DataModel {
-  String button;
-  bool isSelected;
-
-  DataModel(this.button, this.isSelected);
-}
-
-class _AddItemPage5State extends State<AddItemPage5> {
-  int selectedIndex = -1;
-
-  List<String> buttonValues = [
-    "Novo neraspakirano",
-    "Novo raspakirano",
-    "Rabljeno bez tragona korištenja",
-    "Rabljeno s tragovima korištenja",
-    "Rabljeno s defektima",
-    "Potrgano / neispravno",
-  ];
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -49,7 +29,7 @@ class _AddItemPage5State extends State<AddItemPage5> {
             children: [
               ListView.builder(
                 shrinkWrap: true,
-                itemCount: buttonValues.length,
+                itemCount: controller.buttonValuesCondition.length,
                 itemBuilder: (context, index) {
                   return Column(children: [
                     Container(
@@ -69,7 +49,7 @@ class _AddItemPage5State extends State<AddItemPage5> {
                               MaterialStateProperty.resolveWith<Color>(
                             (Set<MaterialState> states) {
                               if (states.contains(MaterialState.pressed) ||
-                                  selectedIndex == index) {
+                                  controller.selectedIndexCondition == index) {
                                 return MyColors.orange;
                               }
                               return Colors.transparent;
@@ -77,16 +57,14 @@ class _AddItemPage5State extends State<AddItemPage5> {
                           ),
                         ),
                         onPressed: () {
-                          setState(() {
-                            selectedIndex = index;
-                          });
+                          controller.selectedIndexCondition = index;
                         },
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 25),
                             child: Text(
-                              buttonValues[index],
+                              controller.buttonValuesCondition[index],
                               style: const TextStyle(
                                 fontSize: 16,
                                 color: Colors.black,
@@ -97,9 +75,9 @@ class _AddItemPage5State extends State<AddItemPage5> {
                         ),
                       ),
                     ),
-                    if (!(index == selectedIndex ||
-                        index == selectedIndex - 1 ||
-                        index == buttonValues.length - 1))
+                    if (!(index == controller.selectedIndexCondition ||
+                        index == controller.selectedIndexCondition - 1 ||
+                        index == controller.buttonValuesCondition.length - 1))
                       const Divider(
                         height: 0,
                         indent: 25,

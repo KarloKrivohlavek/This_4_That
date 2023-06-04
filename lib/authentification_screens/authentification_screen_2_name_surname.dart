@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:this_4_that/authentification_screens/authentification_controller.dart';
 import 'package:this_4_that/authentification_screens/authentification_screen_3_username.dart';
 import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/constants/strings.dart';
@@ -8,16 +10,10 @@ import 'package:this_4_that/constants/text_styles.dart';
 import 'package:this_4_that/widget/filled_color_button_widget.dart';
 import 'package:this_4_that/widget/number_of_pages_indicator_widget.dart';
 
-class AuthentificationScreen2NameSurname extends StatefulWidget {
-  const AuthentificationScreen2NameSurname({Key? key}) : super(key: key);
+class AuthentificationScreen2NameSurname
+    extends GetView<AuthentificationController> {
+  AuthentificationScreen2NameSurname({Key? key}) : super(key: key);
 
-  @override
-  State<AuthentificationScreen2NameSurname> createState() =>
-      _AuthentificationScreen2NameSurnameState();
-}
-
-class _AuthentificationScreen2NameSurnameState
-    extends State<AuthentificationScreen2NameSurname> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,7 +24,7 @@ class _AuthentificationScreen2NameSurnameState
           elevation: 0,
         ),
         body: Padding(
-          padding: EdgeInsets.all(16),
+          padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -56,12 +52,9 @@ class _AuthentificationScreen2NameSurnameState
                     height: 20,
                   ),
                   TextField(
-                    maxLength: 20,
-                    // onTap: () {
-                    //   FocusScope.of(context).requestFocus(node1);
-                    // },
-                    // focusNode: node1,
-                    // controller: titleController,
+                    style: MyTextStyles.poppins16w400,
+                    maxLength: 40,
+                    controller: controller.firstAndLastNameController,
                     decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide:
@@ -96,18 +89,22 @@ class _AuthentificationScreen2NameSurnameState
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            const AuthentificationScreen3Username()),
-                  );
+                  // Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //       builder: (context) =>
+                  //           const AuthentificationScreen3Username()),
+                  // );
+                  controller.firstAndLastNameIsEmpty
+                      ? controller.saveFirstNameAndLastName()
+                      : () {};
                 },
-                child: FilledColorButtonWidget(
-                  buttonHeight: 48.w,
-                  buttonText: 'Dalje',
-                  buttonWidth: MediaQuery.of(context).size.width,
-                  isEnabled: false,
+                child: Obx(
+                  () => FilledColorButtonWidget(
+                      buttonHeight: 48.w,
+                      buttonText: 'Dalje',
+                      buttonWidth: MediaQuery.of(context).size.width,
+                      isEnabled: controller.firstAndLastNameIsEmpty),
                 ),
               ),
             ],

@@ -1,23 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:this_4_that/authentification_screens/authentification_controller.dart';
 import 'package:this_4_that/authentification_screens/authentification_screen_2_name_surname.dart';
 import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/constants/strings.dart';
 import 'package:this_4_that/constants/text_styles.dart';
+import 'package:this_4_that/services/firebase_service.dart';
+
 import 'package:this_4_that/widget/number_of_pages_indicator_widget.dart';
 
-class AuthentificationScreen1Login extends StatefulWidget {
-  const AuthentificationScreen1Login({Key? key}) : super(key: key);
+class AuthentificationScreen1Login extends GetView<AuthentificationController> {
+  AuthentificationScreen1Login({Key? key}) : super(key: key);
 
-  @override
-  State<AuthentificationScreen1Login> createState() =>
-      _AuthentificationScreen1LoginState();
-}
-
-class _AuthentificationScreen1LoginState
-    extends State<AuthentificationScreen1Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,13 +59,7 @@ class _AuthentificationScreen1LoginState
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: TextButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const AuthentificationScreen2NameSurname()),
-                      );
-                      // signInWithGogle();
+                      controller.googleSignIn();
                     },
                     child: Container(
                       padding: EdgeInsets.all(4),
@@ -100,13 +91,6 @@ class _AuthentificationScreen1LoginState
       ),
     );
   }
-
-//   Future<void> googleSignIn() async {
-//     await firebaseService.signInWithGoogle();
-// // firebaseService je neka varijabla koju inicijaliziraš prije u varijablama kao final firebaseService = Get.find<FirebaseService();
-//
-//     // todo: napisati što nakon što se user prijavi, gdje ga treba preusmjeriti dalje, ima li još nešto što se treba napraviti nakon prijave itd.
-//   }
 
   // signInWithGogle() async {
   //   GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();

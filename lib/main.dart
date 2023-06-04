@@ -43,7 +43,7 @@ class This4ThatApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       builder: (_, __) => GetMaterialApp(
-        initialRoute: MyRoutes.mainPageScreen,
+        initialRoute: MyRoutes.authentificationScreenNameSurname,
         initialBinding: InitialBinding(),
         getPages: pages,
       ),
@@ -80,7 +80,7 @@ class _BottomTabBarState extends State<BottomTabBar> {
 
   @override
   Widget build(BuildContext context) {
-    final user = UserPreferences.getUser();
+    // final user = UserPreferences.getUser();
     return Scaffold(
       body: pages[currentIndex],
       bottomNavigationBar: BottomNavigationBar(

@@ -5,7 +5,9 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:this_4_that/authentification_screens/authentification_screen_1_login.dart';
 import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/constants/strings.dart';
+import 'package:this_4_that/constants/text_styles.dart';
 import 'package:this_4_that/data.dart';
+import 'package:this_4_that/pages.dart';
 import 'package:this_4_that/screens/profile/profile_page_controller.dart';
 import 'package:this_4_that/screens/profile/widgets/profile_page_edit_profile_preview_widget.dart';
 import 'package:this_4_that/screens/profile/widgets/user_profile_item_preview.dart';
@@ -157,12 +159,7 @@ class ProfilePageScreen extends GetView<ProfilePageController> {
                   ),
             GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          const AuthentificationScreen1Login()),
-                );
+                Get.toNamed(MyRoutes.authentificationScreen);
               },
               child: Container(
                 color: Colors.red,
@@ -174,7 +171,25 @@ class ProfilePageScreen extends GetView<ProfilePageController> {
                   style: TextStyle(color: Colors.white),
                 )),
               ),
-            )
+            ),
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              Container(
+                child: Icon(
+                  MdiIcons.logout,
+                  size: 40,
+                ),
+                height: 50,
+                width: 50,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.grey,
+                ),
+              ),
+              Text(
+                'Odjavi se',
+                style: MyTextStyles.poppins24w700,
+              )
+            ]),
           ],
         )));
   }

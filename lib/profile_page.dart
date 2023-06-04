@@ -23,7 +23,7 @@ class _ProfilePageState extends State<ProfilePage> {
   // number of cards that are displayed on the main screen
   List<int> removedItemsFromList = [];
   // list of indices of items that will be removed from the list when the end is reached
-  User thisUser = User(
+  UserData thisUser = UserData(
       dateOfBirth: '',
       description: '',
       fullName: '',
@@ -34,7 +34,7 @@ class _ProfilePageState extends State<ProfilePage> {
   void initState() {
     super.initState();
     () async {
-      List<User> allUsers = await getAllUsers();
+      List<UserData> allUsers = await getAllUsers();
       setState(() {
         thisUser = allUsers[0];
         print(thisUser);
@@ -510,12 +510,12 @@ class _userProfileItemPreviewState extends State<userProfileItemPreview> {
   }
 }
 
-Future<List<User>> getAllUsers() async {
+Future<List<UserData>> getAllUsers() async {
   final allUsers = await FirebaseFirestore.instance
       .collection('users')
       .get()
       .then((value) =>
-          value.docs.map((doc) => User.fromJson(doc.data())).toList());
+          value.docs.map((doc) => UserData.fromJson(doc.data())).toList());
   print(allUsers);
   return allUsers;
 }
