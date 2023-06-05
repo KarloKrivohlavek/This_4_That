@@ -43,7 +43,7 @@ class This4ThatApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       builder: (_, __) => GetMaterialApp(
-        initialRoute: MyRoutes.authentificationScreenNameSurname,
+        initialRoute: MyRoutes.mainPageScreen,
         initialBinding: InitialBinding(),
         getPages: pages,
       ),

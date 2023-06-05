@@ -3,9 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:im_stepper/stepper.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
+import 'package:this_4_that/add_item_pages/add_item_page_item_added.dart';
 import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/constants/text_styles.dart';
 import 'package:this_4_that/screens/add_item/widgets/next_button_widget.dart';
+import 'package:this_4_that/screens/main_page/main_page_controller.dart';
 import 'package:this_4_that/widget/filled_color_button_widget.dart';
 import 'package:this_4_that/widget/number_of_pages_indicator_widget.dart';
 import 'package:this_4_that/widget/outlined_color_button_widget.dart';
@@ -109,24 +111,53 @@ class AddItemPageScreen extends GetView<AddItemPageController> {
                     // Padding(padding: const EdgeInsets.all(18.0), child: steps()),
 
                     // Next and Previous buttons.
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        // previousButton(),
-                        nextButton()
-                      ],
-                    ),
-                    FilledColorButtonWidget(
-                      isEnabled: false,
-                      buttonHeight: 50,
-                      buttonText: 'Sljedeci',
-                      buttonWidth: MediaQuery.of(context).size.width,
-                    ),
-                    OutlinedColorButtonWidget(
-                        buttonHeight: 50,
-                        buttonText: 'Arhivirati',
-                        buttonWidth: 150,
-                        isOn: true)
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    //   children: [
+                    //     // previousButton(),
+                    //     nextButton()
+                    //   ],
+                    // ),
+                    GestureDetector(
+                      onTap: () {
+                        // switch (controller.activeStep) {
+                        //   case 1:
+                        //     controller.itemNameIsEmpty
+                        //         ? controller.saveItemName()
+                        //         : () {};
+                        //     break;
+                        // }
+
+                        if (controller.activeStep == 4) {
+                          controller.saveSelectedIndexCondition();
+                          controller.sendItemDataToFirebase();
+                          Get.to(() => AddItemPageItemAdded());
+                        }
+
+                        /// ACTIVE STEP MUST BE CHECKED FOR (dotCount - 1) AND NOT FOR dotCount To PREVENT Overflow ERROR.
+                        if (controller.activeStep < controller.dotCount - 1) {
+                          if (controller.activeStep == 1) {
+                            controller.saveItemName();
+                            controller.saveItemDescription();
+                          }
+
+                          if (controller.activeStep == 3) {
+                            controller.saveSelectedIndexPrice();
+                          }
+
+                          controller.activeStep++;
+                          controller.pageController
+                              .jumpToPage(controller.activeStep);
+                        }
+                        print(controller.itemNameIsEmpty);
+                        print(controller.activeStep);
+                      },
+                      child: FilledColorButtonWidget(
+                          buttonHeight: 50,
+                          buttonText: 'Dalje',
+                          buttonWidth: double.infinity,
+                          isEnabled: controller.itemNameIsEmpty),
+                    )
                   ],
                 ),
               ),

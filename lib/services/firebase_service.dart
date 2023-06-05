@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -7,6 +9,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:this_4_that/authentification_screens/authentification_screen_1_login.dart';
 import 'package:this_4_that/authentification_screens/authentification_screen_2_name_surname.dart';
 import 'package:this_4_that/data.dart';
+import 'package:this_4_that/models/item/item.dart';
 import 'package:this_4_that/pages.dart';
 import 'package:this_4_that/services/logger_service.dart';
 import 'package:this_4_that/services/storage_service.dart';
@@ -34,8 +37,10 @@ class FirebaseService extends GetxService {
 
 // firebaseStorage - služi za dohvaćanje svih metoda vezanih uz stavljanje i slanje slika u storage
   final FirebaseStorage firebaseStorage = FirebaseStorage.instance;
+
 // collections
   String users = 'users';
+  String items = 'items';
 
   ///  FUNCTION: get Google credential
   Future<void> signInWithGoogle() async {
@@ -140,8 +145,54 @@ class FirebaseService extends GetxService {
       await firebaseFirestore
           .collection(users)
           .doc(FirebaseAuth.instance.currentUser?.uid)
-          .update(user.toJson())
-          ;
+          .update(user.toJson());
+    } catch (e) {
+      logger.e(e);
+    }
+  }
+
+  Future<String> sendNewItemData(Item item) async {
+    String itemID = '';
+    try {
+      await firebaseFirestore
+          .collection(items)
+          .add(item.toJson())
+          .then((itemRef) {
+        firebaseFirestore.collection(items).doc(itemRef.id).update({
+          'item_ID': itemRef.id,
+        });
+        itemID = itemRef.id;
+      });
+    } catch (e) {
+      logger.e(e);
+    }
+    return itemID;
+  }
+
+  Future<String> uploadItemPictures(File file, String itemId) async {
+    var imageUrl = '';
+    final name = file.path.split('/').last;
+    final timeStamp = DateTime.now().toUtc().millisecondsSinceEpoch;
+
+    try {
+// Upload to Firebase Storage
+      await firebaseStorage
+          .ref('items/$itemId/${timeStamp}_$name')
+          .putFile(file)
+          .then((image) async {
+        final pictureUrl = await image.ref.getDownloadURL();
+
+        imageUrl = pictureUrl;
+      });
+    } on FirebaseAuthException {
+      imageUrl = '';
+    }
+    return imageUrl;
+  }
+
+  Future<void> updateItemData(Map<String, Object?> data, String itemId) async {
+    try {
+      await firebaseFirestore.collection(items).doc(itemId).update(data);
     } catch (e) {
       logger.e(e);
     }

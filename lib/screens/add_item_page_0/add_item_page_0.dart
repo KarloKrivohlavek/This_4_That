@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:this_4_that/add_item_pages/add_item_page_1.dart';
 import 'package:this_4_that/add_item_pages/add_item_page_item_added.dart';
 import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/constants/strings.dart';
@@ -75,11 +77,19 @@ class AddItemPage0 extends GetView<AddItemPage0Controller> {
               ),
               Column(
                 children: [
-                  OutlinedColorButtonWidget(
-                      buttonHeight: 48.h,
-                      buttonText: 'Dodaj oglas',
-                      buttonWidth: MediaQuery.of(context).size.width,
-                      isOn: true),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => AddItemPage1()),
+                      );
+                    },
+                    child: OutlinedColorButtonWidget(
+                        buttonHeight: 48.h,
+                        buttonText: 'Dodaj oglas',
+                        buttonWidth: MediaQuery.of(context).size.width,
+                        isOn: true),
+                  ),
                   const SizedBox(
                     height: 10,
                   ),

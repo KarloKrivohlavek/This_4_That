@@ -17,7 +17,6 @@ import 'package:this_4_that/widget/outlined_color_button_widget.dart';
 class AddItemPageItemAdded extends GetView<AddItemPageController> {
   const AddItemPageItemAdded({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -63,8 +62,8 @@ class AddItemPageItemAdded extends GetView<AddItemPageController> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Get.to(MainPageScreen());
                       Get.find<MainPageController>().currentIndex = 0;
+                      Get.to(MainPageScreen());
                     },
                     child: OutlinedColorButtonWidget(
                         buttonHeight: 48.h,

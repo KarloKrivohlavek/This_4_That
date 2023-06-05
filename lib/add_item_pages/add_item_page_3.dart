@@ -4,13 +4,16 @@ import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:this_4_that/categories.dart';
 import 'package:this_4_that/constants/colors.dart';
+import 'package:this_4_that/constants/constants.dart';
 import 'package:this_4_that/screens/add_item/add_item_page_controller.dart';
+import 'package:this_4_that/widget/filled_color_button_widget.dart';
+import 'package:this_4_that/constants/constants.dart';
 
 class AddItemPage3 extends GetView<AddItemPageController> {
   AddItemPage3({super.key});
 
   @override
-  Widget build(BuildContext context) => Obx(() => Padding(
+  Widget build(BuildContext context) => Padding(
         padding: EdgeInsets.all(14),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,49 +53,49 @@ class AddItemPage3 extends GetView<AddItemPageController> {
             ),
             Padding(
                 padding: EdgeInsets.all(5),
-                child: Text('${countIsOn(controller.categories)} / 3')),
+                child: Text(
+                    '${controller.countIsOn(controller.pickedCategoriesConstants)} / 3')),
             Expanded(
-              child: Wrap(
-                children: controller.categories
-                    .map((value) => GestureDetector(
-                          onTap: () {
-                            if (countIsOn(controller.categories) < 3) {
-                              value.isOn = !value.isOn;
-                              print(countIsOn(controller.categories));
-                            } else if (countIsOn(controller.categories) == 3 &&
-                                value.isOn) {
-                              value.isOn = !value.isOn;
-                            }
-                          },
-                          child: Padding(
-                            padding: EdgeInsets.all(2),
-                            child: Container(
-                              child: Text(value.title),
-                              padding: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  color: value.isOn
-                                      ? MyColors.orange
-                                      : Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                  border: Border.all(
-                                      color: MyColors.orange, width: 2)),
+              child: Obx(
+                () => Wrap(
+                  children: controller.pickedCategoriesConstants
+                      .map((value) => GestureDetector(
+                            onTap: () {
+                              if (controller.countIsOn(
+                                      controller.pickedCategoriesConstants) <
+                                  3) {
+                                controller.addPickedItemToList(value);
+                                value.isOn = !value.isOn;
+                                print(controller.countIsOn(
+                                    controller.pickedCategoriesConstants));
+                              } else if (controller.countIsOn(controller
+                                          .pickedCategoriesConstants) ==
+                                      3 &&
+                                  value.isOn) {
+                                value.isOn = !value.isOn;
+                                controller.removePickedItemToList(value);
+                              }
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.all(2),
+                              child: Container(
+                                child: Text(value.title),
+                                padding: EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                    color: value.isOn
+                                        ? MyColors.orange
+                                        : Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(
+                                        color: MyColors.orange, width: 2)),
+                              ),
                             ),
-                          ),
-                        ))
-                    .toList(),
+                          ))
+                      .toList(),
+                ),
               ),
             )
           ],
         ),
-      ));
-}
-
-int countIsOn(List<CategoryType> categories) {
-  int counter = 0;
-  for (int i = 0; i < categories.length; ++i) {
-    if (categories[i].isOn == true) {
-      counter++;
-    }
-  }
-  return counter;
+      );
 }

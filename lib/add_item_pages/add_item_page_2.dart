@@ -8,8 +8,8 @@ class AddItemPage2 extends GetView<AddItemPageController> {
   AddItemPage2({super.key});
 
   @override
-  Widget build(BuildContext context) => Obx(() => Scaffold(
-        resizeToAvoidBottomInset: false,
+  Widget build(BuildContext context) => Scaffold(
+        resizeToAvoidBottomInset: true,
         body: Padding(
           padding: const EdgeInsets.all(14),
           child: Column(
@@ -27,7 +27,7 @@ class AddItemPage2 extends GetView<AddItemPageController> {
                   FocusScope.of(context).requestFocus(controller.node1);
                 },
                 focusNode: controller.node1,
-                controller: controller.titleController,
+                controller: controller.itemNameController,
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
                       borderSide:
@@ -40,7 +40,7 @@ class AddItemPage2 extends GetView<AddItemPageController> {
                       borderRadius: BorderRadius.circular(50.0),
                     ),
                     hintText: 'Naslov predmeta',
-                    suffixIcon: controller.titleController.text.isEmpty
+                    suffixIcon: controller.itemNameController.text.isEmpty
                         ? Container(
                             width: 0,
                           )
@@ -50,7 +50,7 @@ class AddItemPage2 extends GetView<AddItemPageController> {
                               color: MyColors.grey,
                             ),
                             onPressed: () {
-                              controller.titleController.clear();
+                              controller.itemNameController.clear();
                             },
                           )),
               ),
@@ -65,7 +65,7 @@ class AddItemPage2 extends GetView<AddItemPageController> {
                   },
                   focusNode: controller.node2,
                   maxLines: 9,
-                  controller: controller.descriptionController,
+                  controller: controller.itemDescriptionController,
                   decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide:
@@ -83,5 +83,5 @@ class AddItemPage2 extends GetView<AddItemPageController> {
             ],
           ),
         ),
-      ));
+      );
 }
