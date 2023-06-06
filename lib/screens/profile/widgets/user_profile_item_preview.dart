@@ -40,7 +40,7 @@ class _UserProfileItemPreviewState extends State<UserProfileItemPreview> {
                         borderRadius: BorderRadius.circular(20),
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage(widget.pictureURL),
+                          image: NetworkImage(widget.pictureURL),
                         ),
                       ),
                     ),
@@ -93,14 +93,14 @@ class _UserProfileItemPreviewState extends State<UserProfileItemPreview> {
                                                     button2: 'Odustani',
                                                     action: () {
                                                       setState(() {
-                                                        currentUserItems[
-                                                                widget.index] =
-                                                            currentUserItems[
-                                                                    widget
-                                                                        .index]
-                                                                .copyWith(
-                                                                    isArchived:
-                                                                        true);
+                                                        // currentUserItems[
+                                                        //         widget.index] =
+                                                        //     currentUserItems[
+                                                        //             widget
+                                                        //                 .index]
+                                                        //         .copyWith(
+                                                        //             isArchived:
+                                                        //                 true);
 
                                                         Navigator.pop(context);
                                                       });
@@ -257,9 +257,9 @@ class _UserProfileItemPreviewState extends State<UserProfileItemPreview> {
                                       ),
                                       GestureDetector(
                                         onTap: () {
-                                          currentUserItems[widget.index] =
-                                              currentUserItems[widget.index]
-                                                  .copyWith(isArchived: true);
+                                          // currentUserItems[widget.index] =
+                                          //     currentUserItems[widget.index]
+                                          //         .copyWith(isArchived: true);
                                         },
                                         child: Container(
                                           width: 35,

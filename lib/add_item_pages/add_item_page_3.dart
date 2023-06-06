@@ -53,33 +53,29 @@ class AddItemPage3 extends GetView<AddItemPageController> {
             ),
             Padding(
                 padding: EdgeInsets.all(5),
-                child: Text(
-                    '${controller.countIsOn(controller.pickedCategoriesConstants)} / 3')),
+                child: Obx(
+                  () => Text(
+                      '${controller.countIsOn(controller.pickedCategoriesConstants)} / 3'),
+                )),
             Expanded(
               child: Obx(
                 () => Wrap(
                   children: controller.pickedCategoriesConstants
                       .map((value) => GestureDetector(
                             onTap: () {
-                              if (controller.countIsOn(
-                                      controller.pickedCategoriesConstants) <
-                                  3) {
-                                controller.addPickedItemToList(value);
-                                value.isOn = !value.isOn;
-                                print(controller.countIsOn(
-                                    controller.pickedCategoriesConstants));
-                              } else if (controller.countIsOn(controller
-                                          .pickedCategoriesConstants) ==
+                              if (controller.countIsOn(controller
+                                          .pickedCategoriesConstants) <
                                       3 &&
-                                  value.isOn) {
-                                value.isOn = !value.isOn;
+                                  !value.isOn) {
+                                controller.addPickedItemToList(value);
+                              } else if (value.isOn) {
                                 controller.removePickedItemToList(value);
                               }
                             },
                             child: Padding(
                               padding: EdgeInsets.all(2),
                               child: Container(
-                                child: Text(value.title),
+                                child: Text(value.category),
                                 padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                     color: value.isOn

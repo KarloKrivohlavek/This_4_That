@@ -68,7 +68,7 @@ class _BottomTabBarState extends State<BottomTabBar> {
       HomePage(),
       MessagesPage(onReturn: returnToHOme),
       ChatPage(),
-      ProfilePage(),
+      // ProfilePage(),
     ];
   }
 

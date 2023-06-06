@@ -17,7 +17,7 @@ class _BottomTabBarState extends State<BottomTabBar> {
     HomePage(),
     MessagesPage(),
     ChatPage(),
-    ProfilePage(),
+    // ProfilePage(),
   ];
   @override
   Widget build(BuildContext context) {

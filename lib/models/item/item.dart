@@ -10,7 +10,7 @@ class Item with _$Item {
     @JsonKey(name: 'item_description') required String itemDescription,
     @JsonKey(name: 'item_name') required String itemName,
     @JsonKey(name: 'location') required String location,
-    @JsonKey(name: 'category') required String category,
+    @JsonKey(name: 'category_list') required List<String?> categoryList,
     @JsonKey(name: 'price_range') required String priceRange,
     @JsonKey(name: 'condition') required String condition,
     @JsonKey(name: 'item_picture_list') List<String>? itemPictureList,

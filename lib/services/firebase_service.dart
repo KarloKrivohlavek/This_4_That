@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -196,5 +197,45 @@ class FirebaseService extends GetxService {
     } catch (e) {
       logger.e(e);
     }
+  }
+
+  /// FUNCTION: get all Items from Firebase
+  Future<List<Item>?> getAllItems() async {
+    try {
+      List<Item> itemList = <Item>[];
+
+      itemList = await FirebaseFirestore.instance
+          .collection('items')
+          .get()
+          .then((value) =>
+              value.docs.map((e) => Item.fromJson(e.data())).toList());
+      logger.wtf(itemList);
+      return itemList.toSet().toList();
+    }
+// remove duplicates before sending a list (two litters can have the same therapy)
+
+    catch (e) {
+      SnackBar(content: Text('Error with getting all items'));
+    }
+    return null;
+  }
+
+  Future<UserData> getCurrentUserData() async {
+    final currentUserData = await firebaseFirestore
+        .collection('users')
+        .where('user_ID', isEqualTo: firebaseAuth.currentUser?.uid)
+        .get()
+        .then((value) => UserData.fromJson(value.docs.first.data()));
+    return currentUserData;
+  }
+
+  Future<List<Item>> getCurrentUserItems() async {
+    final currentUserItems = await firebaseFirestore
+        .collection('items')
+        .where('user_ID', isEqualTo: firebaseAuth.currentUser?.uid)
+        .get()
+        .then(
+            (value) => value.docs.map((e) => Item.fromJson(e.data())).toList());
+    return currentUserItems;
   }
 }

@@ -26,8 +26,8 @@ mixin _$Item {
   String get itemName => throw _privateConstructorUsedError;
   @JsonKey(name: 'location')
   String get location => throw _privateConstructorUsedError;
-  @JsonKey(name: 'category')
-  String get category => throw _privateConstructorUsedError;
+  @JsonKey(name: 'category_list')
+  List<String?> get categoryList => throw _privateConstructorUsedError;
   @JsonKey(name: 'price_range')
   String get priceRange => throw _privateConstructorUsedError;
   @JsonKey(name: 'condition')
@@ -55,7 +55,7 @@ abstract class $ItemCopyWith<$Res> {
       {@JsonKey(name: 'item_description') String itemDescription,
       @JsonKey(name: 'item_name') String itemName,
       @JsonKey(name: 'location') String location,
-      @JsonKey(name: 'category') String category,
+      @JsonKey(name: 'category_list') List<String?> categoryList,
       @JsonKey(name: 'price_range') String priceRange,
       @JsonKey(name: 'condition') String condition,
       @JsonKey(name: 'item_picture_list') List<String>? itemPictureList,
@@ -80,7 +80,7 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
     Object? itemDescription = null,
     Object? itemName = null,
     Object? location = null,
-    Object? category = null,
+    Object? categoryList = null,
     Object? priceRange = null,
     Object? condition = null,
     Object? itemPictureList = freezed,
@@ -101,10 +101,10 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as String,
+      categoryList: null == categoryList
+          ? _value.categoryList
+          : categoryList // ignore: cast_nullable_to_non_nullable
+              as List<String?>,
       priceRange: null == priceRange
           ? _value.priceRange
           : priceRange // ignore: cast_nullable_to_non_nullable
@@ -143,7 +143,7 @@ abstract class _$$_ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
       {@JsonKey(name: 'item_description') String itemDescription,
       @JsonKey(name: 'item_name') String itemName,
       @JsonKey(name: 'location') String location,
-      @JsonKey(name: 'category') String category,
+      @JsonKey(name: 'category_list') List<String?> categoryList,
       @JsonKey(name: 'price_range') String priceRange,
       @JsonKey(name: 'condition') String condition,
       @JsonKey(name: 'item_picture_list') List<String>? itemPictureList,
@@ -164,7 +164,7 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
     Object? itemDescription = null,
     Object? itemName = null,
     Object? location = null,
-    Object? category = null,
+    Object? categoryList = null,
     Object? priceRange = null,
     Object? condition = null,
     Object? itemPictureList = freezed,
@@ -185,10 +185,10 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
               as String,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
-              as String,
+      categoryList: null == categoryList
+          ? _value._categoryList
+          : categoryList // ignore: cast_nullable_to_non_nullable
+              as List<String?>,
       priceRange: null == priceRange
           ? _value.priceRange
           : priceRange // ignore: cast_nullable_to_non_nullable
@@ -224,14 +224,15 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
       {@JsonKey(name: 'item_description') required this.itemDescription,
       @JsonKey(name: 'item_name') required this.itemName,
       @JsonKey(name: 'location') required this.location,
-      @JsonKey(name: 'category') required this.category,
+      @JsonKey(name: 'category_list') required final List<String?> categoryList,
       @JsonKey(name: 'price_range') required this.priceRange,
       @JsonKey(name: 'condition') required this.condition,
       @JsonKey(name: 'item_picture_list') final List<String>? itemPictureList,
       @JsonKey(name: 'profile_picture') this.profilePicture,
       @JsonKey(name: 'user_ID') required this.userID,
       @JsonKey(name: 'item_ID') required this.itemID})
-      : _itemPictureList = itemPictureList;
+      : _categoryList = categoryList,
+        _itemPictureList = itemPictureList;
 
   factory _$_Item.fromJson(Map<String, dynamic> json) => _$$_ItemFromJson(json);
 
@@ -244,9 +245,15 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
   @override
   @JsonKey(name: 'location')
   final String location;
+  final List<String?> _categoryList;
   @override
-  @JsonKey(name: 'category')
-  final String category;
+  @JsonKey(name: 'category_list')
+  List<String?> get categoryList {
+    if (_categoryList is EqualUnmodifiableListView) return _categoryList;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_categoryList);
+  }
+
   @override
   @JsonKey(name: 'price_range')
   final String priceRange;
@@ -276,7 +283,7 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Item(itemDescription: $itemDescription, itemName: $itemName, location: $location, category: $category, priceRange: $priceRange, condition: $condition, itemPictureList: $itemPictureList, profilePicture: $profilePicture, userID: $userID, itemID: $itemID)';
+    return 'Item(itemDescription: $itemDescription, itemName: $itemName, location: $location, categoryList: $categoryList, priceRange: $priceRange, condition: $condition, itemPictureList: $itemPictureList, profilePicture: $profilePicture, userID: $userID, itemID: $itemID)';
   }
 
   @override
@@ -287,7 +294,7 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
       ..add(DiagnosticsProperty('itemDescription', itemDescription))
       ..add(DiagnosticsProperty('itemName', itemName))
       ..add(DiagnosticsProperty('location', location))
-      ..add(DiagnosticsProperty('category', category))
+      ..add(DiagnosticsProperty('categoryList', categoryList))
       ..add(DiagnosticsProperty('priceRange', priceRange))
       ..add(DiagnosticsProperty('condition', condition))
       ..add(DiagnosticsProperty('itemPictureList', itemPictureList))
@@ -307,8 +314,8 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
                 other.itemName == itemName) &&
             (identical(other.location, location) ||
                 other.location == location) &&
-            (identical(other.category, category) ||
-                other.category == category) &&
+            const DeepCollectionEquality()
+                .equals(other._categoryList, _categoryList) &&
             (identical(other.priceRange, priceRange) ||
                 other.priceRange == priceRange) &&
             (identical(other.condition, condition) ||
@@ -328,7 +335,7 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
       itemDescription,
       itemName,
       location,
-      category,
+      const DeepCollectionEquality().hash(_categoryList),
       priceRange,
       condition,
       const DeepCollectionEquality().hash(_itemPictureList),
@@ -355,7 +362,7 @@ abstract class _Item implements Item {
       {@JsonKey(name: 'item_description') required final String itemDescription,
       @JsonKey(name: 'item_name') required final String itemName,
       @JsonKey(name: 'location') required final String location,
-      @JsonKey(name: 'category') required final String category,
+      @JsonKey(name: 'category_list') required final List<String?> categoryList,
       @JsonKey(name: 'price_range') required final String priceRange,
       @JsonKey(name: 'condition') required final String condition,
       @JsonKey(name: 'item_picture_list') final List<String>? itemPictureList,
@@ -375,8 +382,8 @@ abstract class _Item implements Item {
   @JsonKey(name: 'location')
   String get location;
   @override
-  @JsonKey(name: 'category')
-  String get category;
+  @JsonKey(name: 'category_list')
+  List<String?> get categoryList;
   @override
   @JsonKey(name: 'price_range')
   String get priceRange;

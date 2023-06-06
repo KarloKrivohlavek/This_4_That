@@ -10,7 +10,9 @@ _$_Item _$$_ItemFromJson(Map<String, dynamic> json) => _$_Item(
       itemDescription: json['item_description'] as String,
       itemName: json['item_name'] as String,
       location: json['location'] as String,
-      category: json['category'] as String,
+      categoryList: (json['category_list'] as List<dynamic>)
+          .map((e) => e as String?)
+          .toList(),
       priceRange: json['price_range'] as String,
       condition: json['condition'] as String,
       itemPictureList: (json['item_picture_list'] as List<dynamic>?)
@@ -25,7 +27,7 @@ Map<String, dynamic> _$$_ItemToJson(_$_Item instance) => <String, dynamic>{
       'item_description': instance.itemDescription,
       'item_name': instance.itemName,
       'location': instance.location,
-      'category': instance.category,
+      'category_list': instance.categoryList,
       'price_range': instance.priceRange,
       'condition': instance.condition,
       'item_picture_list': instance.itemPictureList,

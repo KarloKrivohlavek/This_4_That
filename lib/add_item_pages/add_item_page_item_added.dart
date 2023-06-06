@@ -6,6 +6,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/constants/strings.dart';
 import 'package:this_4_that/constants/text_styles.dart';
+import 'package:this_4_that/pages.dart';
 import 'package:this_4_that/screens/add_item/add_item_page_controller.dart';
 import 'package:this_4_that/screens/home/home_page_screen.dart';
 import 'package:this_4_that/screens/main_page/main_page_controller.dart';
@@ -63,7 +64,8 @@ class AddItemPageItemAdded extends GetView<AddItemPageController> {
                   GestureDetector(
                     onTap: () {
                       Get.find<MainPageController>().currentIndex = 0;
-                      Get.to(MainPageScreen());
+                      Get.until((route) =>
+                          Get.currentRoute == MyRoutes.mainPageScreen);
                     },
                     child: OutlinedColorButtonWidget(
                         buttonHeight: 48.h,

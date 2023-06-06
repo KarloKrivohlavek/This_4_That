@@ -1,4 +1,5 @@
 import 'package:this_4_that/categories.dart';
+import 'package:this_4_that/models/categoryType/categoryType.dart';
 
 class MyConstants {
   static List<String> buttonValuesPrice = [
@@ -21,18 +22,18 @@ class MyConstants {
   ];
 
   static List<CategoryType> allCategories = [
-    CategoryType(title: 'Namještaj', isOn: false),
-    CategoryType(title: 'Dekoracije', isOn: false),
-    CategoryType(title: 'Posuđe', isOn: false),
-    CategoryType(title: 'Kućanski aparati', isOn: false),
-    CategoryType(title: 'Vrtlarska oprema', isOn: false),
-    CategoryType(title: 'Glazbeni instrumenti', isOn: false),
-    CategoryType(title: 'Periferija', isOn: false),
-    CategoryType(title: 'Laptopi', isOn: false),
-    CategoryType(title: 'Mobiteli', isOn: false),
-    CategoryType(title: 'Knjige', isOn: false),
-    CategoryType(title: 'CD', isOn: false),
-    CategoryType(title: 'Ploče', isOn: false),
-    CategoryType(title: 'Trading Card Game', isOn: false)
+    CategoryType(category: 'Namještaj', isOn: false),
+    CategoryType(category: 'Dekoracije', isOn: false),
+    CategoryType(category: 'Posuđe', isOn: false),
+    CategoryType(category: 'Kućanski aparati', isOn: false),
+    CategoryType(category: 'Vrtlarska oprema', isOn: false),
+    CategoryType(category: 'Glazbeni instrumenti', isOn: false),
+    CategoryType(category: 'Periferija', isOn: false),
+    CategoryType(category: 'Laptopi', isOn: false),
+    CategoryType(category: 'Mobiteli', isOn: false),
+    CategoryType(category: 'Knjige', isOn: false),
+    CategoryType(category: 'CD', isOn: false),
+    CategoryType(category: 'Ploče', isOn: false),
+    CategoryType(category: 'Trading Card Game', isOn: false)
   ];
 }

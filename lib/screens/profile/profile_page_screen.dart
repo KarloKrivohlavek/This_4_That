@@ -8,6 +8,7 @@ import 'package:this_4_that/constants/strings.dart';
 import 'package:this_4_that/constants/text_styles.dart';
 import 'package:this_4_that/data.dart';
 import 'package:this_4_that/pages.dart';
+import 'package:this_4_that/profile_page.dart';
 import 'package:this_4_that/screens/profile/profile_page_controller.dart';
 import 'package:this_4_that/screens/profile/widgets/profile_page_edit_profile_preview_widget.dart';
 import 'package:this_4_that/screens/profile/widgets/user_profile_item_preview.dart';
@@ -33,12 +34,14 @@ class ProfilePageScreen extends GetView<ProfilePageController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ProfilePageEditProfilePreviewWidget(
-              imagePath: currentUser.imagePath,
-              // user: user,
-              // controller: controller,
-              fullName: controller.thisUser.fullName,
-              userName: currentUser.name,
-            ),
+                imagePath: controller.currentUserData.profilePicture != null &&
+                        controller.currentUserData.profilePicture!.isEmpty
+                    ? 'images/default_user_profile_picture.png'
+                    : controller.currentUserData.profilePicture,
+                // user: user,
+                // controller: controller,
+                fullName: controller.currentUserData.fullName,
+                userName: controller.currentUserData.username),
             const Padding(
               padding: EdgeInsets.only(left: 16),
               child: Text(
@@ -125,36 +128,43 @@ class ProfilePageScreen extends GetView<ProfilePageController> {
               ),
             ),
             controller.isActiveButtonOn
-                ? ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: currentUserItems.length,
-                    itemBuilder: (context, index) {
-                      if (currentUserItems[index].isArchived == false) {
+                ? Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: controller.currentUserItems.length,
+                      itemBuilder: (context, index) {
+                        // if (controller.currentUserItems[index].isArchived == false) {
                         return UserProfileItemPreview(
                           isActiveButtonOn: controller.isActiveButtonOn,
                           index: index,
-                          itemName: currentUserItems[index].title,
-                          pictureURL: currentUserItems[index].imagesURLs[0],
+                          itemName: controller.currentUserItems[index].itemName,
+                          pictureURL: controller
+                              .currentUserItems[index].itemPictureList![0],
                         );
-                      } else {
-                        return const SizedBox();
-                      }
-                    },
+                        // } else {
+                        //   return const SizedBox();
+                        // }
+                      },
+                    ),
                   )
                 : ListView.builder(
                     shrinkWrap: true,
-                    itemCount: currentUserItems.length,
+                    itemCount: controller.currentUserItems.length,
                     itemBuilder: (context, index) {
-                      if (currentUserItems[index].isArchived == true) {
-                        return UserProfileItemPreview(
-                          isActiveButtonOn: controller.isActiveButtonOn,
-                          index: index,
-                          itemName: currentUserItems[index].title,
-                          pictureURL: currentUserItems[index].imagesURLs[0],
-                        );
-                      } else {
-                        return const SizedBox();
-                      }
+                      // if (
+                      // controller.currentUserItems[index].isArchived ==
+                      //     true
+                      // ) {
+                      return UserProfileItemPreview(
+                        isActiveButtonOn: controller.isActiveButtonOn,
+                        index: index,
+                        itemName: controller.currentUserItems[index].itemName,
+                        pictureURL: controller
+                            .currentUserItems[index].itemPictureList![0],
+                      );
+                      // } else {
+                      //   return const SizedBox();
+                      // }
                     },
                   ),
             GestureDetector(

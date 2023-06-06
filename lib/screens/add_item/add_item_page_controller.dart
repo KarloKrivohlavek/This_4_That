@@ -10,6 +10,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:this_4_that/categories.dart';
 import 'package:this_4_that/constants/constants.dart';
+import 'package:this_4_that/models/categoryType/categoryType.dart';
 import 'package:this_4_that/models/item/item.dart';
 import 'package:this_4_that/services/firebase_service.dart';
 import 'package:this_4_that/services/logger_service.dart';
@@ -23,16 +24,15 @@ class AddItemPageController extends GetxController {
   final firebaseService = Get.find<FirebaseService>();
 
   final Rx<Item> _newItem = Item(
-          itemPictureList: [],
-          itemName: 'itemName',
-          itemDescription: 'itemDescription',
-          priceRange: 'priceRange',
-          condition: 'condition',
-          userID: 'userID',
-          itemID: 'itemID',
-          location: 'location',
-          category: 'category')
-      .obs;
+      itemPictureList: [],
+      itemName: 'itemName',
+      itemDescription: 'itemDescription',
+      priceRange: 'priceRange',
+      condition: 'condition',
+      userID: 'userID',
+      itemID: 'itemID',
+      location: 'location',
+      categoryList: []).obs;
   Item get newItem => _newItem.value;
   set newItem(Item value) => _newItem.value = value;
 // reactive variabla
@@ -89,12 +89,12 @@ class AddItemPageController extends GetxController {
   // List<CategoryType> categories = allCategories;
 
   // int selectedIndexPrice = -1.obs;
-  final RxInt _selectedIndexPrice = 10.obs;
+  final RxInt _selectedIndexPrice = 0.obs;
   int get selectedIndexPrice => _selectedIndexPrice.value;
   set selectedIndexPrice(int value) => _selectedIndexPrice.value = value;
 
   // int selectedIndexCondition = -1.obs;
-  final RxInt _selectedIndexCondition = 13.obs;
+  final RxInt _selectedIndexCondition = 0.obs;
   int get selectedIndexCondition => _selectedIndexCondition.value;
   set selectedIndexCondition(int value) =>
       _selectedIndexCondition.value = value;
@@ -164,7 +164,14 @@ class AddItemPageController extends GetxController {
   void saveSelectedIndexCondition() {
     logger.w(selectedIndexCondition);
     newItem = newItem.copyWith(
-        condition: MyConstants.buttonValuesCondition[selectedIndexCondition]);
+        condition: MyConstants.buttonValuesCondition[selectedIndexCondition],
+        userID: FirebaseAuth.instance.currentUser!.uid);
+    logger.e(newItem);
+  }
+
+  void saveSelectedCategories() {
+    logger.w(pickedCategories);
+    newItem = newItem.copyWith(categoryList: pickedCategories);
     // userID: FirebaseAuth.instance.currentUser!.uid);
     logger.e(newItem);
   }
@@ -188,7 +195,7 @@ class AddItemPageController extends GetxController {
 
   List<CategoryType> searchCategory(String query) {
     final suggestions = MyConstants.allCategories.where((category) {
-      final categoryTitle = category.title.toLowerCase();
+      final categoryTitle = category.category.toLowerCase();
       final input = query.toLowerCase();
       return categoryTitle.contains(input);
     }).toList();
@@ -212,6 +219,33 @@ class AddItemPageController extends GetxController {
 
     await FirebaseService.instance
         .updateItemData({'item_picture_list': imageURLs}, itemID);
+    clearData();
+  }
+
+  void clearData() {
+    newItem = Item(
+        itemPictureList: [],
+        itemName: 'itemName',
+        itemDescription: 'itemDescription',
+        priceRange: 'priceRange',
+        condition: 'condition',
+        userID: 'userID',
+        itemID: 'itemID',
+        location: 'location',
+        categoryList: []);
+
+    imageList.clear();
+    imageList.addNonNull(null);
+    itemNameController.text = '';
+    itemDescriptionController.text = '';
+    pickedCategories = [];
+
+    for (var i = 0; i < pickedCategoriesConstants.length; ++i) {
+      pickedCategoriesConstants[i] =
+          pickedCategoriesConstants[i].copyWith(isOn: false);
+    }
+    selectedIndexPrice = 0;
+    selectedIndexCondition = 0;
   }
 
   Future<List<String>> saveImages(String itemId) async {
@@ -232,20 +266,25 @@ class AddItemPageController extends GetxController {
   }
 
   void addPickedItemToList(CategoryType pickedCategory) {
-    if (pickedCategories.length < 3 &&
-        !pickedCategories.contains(pickedCategory.title)) {
-      pickedCategories.add(pickedCategory.title);
-      logger.wtf(pickedCategories);
+    if (pickedCategories.length < 3) {
+      pickedCategories.add(pickedCategory.category);
 
-      for (final category in pickedCategoriesConstants) {
-        logger.w(category.title);
-        logger.w(category.isOn);
-      }
+      final index = pickedCategoriesConstants
+          .indexWhere((element) => element == pickedCategory);
+      final isOn = pickedCategoriesConstants.elementAt(index).isOn;
+      pickedCategoriesConstants[index] =
+          pickedCategoriesConstants[index].copyWith(isOn: !isOn);
     }
   }
 
   void removePickedItemToList(CategoryType pickedCategory) {
-    pickedCategories.remove(pickedCategory.title);
+    pickedCategories.remove(pickedCategory.category);
     logger.wtf(pickedCategories);
+
+    final index = pickedCategoriesConstants
+        .indexWhere((element) => element == pickedCategory);
+    final isOn = pickedCategoriesConstants.elementAt(index).isOn;
+    pickedCategoriesConstants[index] =
+        pickedCategoriesConstants[index].copyWith(isOn: !isOn);
   }
 }

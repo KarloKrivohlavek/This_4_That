@@ -141,6 +141,10 @@ class AddItemPageScreen extends GetView<AddItemPageController> {
                             controller.saveItemDescription();
                           }
 
+                          if (controller.activeStep == 2) {
+                            controller.saveSelectedCategories();
+                          }
+
                           if (controller.activeStep == 3) {
                             controller.saveSelectedIndexPrice();
                           }
