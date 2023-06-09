@@ -174,11 +174,12 @@ class FirebaseService extends GetxService {
     var imageUrl = '';
     final name = file.path.split('/').last;
     final timeStamp = DateTime.now().toUtc().millisecondsSinceEpoch;
+    final userID = FirebaseAuth.instance.currentUser?.uid ?? 'default';
 
     try {
 // Upload to Firebase Storage
       await firebaseStorage
-          .ref('items/$itemId/${timeStamp}_$name')
+          .ref('items/$userID/$itemId/${timeStamp}_$name')
           .putFile(file)
           .then((image) async {
         final pictureUrl = await image.ref.getDownloadURL();
@@ -197,6 +198,17 @@ class FirebaseService extends GetxService {
     } catch (e) {
       logger.e(e);
     }
+  }
+
+  Future<bool> doesUserDataHaveAName() async {
+    bool userHasAName = false;
+    await firebaseFirestore
+        .collection('users')
+        .where('user_ID', isEqualTo: firebaseAuth.currentUser?.uid)
+        .get()
+        .then((value) =>
+            userHasAName = value.docs.first.data().containsKey('full_name'));
+    return userHasAName;
   }
 
   /// FUNCTION: get all Items from Firebase

@@ -38,7 +38,7 @@ class CustomDialog extends StatelessWidget {
       content: Text(text),
       actions: <Widget>[
         TextButton(
-          onPressed: () => action,
+          onPressed: action,
           child: Text(
             button1,
             style: GoogleFonts.poppins(

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -12,9 +13,11 @@ import 'package:this_4_that/profile_page.dart';
 import 'package:this_4_that/screens/profile/profile_page_controller.dart';
 import 'package:this_4_that/screens/profile/widgets/profile_page_edit_profile_preview_widget.dart';
 import 'package:this_4_that/screens/profile/widgets/user_profile_item_preview.dart';
+import 'package:this_4_that/services/firebase_service.dart';
 import 'package:this_4_that/src/edit_profile_page.dart';
 import 'package:this_4_that/user.dart';
 import 'package:this_4_that/user_preferences.dart';
+import 'package:this_4_that/widget/custom_dialog.dart';
 import 'package:this_4_that/widget/profile_widget.dart';
 
 ///
@@ -129,43 +132,47 @@ class ProfilePageScreen extends GetView<ProfilePageController> {
             ),
             controller.isActiveButtonOn
                 ? Expanded(
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: controller.currentUserItems.length,
-                      itemBuilder: (context, index) {
-                        // if (controller.currentUserItems[index].isArchived == false) {
-                        return UserProfileItemPreview(
-                          isActiveButtonOn: controller.isActiveButtonOn,
-                          index: index,
-                          itemName: controller.currentUserItems[index].itemName,
-                          pictureURL: controller
-                              .currentUserItems[index].itemPictureList![0],
-                        );
-                        // } else {
-                        //   return const SizedBox();
-                        // }
-                      },
+                    child: Obx(
+                      () => ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: controller.currentUserItemsActive.length,
+                        itemBuilder: (context, index) {
+                          return UserProfileItemPreview(
+                            isActiveButtonOn: controller.isActiveButtonOn,
+                            index: index,
+                            itemName: controller
+                                .currentUserItemsActive[index].itemName,
+                            pictureURL: controller.currentUserItemsActive[index]
+                                .itemPictureList![0],
+                          );
+                          // } else {
+                          //   return const SizedBox();
+                          // }
+                        },
+                      ),
                     ),
                   )
-                : ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: controller.currentUserItems.length,
-                    itemBuilder: (context, index) {
-                      // if (
-                      // controller.currentUserItems[index].isArchived ==
-                      //     true
-                      // ) {
-                      return UserProfileItemPreview(
-                        isActiveButtonOn: controller.isActiveButtonOn,
-                        index: index,
-                        itemName: controller.currentUserItems[index].itemName,
-                        pictureURL: controller
-                            .currentUserItems[index].itemPictureList![0],
-                      );
-                      // } else {
-                      //   return const SizedBox();
-                      // }
-                    },
+                : Expanded(
+                    child: Obx(
+                      () => ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: controller.currentUserItemsArchived.length,
+                        itemBuilder: (context, index) {
+                          return UserProfileItemPreview(
+                            isActiveButtonOn: controller.isActiveButtonOn,
+                            index: index,
+                            itemName: controller
+                                .currentUserItemsArchived[index].itemName,
+                            pictureURL: controller
+                                .currentUserItemsArchived[index]
+                                .itemPictureList![0],
+                          );
+                          // } else {
+                          //   return const SizedBox();
+                          // }
+                        },
+                      ),
+                    ),
                   ),
             GestureDetector(
               onTap: () {
@@ -182,24 +189,50 @@ class ProfilePageScreen extends GetView<ProfilePageController> {
                 )),
               ),
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Container(
-                child: Icon(
-                  MdiIcons.logout,
-                  size: 40,
-                ),
-                height: 50,
-                width: 50,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.grey,
-                ),
+            GestureDetector(
+              onTap: () {
+                Get.dialog(CustomDialog(
+                    title: 'Odjava?',
+                    text:
+                        'Jesi li siguran da se želiš odjaviti iz ove super kul aplikacije?',
+                    button1: 'Odjavi',
+                    button2: 'Odustani',
+                    action: () {
+                      controller.signOutUser();
+                    }));
+              },
+              child: Container(
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.grey,
+                    ),
+                    child: Icon(
+                      MdiIcons.logout,
+                      size: 40,
+                    ),
+                  ),
+                  Text(
+                    'Odjavi se',
+                    style: MyTextStyles.poppins24w700,
+                  )
+                ]),
               ),
-              Text(
-                'Odjavi se',
-                style: MyTextStyles.poppins24w700,
-              )
-            ]),
+            ),
+            GestureDetector(
+              onTap: () {
+                // controller.changeStateTO();
+                controller.printUID();
+              },
+              child: Container(
+                color: Colors.red,
+                height: 30,
+              ),
+            )
           ],
         )));
   }

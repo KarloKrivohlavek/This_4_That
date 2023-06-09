@@ -16,6 +16,8 @@ import 'package:this_4_that/screens/messages/messages_page_screen.dart';
 import 'package:this_4_that/screens/profile/edit_profile/edit_profile_page_screen.dart';
 import 'package:this_4_that/screens/profile/profile_page_binding.dart';
 import 'package:this_4_that/screens/profile/profile_page_screen.dart';
+import 'package:this_4_that/screens/splash_page/splash_page_binding.dart';
+import 'package:this_4_that/screens/splash_page/splash_page_screen.dart';
 import '';
 import 'screens/add_item_page_0/add_item_page_0_binding.dart';
 
@@ -76,6 +78,11 @@ final pages = [
     page: AddItemPage0.new,
     binding: AddItemPage0Binding(),
   ),
+  GetPage(
+    name: MyRoutes.splashPageScreen,
+    page: SplashPageScreen.new,
+    binding: SplashPageBinding(),
+  ),
 ];
 
 /// All pages have their designated names which can be found here
@@ -91,4 +98,6 @@ class MyRoutes {
   static const authentificationScreenNameSurname =
       '/authentification_screen_2_name_surname';
   static const addItemPage0 = '/add_item_page_0';
+
+  static const splashPageScreen = '/splash_page_screen';
 }

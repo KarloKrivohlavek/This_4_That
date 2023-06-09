@@ -31,7 +31,7 @@ class AddItemPageController extends GetxController {
       condition: 'condition',
       userID: 'userID',
       itemID: 'itemID',
-      location: 'location',
+      itemState: 'itemState',
       categoryList: []).obs;
   Item get newItem => _newItem.value;
   set newItem(Item value) => _newItem.value = value;
@@ -109,6 +109,7 @@ class AddItemPageController extends GetxController {
     activeStep = 0;
     addListeners();
     pickedCategoriesConstants = MyConstants.allCategories;
+    clearData();
   }
 
   // @override
@@ -165,7 +166,8 @@ class AddItemPageController extends GetxController {
     logger.w(selectedIndexCondition);
     newItem = newItem.copyWith(
         condition: MyConstants.buttonValuesCondition[selectedIndexCondition],
-        userID: FirebaseAuth.instance.currentUser!.uid);
+        userID: FirebaseAuth.instance.currentUser!.uid,
+        itemState: 'active');
     logger.e(newItem);
   }
 
@@ -219,7 +221,6 @@ class AddItemPageController extends GetxController {
 
     await FirebaseService.instance
         .updateItemData({'item_picture_list': imageURLs}, itemID);
-    clearData();
   }
 
   void clearData() {
@@ -231,11 +232,11 @@ class AddItemPageController extends GetxController {
         condition: 'condition',
         userID: 'userID',
         itemID: 'itemID',
-        location: 'location',
+        itemState: 'itemState',
         categoryList: []);
 
     imageList.clear();
-    imageList.addNonNull(null);
+    imageList.add(null);
     itemNameController.text = '';
     itemDescriptionController.text = '';
     pickedCategories = [];

@@ -1,11 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:this_4_that/authentification_screens/authentification_screen_1_login.dart';
 import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/data.dart';
+import 'package:this_4_that/screens/profile/profile_page_controller.dart';
+import 'package:this_4_that/services/firebase_service.dart';
 import 'package:this_4_that/widget/custom_dialog.dart';
+import 'package:get/get.dart';
 
-class UserProfileItemPreview extends StatefulWidget {
+class UserProfileItemPreview extends GetView<ProfilePageController> {
   const UserProfileItemPreview(
       {required this.itemName,
       required this.pictureURL,
@@ -17,11 +22,6 @@ class UserProfileItemPreview extends StatefulWidget {
 
   final int index;
 
-  @override
-  State<UserProfileItemPreview> createState() => _UserProfileItemPreviewState();
-}
-
-class _UserProfileItemPreviewState extends State<UserProfileItemPreview> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -39,9 +39,7 @@ class _UserProfileItemPreviewState extends State<UserProfileItemPreview> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(widget.pictureURL),
-                        ),
+                            fit: BoxFit.cover, image: NetworkImage(pictureURL)),
                       ),
                     ),
                     const SizedBox(
@@ -58,7 +56,7 @@ class _UserProfileItemPreviewState extends State<UserProfileItemPreview> {
                             child: Column(
                               children: [
                                 Text(
-                                  widget.itemName,
+                                  itemName,
                                   style: const TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 16),
@@ -69,44 +67,14 @@ class _UserProfileItemPreviewState extends State<UserProfileItemPreview> {
                           const SizedBox(height: 30),
                           Container(
                             width: MediaQuery.of(context).size.width * 0.35,
-                            child: widget.isActiveButtonOn
+                            child: isActiveButtonOn
+                                //Ovo je row za aktivne predmete
                                 ? Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
                                       GestureDetector(
-                                        onTap: () async {
-                                          // setState(() {
-                                          //   currentUserItems[widget.index] =
-                                          //       currentUserItems[widget.index]
-                                          //           .copyWith(isArchived: true);
-                                          // });
-                                          // await getAllUsers();
-                                          showDialog(
-                                              context: context,
-                                              builder: (context) =>
-                                                  CustomDialog(
-                                                    title: 'Arhiviraj',
-                                                    text:
-                                                        'Jeste li sigurni da želite arhivirati ovaj oglas? Oglas će biti premješten u arhivu i više ga nećete vidjeti u glavnom prikazu aplikacije. Ako u budućnosti želite ponovno aktivirati ovaj oglas, moći ćete ga izvući iz arhive.',
-                                                    button1: 'Arhiviraj',
-                                                    button2: 'Odustani',
-                                                    action: () {
-                                                      setState(() {
-                                                        // currentUserItems[
-                                                        //         widget.index] =
-                                                        //     currentUserItems[
-                                                        //             widget
-                                                        //                 .index]
-                                                        //         .copyWith(
-                                                        //             isArchived:
-                                                        //                 true);
-
-                                                        Navigator.pop(context);
-                                                      });
-                                                    },
-                                                  ));
-                                        },
+                                        onTap: () {},
                                         child: Container(
                                           margin:
                                               const EdgeInsets.only(bottom: 5),
@@ -120,98 +88,15 @@ class _UserProfileItemPreviewState extends State<UserProfileItemPreview> {
                                       ),
                                       GestureDetector(
                                         onTap: () {
-                                          // showDialog(
-                                          //   context: context,
-                                          //   builder: (context) =>
-                                          //       StatefulBuilder(builder:
-                                          //           (context,
-                                          //               StateSetter setState) {
-                                          //     return Center(
-                                          //         child: Container(
-                                          //       decoration: BoxDecoration(
-                                          //         color: Color(0xFF262626),
-                                          //         borderRadius:
-                                          //             BorderRadius.circular(20),
-                                          //       ),
-                                          //       padding:
-                                          //           const EdgeInsets.all(20),
-                                          //       height: MediaQuery.of(context)
-                                          //               .size
-                                          //               .height *
-                                          //           0.35,
-                                          //       width: MediaQuery.of(context)
-                                          //               .size
-                                          //               .width *
-                                          //           0.7,
-                                          //       child: Column(
-                                          //           mainAxisAlignment:
-                                          //               MainAxisAlignment.start,
-                                          //           crossAxisAlignment:
-                                          //               CrossAxisAlignment
-                                          //                   .start,
-                                          //           children: [
-                                          //             const Text(
-                                          //               'Arhiviraj',
-                                          //               style: TextStyle(
-                                          //                   color: Colors.white,
-                                          //                   fontWeight:
-                                          //                       FontWeight.w700,
-                                          //                   fontSize: 24),
-                                          //             ),
-                                          //             SizedBox(
-                                          //               height: 10,
-                                          //             ),
-                                          //             Text(
-                                          //               'Jeste li sigurni da želite arhivirati ovaj oglas? Oglas će biti premješten u arhivu i više ga nećete vidjeti u glavnom prikazu aplikacije. Ako u budućnosti želite ponovno aktivirati ovaj oglas, moći ćete ga izvući iz arhive',
-                                          //               style: TextStyle(
-                                          //                   color:
-                                          //                       Colors.white),
-                                          //             ),
-                                          //             Row(
-                                          //               children: [
-                                          //                 TextButton(
-                                          //                   onPressed: () {
-                                          //                     currentUserItems[widget
-                                          //                         .index] = currentUserItems[
-                                          //                             widget
-                                          //                                 .index]
-                                          //                         .copyWith(
-                                          //                             isArchived:
-                                          //                                 true);
-                                          //
-                                          //                     Navigator.pop(
-                                          //                         context);
-                                          //                     setState(() {});
-                                          //                   },
-                                          //                   child: const Text(
-                                          //                     'Arhiviraj',
-                                          //                     style: TextStyle(
-                                          //                         color: MyColors
-                                          //                             .orange),
-                                          //                   ),
-                                          //                 ),
-                                          //                 TextButton(
-                                          //                   onPressed: () {
-                                          //                     Navigator.pop(
-                                          //                         context);
-                                          //                   },
-                                          //                   child: const Text(
-                                          //                     'Odustani',
-                                          //                     style: TextStyle(
-                                          //                         color: MyColors
-                                          //                             .orange),
-                                          //                   ),
-                                          //                 )
-                                          //               ],
-                                          //             )
-                                          //           ]),
-                                          //     ));
-                                          //   }),
-                                          // );
+                                          final currentItem = controller
+                                              .currentUserItemsActive
+                                              .elementAt(index);
+                                          final itemID = currentItem.itemID;
 
-                                          // currentUserItems[index] =
-                                          //     currentUserItems[index]
-                                          //         .copyWith(isArchived: true);
+                                          controller.changeItemStatus(
+                                              itemID, 'archived');
+                                          controller.removeFromActiveList(
+                                              currentItem);
                                         },
                                         child: Container(
                                           width: 35,
@@ -222,7 +107,7 @@ class _UserProfileItemPreviewState extends State<UserProfileItemPreview> {
                                           child: const Icon(
                                               MdiIcons.archiveOutline),
                                         ),
-                                      ),
+                                      )
                                     ],
                                   )
                                 : Row(
@@ -230,7 +115,17 @@ class _UserProfileItemPreviewState extends State<UserProfileItemPreview> {
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
                                       GestureDetector(
-                                        onTap: () {},
+                                        onTap: () {
+                                          final currentItem = controller
+                                              .currentUserItemsArchived
+                                              .elementAt(index);
+                                          final itemID = currentItem.itemID;
+
+                                          controller.changeItemStatus(
+                                              itemID, 'active');
+                                          controller.removeFromArchivedList(
+                                              currentItem);
+                                        },
                                         child: Container(
                                           margin:
                                               const EdgeInsets.only(bottom: 5),
@@ -256,11 +151,7 @@ class _UserProfileItemPreviewState extends State<UserProfileItemPreview> {
                                         ),
                                       ),
                                       GestureDetector(
-                                        onTap: () {
-                                          // currentUserItems[widget.index] =
-                                          //     currentUserItems[widget.index]
-                                          //         .copyWith(isArchived: true);
-                                        },
+                                        onTap: () {},
                                         child: Container(
                                           width: 35,
                                           height: 35,

@@ -24,8 +24,6 @@ mixin _$Item {
   String get itemDescription => throw _privateConstructorUsedError;
   @JsonKey(name: 'item_name')
   String get itemName => throw _privateConstructorUsedError;
-  @JsonKey(name: 'location')
-  String get location => throw _privateConstructorUsedError;
   @JsonKey(name: 'category_list')
   List<String?> get categoryList => throw _privateConstructorUsedError;
   @JsonKey(name: 'price_range')
@@ -34,12 +32,12 @@ mixin _$Item {
   String get condition => throw _privateConstructorUsedError;
   @JsonKey(name: 'item_picture_list')
   List<String>? get itemPictureList => throw _privateConstructorUsedError;
-  @JsonKey(name: 'profile_picture')
-  String? get profilePicture => throw _privateConstructorUsedError;
   @JsonKey(name: 'user_ID')
   String get userID => throw _privateConstructorUsedError;
   @JsonKey(name: 'item_ID')
   String get itemID => throw _privateConstructorUsedError;
+  @JsonKey(name: 'item_state')
+  String get itemState => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,14 +52,13 @@ abstract class $ItemCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'item_description') String itemDescription,
       @JsonKey(name: 'item_name') String itemName,
-      @JsonKey(name: 'location') String location,
       @JsonKey(name: 'category_list') List<String?> categoryList,
       @JsonKey(name: 'price_range') String priceRange,
       @JsonKey(name: 'condition') String condition,
       @JsonKey(name: 'item_picture_list') List<String>? itemPictureList,
-      @JsonKey(name: 'profile_picture') String? profilePicture,
       @JsonKey(name: 'user_ID') String userID,
-      @JsonKey(name: 'item_ID') String itemID});
+      @JsonKey(name: 'item_ID') String itemID,
+      @JsonKey(name: 'item_state') String itemState});
 }
 
 /// @nodoc
@@ -79,14 +76,13 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
   $Res call({
     Object? itemDescription = null,
     Object? itemName = null,
-    Object? location = null,
     Object? categoryList = null,
     Object? priceRange = null,
     Object? condition = null,
     Object? itemPictureList = freezed,
-    Object? profilePicture = freezed,
     Object? userID = null,
     Object? itemID = null,
+    Object? itemState = null,
   }) {
     return _then(_value.copyWith(
       itemDescription: null == itemDescription
@@ -96,10 +92,6 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
       itemName: null == itemName
           ? _value.itemName
           : itemName // ignore: cast_nullable_to_non_nullable
-              as String,
-      location: null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
               as String,
       categoryList: null == categoryList
           ? _value.categoryList
@@ -117,10 +109,6 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
           ? _value.itemPictureList
           : itemPictureList // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      profilePicture: freezed == profilePicture
-          ? _value.profilePicture
-          : profilePicture // ignore: cast_nullable_to_non_nullable
-              as String?,
       userID: null == userID
           ? _value.userID
           : userID // ignore: cast_nullable_to_non_nullable
@@ -128,6 +116,10 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
       itemID: null == itemID
           ? _value.itemID
           : itemID // ignore: cast_nullable_to_non_nullable
+              as String,
+      itemState: null == itemState
+          ? _value.itemState
+          : itemState // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -142,14 +134,13 @@ abstract class _$$_ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'item_description') String itemDescription,
       @JsonKey(name: 'item_name') String itemName,
-      @JsonKey(name: 'location') String location,
       @JsonKey(name: 'category_list') List<String?> categoryList,
       @JsonKey(name: 'price_range') String priceRange,
       @JsonKey(name: 'condition') String condition,
       @JsonKey(name: 'item_picture_list') List<String>? itemPictureList,
-      @JsonKey(name: 'profile_picture') String? profilePicture,
       @JsonKey(name: 'user_ID') String userID,
-      @JsonKey(name: 'item_ID') String itemID});
+      @JsonKey(name: 'item_ID') String itemID,
+      @JsonKey(name: 'item_state') String itemState});
 }
 
 /// @nodoc
@@ -163,14 +154,13 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
   $Res call({
     Object? itemDescription = null,
     Object? itemName = null,
-    Object? location = null,
     Object? categoryList = null,
     Object? priceRange = null,
     Object? condition = null,
     Object? itemPictureList = freezed,
-    Object? profilePicture = freezed,
     Object? userID = null,
     Object? itemID = null,
+    Object? itemState = null,
   }) {
     return _then(_$_Item(
       itemDescription: null == itemDescription
@@ -180,10 +170,6 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
       itemName: null == itemName
           ? _value.itemName
           : itemName // ignore: cast_nullable_to_non_nullable
-              as String,
-      location: null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
               as String,
       categoryList: null == categoryList
           ? _value._categoryList
@@ -201,10 +187,6 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
           ? _value._itemPictureList
           : itemPictureList // ignore: cast_nullable_to_non_nullable
               as List<String>?,
-      profilePicture: freezed == profilePicture
-          ? _value.profilePicture
-          : profilePicture // ignore: cast_nullable_to_non_nullable
-              as String?,
       userID: null == userID
           ? _value.userID
           : userID // ignore: cast_nullable_to_non_nullable
@@ -212,6 +194,10 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
       itemID: null == itemID
           ? _value.itemID
           : itemID // ignore: cast_nullable_to_non_nullable
+              as String,
+      itemState: null == itemState
+          ? _value.itemState
+          : itemState // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }
@@ -223,14 +209,13 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
   _$_Item(
       {@JsonKey(name: 'item_description') required this.itemDescription,
       @JsonKey(name: 'item_name') required this.itemName,
-      @JsonKey(name: 'location') required this.location,
       @JsonKey(name: 'category_list') required final List<String?> categoryList,
       @JsonKey(name: 'price_range') required this.priceRange,
       @JsonKey(name: 'condition') required this.condition,
       @JsonKey(name: 'item_picture_list') final List<String>? itemPictureList,
-      @JsonKey(name: 'profile_picture') this.profilePicture,
       @JsonKey(name: 'user_ID') required this.userID,
-      @JsonKey(name: 'item_ID') required this.itemID})
+      @JsonKey(name: 'item_ID') required this.itemID,
+      @JsonKey(name: 'item_state') required this.itemState})
       : _categoryList = categoryList,
         _itemPictureList = itemPictureList;
 
@@ -242,9 +227,6 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
   @override
   @JsonKey(name: 'item_name')
   final String itemName;
-  @override
-  @JsonKey(name: 'location')
-  final String location;
   final List<String?> _categoryList;
   @override
   @JsonKey(name: 'category_list')
@@ -272,18 +254,18 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
   }
 
   @override
-  @JsonKey(name: 'profile_picture')
-  final String? profilePicture;
-  @override
   @JsonKey(name: 'user_ID')
   final String userID;
   @override
   @JsonKey(name: 'item_ID')
   final String itemID;
+  @override
+  @JsonKey(name: 'item_state')
+  final String itemState;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'Item(itemDescription: $itemDescription, itemName: $itemName, location: $location, categoryList: $categoryList, priceRange: $priceRange, condition: $condition, itemPictureList: $itemPictureList, profilePicture: $profilePicture, userID: $userID, itemID: $itemID)';
+    return 'Item(itemDescription: $itemDescription, itemName: $itemName, categoryList: $categoryList, priceRange: $priceRange, condition: $condition, itemPictureList: $itemPictureList, userID: $userID, itemID: $itemID, itemState: $itemState)';
   }
 
   @override
@@ -293,14 +275,13 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
       ..add(DiagnosticsProperty('type', 'Item'))
       ..add(DiagnosticsProperty('itemDescription', itemDescription))
       ..add(DiagnosticsProperty('itemName', itemName))
-      ..add(DiagnosticsProperty('location', location))
       ..add(DiagnosticsProperty('categoryList', categoryList))
       ..add(DiagnosticsProperty('priceRange', priceRange))
       ..add(DiagnosticsProperty('condition', condition))
       ..add(DiagnosticsProperty('itemPictureList', itemPictureList))
-      ..add(DiagnosticsProperty('profilePicture', profilePicture))
       ..add(DiagnosticsProperty('userID', userID))
-      ..add(DiagnosticsProperty('itemID', itemID));
+      ..add(DiagnosticsProperty('itemID', itemID))
+      ..add(DiagnosticsProperty('itemState', itemState));
   }
 
   @override
@@ -312,8 +293,6 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
                 other.itemDescription == itemDescription) &&
             (identical(other.itemName, itemName) ||
                 other.itemName == itemName) &&
-            (identical(other.location, location) ||
-                other.location == location) &&
             const DeepCollectionEquality()
                 .equals(other._categoryList, _categoryList) &&
             (identical(other.priceRange, priceRange) ||
@@ -322,10 +301,10 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
                 other.condition == condition) &&
             const DeepCollectionEquality()
                 .equals(other._itemPictureList, _itemPictureList) &&
-            (identical(other.profilePicture, profilePicture) ||
-                other.profilePicture == profilePicture) &&
             (identical(other.userID, userID) || other.userID == userID) &&
-            (identical(other.itemID, itemID) || other.itemID == itemID));
+            (identical(other.itemID, itemID) || other.itemID == itemID) &&
+            (identical(other.itemState, itemState) ||
+                other.itemState == itemState));
   }
 
   @JsonKey(ignore: true)
@@ -334,14 +313,13 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
       runtimeType,
       itemDescription,
       itemName,
-      location,
       const DeepCollectionEquality().hash(_categoryList),
       priceRange,
       condition,
       const DeepCollectionEquality().hash(_itemPictureList),
-      profilePicture,
       userID,
-      itemID);
+      itemID,
+      itemState);
 
   @JsonKey(ignore: true)
   @override
@@ -361,14 +339,13 @@ abstract class _Item implements Item {
   factory _Item(
       {@JsonKey(name: 'item_description') required final String itemDescription,
       @JsonKey(name: 'item_name') required final String itemName,
-      @JsonKey(name: 'location') required final String location,
       @JsonKey(name: 'category_list') required final List<String?> categoryList,
       @JsonKey(name: 'price_range') required final String priceRange,
       @JsonKey(name: 'condition') required final String condition,
       @JsonKey(name: 'item_picture_list') final List<String>? itemPictureList,
-      @JsonKey(name: 'profile_picture') final String? profilePicture,
       @JsonKey(name: 'user_ID') required final String userID,
-      @JsonKey(name: 'item_ID') required final String itemID}) = _$_Item;
+      @JsonKey(name: 'item_ID') required final String itemID,
+      @JsonKey(name: 'item_state') required final String itemState}) = _$_Item;
 
   factory _Item.fromJson(Map<String, dynamic> json) = _$_Item.fromJson;
 
@@ -378,9 +355,6 @@ abstract class _Item implements Item {
   @override
   @JsonKey(name: 'item_name')
   String get itemName;
-  @override
-  @JsonKey(name: 'location')
-  String get location;
   @override
   @JsonKey(name: 'category_list')
   List<String?> get categoryList;
@@ -394,14 +368,14 @@ abstract class _Item implements Item {
   @JsonKey(name: 'item_picture_list')
   List<String>? get itemPictureList;
   @override
-  @JsonKey(name: 'profile_picture')
-  String? get profilePicture;
-  @override
   @JsonKey(name: 'user_ID')
   String get userID;
   @override
   @JsonKey(name: 'item_ID')
   String get itemID;
+  @override
+  @JsonKey(name: 'item_state')
+  String get itemState;
   @override
   @JsonKey(ignore: true)
   _$$_ItemCopyWith<_$_Item> get copyWith => throw _privateConstructorUsedError;

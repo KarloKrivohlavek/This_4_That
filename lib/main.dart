@@ -10,6 +10,7 @@ import 'package:this_4_that/scratch_files/home_page.dart';
 import 'package:this_4_that/add_item_page.dart';
 import 'package:this_4_that/pages.dart';
 import 'package:this_4_that/profile_page.dart';
+import 'package:this_4_that/screens/splash_page/splash_page_controller.dart';
 import 'package:this_4_that/services/firebase_service.dart';
 import 'package:this_4_that/services/logger_service.dart';
 import 'package:this_4_that/services/storage_service.dart';
@@ -43,83 +44,83 @@ class This4ThatApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       builder: (_, __) => GetMaterialApp(
-        initialRoute: MyRoutes.mainPageScreen,
+        initialRoute: MyRoutes.splashPageScreen,
         initialBinding: InitialBinding(),
         getPages: pages,
       ),
     );
   }
 }
+//
+// class BottomTabBar extends StatefulWidget {
+//   BottomTabBar({Key? key}) : super(key: key);
 
-class BottomTabBar extends StatefulWidget {
-  BottomTabBar({Key? key}) : super(key: key);
-
-  @override
-  State<BottomTabBar> createState() => _BottomTabBarState();
-}
-
-class _BottomTabBarState extends State<BottomTabBar> {
-  int currentIndex = 0;
-
-  List<Widget> pages = [];
-
-  _BottomTabBarState() {
-    pages = [
-      HomePage(),
-      MessagesPage(onReturn: returnToHOme),
-      ChatPage(),
-      // ProfilePage(),
-    ];
-  }
-
-  void returnToHOme() {
-    setState(() {
-      currentIndex = 0;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // final user = UserPreferences.getUser();
-    return Scaffold(
-      body: pages[currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (value) {
-          setState(() {
-            currentIndex = value;
-          });
-        },
-        iconSize: 30,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        backgroundColor: Colors.orange,
-        selectedIconTheme: IconThemeData(color: Colors.white, size: 40),
-        selectedItemColor: Colors.amberAccent,
-        unselectedIconTheme: IconThemeData(
-          color: Colors.black,
-        ),
-        unselectedItemColor: Colors.black,
-        type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('images/logo.png')),
-            label: 'Page 1',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(MdiIcons.plusThick),
-            label: 'Page 2',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(MdiIcons.message),
-            label: 'Page 3',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(MdiIcons.account),
-            label: 'Page 4',
-          ),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   State<BottomTabBar> createState() => _BottomTabBarState();
+// }
+//
+// class _BottomTabBarState extends State<BottomTabBar> {
+//   int currentIndex = 0;
+//
+//   List<Widget> pages = [];
+//
+//   _BottomTabBarState() {
+//     pages = [
+//       HomePage(),
+//       MessagesPage(onReturn: returnToHOme),
+//       ChatPage(),
+//       // ProfilePage(),
+//     ];
+//   }
+//
+//   void returnToHOme() {
+//     setState(() {
+//       currentIndex = 0;
+//     });
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     // final user = UserPreferences.getUser();
+//     return Scaffold(
+//       body: pages[currentIndex],
+//       bottomNavigationBar: BottomNavigationBar(
+//         currentIndex: currentIndex,
+//         onTap: (value) {
+//           setState(() {
+//             currentIndex = value;
+//           });
+//         },
+//         iconSize: 30,
+//         showSelectedLabels: false,
+//         showUnselectedLabels: false,
+//         backgroundColor: Colors.orange,
+//         selectedIconTheme: IconThemeData(color: Colors.white, size: 40),
+//         selectedItemColor: Colors.amberAccent,
+//         unselectedIconTheme: IconThemeData(
+//           color: Colors.black,
+//         ),
+//         unselectedItemColor: Colors.black,
+//         type: BottomNavigationBarType.fixed,
+//         items: const <BottomNavigationBarItem>[
+//           BottomNavigationBarItem(
+//             icon: ImageIcon(AssetImage('images/logo.png')),
+//             label: 'Page 1',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(MdiIcons.plusThick),
+//             label: 'Page 2',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(MdiIcons.message),
+//             label: 'Page 3',
+//           ),
+//           BottomNavigationBarItem(
+//             icon: Icon(MdiIcons.account),
+//             label: 'Page 4',
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
