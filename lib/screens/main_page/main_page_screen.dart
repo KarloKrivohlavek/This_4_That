@@ -5,6 +5,7 @@ import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/screens/add_item/add_item_page_controller.dart';
 import 'package:this_4_that/screens/home/home_page_screen.dart';
 import 'package:this_4_that/screens/messages/messages_page_screen.dart';
+import 'package:this_4_that/screens/profile/profile_page_controller.dart';
 import 'package:this_4_that/screens/profile/profile_page_screen.dart';
 
 import '../add_item/add_item_page_screen.dart';
@@ -34,6 +35,11 @@ class MainPageScreen extends GetView<MainPageController> {
                 if (controller.currentIndex == 1) {
                   // ovo treba dodati
                   Get.find<AddItemPageController>().onInit();
+                }
+
+                if (controller.currentIndex == 3) {
+                  // ovo treba dodati
+                  Get.find<ProfilePageController>().onInit();
                 }
               },
               iconSize: 30,

@@ -200,6 +200,30 @@ class FirebaseService extends GetxService {
     }
   }
 
+  Future<void> updateUserData(Map<String, Object?> data) async {
+    try {
+      await firebaseFirestore
+          .collection(users)
+          .doc(firebaseAuth.currentUser?.uid)
+          .update(data);
+    } catch (e) {
+      logger.e(e);
+    }
+  }
+
+  Future<void> updateUserDataMatchedList(String data) async {
+    try {
+      await firebaseFirestore
+          .collection(users)
+          .doc(firebaseAuth.currentUser?.uid)
+          .update({
+        'matched_item_list_IDs': FieldValue.arrayUnion([data])
+      });
+    } catch (e) {
+      logger.e(e);
+    }
+  }
+
   Future<bool> doesUserDataHaveAName() async {
     bool userHasAName = false;
     await firebaseFirestore
@@ -232,6 +256,32 @@ class FirebaseService extends GetxService {
     return null;
   }
 
+  Future<UserData> getDifferentUserData(String userID) async {
+    final differentUserData = await firebaseFirestore
+        .collection('users')
+        .where('user_ID', isEqualTo: userID)
+        .get()
+        .then((value) => UserData.fromJson(value.docs.first.data()));
+    return differentUserData;
+  }
+
+  Future<void> logOut() async {
+    final socialPlatform = storageService.getString(key: 'socialPlatform');
+    if (socialPlatform == 'google') {
+      final googleSignIn = GoogleSignIn();
+      await googleSignIn.disconnect();
+    }
+
+    await storageService.deleteValue(key: 'socialPlatform');
+    await storageService.deleteValue(key: 'isLoggedIn');
+
+    try {
+      await firebaseAuth.signOut();
+    } on FirebaseAuthException catch (e) {
+      logger.e(e);
+    }
+  }
+
   Future<UserData> getCurrentUserData() async {
     final currentUserData = await firebaseFirestore
         .collection('users')
@@ -245,6 +295,17 @@ class FirebaseService extends GetxService {
     final currentUserItems = await firebaseFirestore
         .collection('items')
         .where('user_ID', isEqualTo: firebaseAuth.currentUser?.uid)
+        .get()
+        .then(
+            (value) => value.docs.map((e) => Item.fromJson(e.data())).toList());
+    return currentUserItems;
+  }
+
+  Future<List<Item>> getDifferentUserItems() async {
+    final currentUserItems = await firebaseFirestore
+        .collection('items')
+        .where('user_ID', isNotEqualTo: firebaseAuth.currentUser?.uid)
+        .where('item_state', isEqualTo: 'active')
         .get()
         .then(
             (value) => value.docs.map((e) => Item.fromJson(e.data())).toList());

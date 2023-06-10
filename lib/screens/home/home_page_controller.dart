@@ -1,7 +1,13 @@
-import 'dart:ffi';
+// import 'dart:ffi';
 
 import 'package:get/get.dart';
 import 'package:this_4_that/data.dart';
+import 'package:this_4_that/models/item/item.dart';
+import 'package:this_4_that/models/swipe_item/swipe_item.dart';
+import 'package:this_4_that/models/user/user.dart';
+import 'package:this_4_that/services/firebase_service.dart';
+import 'package:this_4_that/services/logger_service.dart';
+import 'package:this_4_that/swapItem.dart';
 import 'package:this_4_that/swappable_page.dart';
 
 import '../../flutter_card_swiper.dart';
@@ -9,22 +15,48 @@ import '../../flutter_card_swiper.dart';
 class HomePageController extends GetxController {
   /// DEPENDENCIES
 
+  final firebaseService = Get.find<FirebaseService>();
+
   ///REACTIVE VARIABLES
 
   final RxInt _currentIndex = 0.obs;
   int get currentIndex => _currentIndex.value;
   set currentIndex(int value) => _currentIndex.value = value;
 
-  final RxInt _numberOfCardsDisplayed = 2.obs;
+  final RxInt _numberOfCardsDisplayed = 1.obs;
   int get numberOfCardsDisplayed => _numberOfCardsDisplayed.value;
   set numberOfCardsDisplayed(int value) =>
       _numberOfCardsDisplayed.value = value;
 
-  final RxList<SwappablePage> _cards = <SwappablePage>[].obs;
+  final Rx<UserData> _currentUserData = UserData(
+          dateOfBirth: '',
+          description: '',
+          fullName: '',
+          location: '',
+          userID: '',
+          username: '')
+      .obs;
+  UserData get currentUserData => _currentUserData.value;
+  set currentUserData(UserData value) => _currentUserData.value = value;
+
+  final RxList<SwappablePage> _cards = <SwappablePage>[
+    SwappablePage(
+        item: SwipeItem(
+            itemDescription: '',
+            itemName: '',
+            condition: '',
+            location: '',
+            itemPictureList: [],
+            userID: '',
+            itemID: '',
+            itemState: '',
+            userPictureURL: 'default_user_profile_picture.png',
+            userName: ''))
+  ].obs;
   List<SwappablePage> get cards => _cards;
   set cards(List<SwappablePage> value) => _cards.assignAll(value);
 
-  // final logger = Get.find<LoggerService>();
+  final logger = Get.find<LoggerService>();
 
   ///VARIABLES
 
@@ -33,6 +65,11 @@ class HomePageController extends GetxController {
   //     2; // number of cards that are displayed on the main screen
   List<int> removedItemsFromList =
       []; // list of indices of items that will be removed from the list when the end is reached
+
+  final RxList<Item> _differentUserItems = <Item>[].obs;
+  List<Item> get differentUserItems => _differentUserItems;
+  set differentUserItems(List<Item> value) =>
+      _differentUserItems.assignAll(value);
 
   late CardSwiperController cardswipercontroller;
 
@@ -67,11 +104,44 @@ class HomePageController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
-    cards = cardsElements;
     cardswipercontroller = CardSwiperController();
+    currentUserData = await firebaseService.getCurrentUserData();
+    differentUserItems = await firebaseService.getDifferentUserItems();
+    await fillCardsList(currentUserData.matchedItemListIds ?? []);
+    logger.w(cards);
+    cards.removeLast();
+    if (cards.length > 1) {
+      numberOfCardsDisplayed = 2;
+    }
   }
 
   /// METHODS
+
+  Future<void> fillCardsList(List<String> matchedItems) async {
+    logger.e(matchedItems);
+    for (final item in differentUserItems) {
+      if (!matchedItems.contains(item.itemID)) {
+        logger.v(item);
+        final userData =
+            await firebaseService.getDifferentUserData(item.userID);
+        final swapItem = SwipeItem(
+            itemDescription: item.itemDescription,
+            itemName: item.itemName,
+            condition: item.condition,
+            location: userData.location,
+            userID: item.userID,
+            itemID: item.itemID,
+            itemState: item.itemState,
+            itemPictureList: item.itemPictureList!,
+            userPictureURL:
+                userData.profilePicture ?? 'default_user_profile_picture.png',
+            userName: userData.username);
+        final swapPage = SwappablePage(item: swapItem);
+        // cards.add(swapPage);
+        cards.insert(0, swapPage);
+      }
+    }
+  }
 
 //* Function that is called when user swaps item:
 //* ----- it defines what happens when user swaps to certain side
@@ -92,8 +162,10 @@ class HomePageController extends GetxController {
     /// ---- go to the next page, then get back to previous
     ///
     if (direction.name == 'right') {
-      cards[previousIndex].item =
-          cards[previousIndex].item.copyWith(isMatched: true);
+      firebaseService
+          .updateUserDataMatchedList(cards[previousIndex].item.itemID);
+      // cards[previousIndex].item =
+      //     cards[previousIndex].item.copyWith(isMatched: true);
       removedItemsFromList.add(previousIndex);
     }
 
@@ -104,8 +176,8 @@ class HomePageController extends GetxController {
     return true;
   }
 
-//* Function that is called when the list reaches its end
-//* ------ it defines what happens on lists end
+// * Function that is called when the list reaches its end
+// * ------ it defines what happens on lists end
   void onEnd() {
     final remainedItems = <SwappablePage>[];
 

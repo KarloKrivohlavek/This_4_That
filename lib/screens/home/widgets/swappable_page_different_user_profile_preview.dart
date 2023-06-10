@@ -29,9 +29,10 @@ class SwappablePageDifferentUserPreview extends StatelessWidget {
           decoration: BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
-                image: userProfilePicture == ''
+                image: userProfilePicture!.contains('default')
                     ? AssetImage('images/default_user_profile_picture.png')
-                    : AssetImage(userProfilePicture!),
+                        as ImageProvider
+                    : NetworkImage(userProfilePicture!),
               )),
         ),
         Container(

@@ -86,7 +86,7 @@ class ProfilePageController extends GetxController {
   }
 
   Future<void> signOutUser() async {
-    await FirebaseAuth.instance.signOut();
+    await firebaseService.logOut();
     Get.offAllNamed(MyRoutes.authentificationScreen);
   }
 

@@ -14,7 +14,7 @@ class BottomTabBar extends StatefulWidget {
 class _BottomTabBarState extends State<BottomTabBar> {
   int _currentIndex = 0;
   final pages = [
-    HomePage(),
+    // HomePage(),
     MessagesPage(),
     ChatPage(),
     // ProfilePage(),

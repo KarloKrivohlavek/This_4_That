@@ -578,10 +578,13 @@ class HomePageScreen extends GetView<HomePageController> {
                       cardBuilder: (context, index) {
                         return controller.cards[index];
                       },
-                      isVerticalSwipingEnabled: false,
+                      allowedSwipeDirection:
+                          AllowedSwipeDirection.symmetric(horizontal: true),
                       onSwipe: controller.onSwipe,
                       onEnd: controller.onEnd,
-                      numberOfCardsDisplayed: controller.numberOfCardsDisplayed,
+                      numberOfCardsDisplayed: controller.cards.isEmpty
+                          ? 1
+                          : controller.numberOfCardsDisplayed,
                       padding: const EdgeInsets.only(
                         left: 15,
                         right: 15,
@@ -590,7 +593,8 @@ class HomePageScreen extends GetView<HomePageController> {
                   ),
           ],
         ),
-        floatingActionButton: controller.cards.isEmpty
+        floatingActionButton: controller.cards.isEmpty ||
+                controller.cards.last.item.itemName.isEmpty
             ? const SizedBox()
             : Container(
                 width: Get.size.width,

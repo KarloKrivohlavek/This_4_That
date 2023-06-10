@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
+import 'package:this_4_that/constants/text_styles.dart';
 import 'package:this_4_that/different_user_profile_page_preview.dart';
+import 'package:this_4_that/models/swipe_item/swipe_item.dart';
 import 'package:this_4_that/screens/home/widgets/swappable_page_different_user_profile_preview.dart';
 
 import 'package:this_4_that/swappable_item.dart';
@@ -14,7 +16,7 @@ class SwappablePage extends StatefulWidget {
     required this.item,
   });
 
-  SwapItem item;
+  SwipeItem item;
 
   @override
   State<SwappablePage> createState() => _SwappablePageState();
@@ -40,9 +42,10 @@ class _SwappablePageState extends State<SwappablePage> {
                       if (tapDetails.localPosition.dx >
                           MediaQuery.of(context).size.width / 2) {
                         if (currentPosition >=
-                            widget.item.imagesURLs.length - 1) {
+                            widget.item.itemPictureList.length - 1) {
                           setState(() {
-                            currentPosition = widget.item.imagesURLs.length - 1;
+                            currentPosition =
+                                widget.item.itemPictureList.length - 1;
                           });
                         } else {
                           setState(() {
@@ -68,7 +71,7 @@ class _SwappablePageState extends State<SwappablePage> {
                         onPageChanged: (value) {
                           setState(() => currentPosition = value);
                         },
-                        itemCount: widget.item.imagesURLs.length,
+                        itemCount: widget.item.itemPictureList.length,
                         itemBuilder: (context, index) => Padding(
                           padding: const EdgeInsets.only(top: 0),
                           child: Column(
@@ -82,8 +85,8 @@ class _SwappablePageState extends State<SwappablePage> {
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     image: DecorationImage(
-                                      image: AssetImage(widget
-                                          .item.imagesURLs[currentPosition]),
+                                      image: NetworkImage(widget.item
+                                          .itemPictureList[currentPosition]),
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -96,6 +99,16 @@ class _SwappablePageState extends State<SwappablePage> {
                       ),
                     ),
                   ),
+                  widget.item.userName.isEmpty
+                      ? SizedBox(
+                          child: Center(
+                            child: Text(
+                              'Učitavanje',
+                              style: MyTextStyles.poppins40w700,
+                            ),
+                          ),
+                        )
+                      : SizedBox(),
                   Container(
                     margin: EdgeInsets.only(top: 300),
                     padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -105,7 +118,7 @@ class _SwappablePageState extends State<SwappablePage> {
                       children: [
                         Row(children: [
                           Text(
-                            widget.item.title,
+                            widget.item.itemName,
                             style: const TextStyle(
                               fontSize: 24,
                               fontWeight: FontWeight.w700,
@@ -118,7 +131,9 @@ class _SwappablePageState extends State<SwappablePage> {
                         ),
                         Row(
                           children: [
-                            const Icon(Icons.location_pin),
+                            widget.item.userName.isEmpty
+                                ? SizedBox()
+                                : Icon(Icons.location_pin),
                             Text(
                               widget.item.location,
                               style: const TextStyle(fontSize: 16),
@@ -127,16 +142,9 @@ class _SwappablePageState extends State<SwappablePage> {
                         ),
                         Row(
                           children: [
-                            const Icon(Icons.cake),
-                            Text(
-                              widget.item.age,
-                              style: const TextStyle(fontSize: 16),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            const Icon(Icons.search),
+                            widget.item.userName.isEmpty
+                                ? SizedBox()
+                                : Icon(Icons.search),
                             Text(
                               widget.item.condition,
                               style: const TextStyle(fontSize: 16),
@@ -147,14 +155,16 @@ class _SwappablePageState extends State<SwappablePage> {
                           height: 130,
                         ),
                         Row(
-                          children: const [
-                            Text(
-                              'O predmetu',
-                              style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )
+                          children: [
+                            widget.item.userName.isEmpty
+                                ? SizedBox()
+                                : Text(
+                                    'O predmetu',
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )
                           ],
                         ),
                         const SizedBox(
@@ -165,7 +175,7 @@ class _SwappablePageState extends State<SwappablePage> {
                             SizedBox(
                               width: MediaQuery.of(context).size.width * 0.85,
                               child: Text(
-                                widget.item.description,
+                                widget.item.itemDescription,
                                 style: const TextStyle(fontSize: 20),
                               ),
                             ),
@@ -175,14 +185,16 @@ class _SwappablePageState extends State<SwappablePage> {
                           height: 20,
                         ),
                         Row(
-                          children: const [
-                            Text(
-                              'Tko mijenja?',
-                              style: TextStyle(
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            )
+                          children: [
+                            widget.item.userName.isEmpty
+                                ? SizedBox()
+                                : Text(
+                                    'Tko mijenja?',
+                                    style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  )
                           ],
                         ),
                         const SizedBox(
@@ -197,11 +209,14 @@ class _SwappablePageState extends State<SwappablePage> {
                                       DifferentUserProfilePagePreview()),
                             );
                           },
-                          child: SwappablePageDifferentUserPreview(
-                            userProfileName: widget.item.userName,
-                            userProfileRating: widget.item.rating,
-                            userProfilePicture: widget.item.userProfilePicture,
-                          ),
+                          child: widget.item.userName.isEmpty
+                              ? SizedBox()
+                              : SwappablePageDifferentUserPreview(
+                                  userProfileName: widget.item.userName,
+                                  userProfileRating: 5,
+                                  userProfilePicture:
+                                      widget.item.userPictureURL,
+                                ),
                         ),
                         const SizedBox(
                           height: 100,
@@ -221,16 +236,17 @@ class _SwappablePageState extends State<SwappablePage> {
                                 shrinkWrap: true,
                                 physics: const NeverScrollableScrollPhysics(),
                                 scrollDirection: Axis.horizontal,
-                                itemCount: widget.item.imagesURLs.length,
+                                itemCount: widget.item.itemPictureList.length,
                                 itemBuilder: (context, index) {
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 5),
                                     child: Container(
-                                      width:
-                                          (MediaQuery.of(context).size.width *
-                                                  0.8) /
-                                              widget.item.imagesURLs.length,
+                                      width: (MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.8) /
+                                          widget.item.itemPictureList.length,
                                       height: 50,
                                       decoration: BoxDecoration(
                                           borderRadius: const BorderRadius.all(
