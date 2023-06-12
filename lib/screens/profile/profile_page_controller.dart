@@ -102,6 +102,20 @@ class ProfilePageController extends GetxController {
     }
   }
 
+  changeItemStateToArchived(index) {
+    final currentItem = currentUserItemsActive.elementAt(index);
+    final itemID = currentItem.itemID;
+    print(currentItem.itemID);
+    changeItemStatus(itemID, 'archived');
+    removeFromActiveList(currentItem);
+  }
+
+  void deleteCurrentItem(index) {
+    final currentItem = currentUserItemsActive.elementAt(index);
+    final itemID = currentItem.itemID;
+    firebaseService.deleteCurrentUserItems(itemID);
+  }
+
   void removeFromActiveList(Item item) {
     currentUserItemsActive.remove(item);
     currentUserItemsArchived.add(item);

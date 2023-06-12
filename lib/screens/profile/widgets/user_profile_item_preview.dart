@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:this_4_that/authentification_screens/authentification_screen_1_login.dart';
 import 'package:this_4_that/constants/colors.dart';
+import 'package:this_4_that/constants/strings.dart';
 import 'package:this_4_that/data.dart';
 import 'package:this_4_that/screens/profile/profile_page_controller.dart';
 import 'package:this_4_that/services/firebase_service.dart';
@@ -88,15 +89,16 @@ class UserProfileItemPreview extends GetView<ProfilePageController> {
                                       ),
                                       GestureDetector(
                                         onTap: () {
-                                          final currentItem = controller
-                                              .currentUserItemsActive
-                                              .elementAt(index);
-                                          final itemID = currentItem.itemID;
-
-                                          controller.changeItemStatus(
-                                              itemID, 'archived');
-                                          controller.removeFromActiveList(
-                                              currentItem);
+                                          Get.dialog(CustomDialog(
+                                              title: 'Arhiviraj',
+                                              text: MyStrings.archiveItemDialog,
+                                              button1: 'Arhiviraj',
+                                              button2: 'Odustani',
+                                              action: () {}
+                                              // controller
+                                              //     .changeItemStateToArchived(
+                                              //         index)
+                                              ));
                                         },
                                         child: Container(
                                           width: 35,
@@ -151,7 +153,9 @@ class UserProfileItemPreview extends GetView<ProfilePageController> {
                                         ),
                                       ),
                                       GestureDetector(
-                                        onTap: () {},
+                                        onTap: () {
+                                          controller.deleteCurrentItem(index);
+                                        },
                                         child: Container(
                                           width: 35,
                                           height: 35,

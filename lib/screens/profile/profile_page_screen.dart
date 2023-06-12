@@ -174,21 +174,21 @@ class ProfilePageScreen extends GetView<ProfilePageController> {
                       ),
                     ),
                   ),
-            GestureDetector(
-              onTap: () {
-                Get.toNamed(MyRoutes.authentificationScreen);
-              },
-              child: Container(
-                color: Colors.red,
-                height: 100,
-                width: 150,
-                child: Center(
-                    child: Text(
-                  'Sign in screen',
-                  style: TextStyle(color: Colors.white),
-                )),
-              ),
-            ),
+            // GestureDetector(
+            //   onTap: () {
+            //     Get.toNamed(MyRoutes.authentificationScreen);
+            //   },
+            //   child: Container(
+            //     color: Colors.red,
+            //     height: 100,
+            //     width: 150,
+            //     child: Center(
+            //         child: Text(
+            //       'Sign in screen',
+            //       style: TextStyle(color: Colors.white),
+            //     )),
+            //   ),
+            // ),
             GestureDetector(
               onTap: () {
                 Get.dialog(CustomDialog(

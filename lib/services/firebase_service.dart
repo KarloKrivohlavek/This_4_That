@@ -301,6 +301,22 @@ class FirebaseService extends GetxService {
     return currentUserItems;
   }
 
+  Future<void> deleteCurrentUserItems(String itemId) async {
+    try {
+      await firebaseFirestore.collection(items).doc(itemId).delete();
+    } catch (e) {
+      logger.e(e);
+    }
+  }
+
+  // Future<void> updateItemData(Map<String, Object?> data, String itemId) async {
+  //   try {
+  //     await firebaseFirestore.collection(items).doc(itemId).update(data);
+  //   } catch (e) {
+  //     logger.e(e);
+  //   }
+  // }
+
   Future<List<Item>> getDifferentUserItems() async {
     final currentUserItems = await firebaseFirestore
         .collection('items')

@@ -17,7 +17,7 @@ class CustomDialog extends StatelessWidget {
 
   String title;
   String text;
-  Function() action;
+  void Function() action;
   String button1;
   String button2;
 
