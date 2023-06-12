@@ -9,7 +9,8 @@ import 'package:this_4_that/add_item_pages/add_item_page_item_added.dart';
 import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/constants/strings.dart';
 import 'package:this_4_that/constants/text_styles.dart';
-import 'package:this_4_that/matched_item_screen.dart';
+import 'package:this_4_that/screens/matched_item_screen.dart';
+import 'package:this_4_that/pages.dart';
 import 'package:this_4_that/screens/add_item/add_item_page_controller.dart';
 import 'package:this_4_that/screens/add_item_page_0/add_item_page_0_controller.dart';
 import 'package:this_4_that/widget/filled_color_button_widget.dart';
@@ -50,12 +51,14 @@ class AddItemPage0 extends GetView<AddItemPage0Controller> {
                         'Dobrodošao ',
                         style: MyTextStyles.poppins24w700,
                       ),
-                      Text(
-                        'Korisnik',
-                        style: GoogleFonts.poppins(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w700,
-                            color: MyColors.orange),
+                      Obx(
+                        () => Text(
+                          controller.userNickname,
+                          style: GoogleFonts.poppins(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w700,
+                              color: MyColors.orange),
+                        ),
                       ),
                     ],
                   ),
@@ -79,10 +82,8 @@ class AddItemPage0 extends GetView<AddItemPage0Controller> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => AddItemPage1()),
-                      );
+                      Get.offAllNamed(MyRoutes.addItemPageScreen,
+                          arguments: {'advertType': 'first'});
                     },
                     child: OutlinedColorButtonWidget(
                         buttonHeight: 48.h,
@@ -95,11 +96,7 @@ class AddItemPage0 extends GetView<AddItemPage0Controller> {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MatchedItemPage()),
-                      );
+                      Get.offAllNamed(MyRoutes.mainPageScreen);
                     },
                     child: OutlinedColorButtonWidget(
                         buttonHeight: 48.h,

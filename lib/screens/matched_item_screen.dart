@@ -3,10 +3,13 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:this_4_that/add_item_pages/add_item_page_item_added.dart';
 import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/constants/strings.dart';
 import 'package:this_4_that/constants/text_styles.dart';
+import 'package:this_4_that/pages.dart';
+import 'package:this_4_that/screens/main_page/main_page_controller.dart';
 import 'package:this_4_that/widget/filled_color_button_widget.dart';
 import 'package:this_4_that/widget/number_of_pages_indicator_widget.dart';
 import 'package:this_4_that/widget/outlined_color_button_widget.dart';
@@ -55,6 +58,8 @@ class _MatchedItemPageState extends State<MatchedItemPage> {
                       children: [
                         Expanded(
                           child: OverlappedImagesWidget(
+                            image1URL: Get.arguments.item1PictureURL,
+                            image2URL: Get.arguments.item2PictureURL,
                             image1WidthHeight: 142,
                             image2WidthHeight: 190,
                             logoWidthHeight: 71,
@@ -66,7 +71,7 @@ class _MatchedItemPageState extends State<MatchedItemPage> {
                   Container(
                     width: 270.w,
                     child: Text(
-                      'Javite se korisniku  i razmjenite predmete!',
+                      'Javite se korisniku ${Get.arguments.user2Username} i razmjenite predmete!',
                       textAlign: TextAlign.center,
                       style: MyTextStyles.poppins16w400,
                     ),
@@ -78,21 +83,23 @@ class _MatchedItemPageState extends State<MatchedItemPage> {
               ),
               Column(
                 children: [
-                  OutlinedColorButtonWidget(
-                      buttonHeight: 48.h,
-                      buttonText: 'Pošalji poruku',
-                      buttonWidth: MediaQuery.of(context).size.width,
-                      isOn: true),
+                  GestureDetector(
+                    onTap: () {
+                      Get.find<MainPageController>().currentIndex = 2;
+                      Get.offNamed(MyRoutes.mainPageScreen);
+                    },
+                    child: OutlinedColorButtonWidget(
+                        buttonHeight: 48.h,
+                        buttonText: 'Pošalji poruku',
+                        buttonWidth: MediaQuery.of(context).size.width,
+                        isOn: true),
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AddItemPageItemAdded()),
-                      );
+                      Get.back();
                     },
                     child: OutlinedColorButtonWidget(
                         buttonHeight: 48.h,

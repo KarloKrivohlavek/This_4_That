@@ -9,8 +9,12 @@ class OverlappedImagesWidget extends StatelessWidget {
       {super.key,
       required this.image1WidthHeight,
       required this.image2WidthHeight,
-      required this.logoWidthHeight});
+      required this.logoWidthHeight,
+      required this.image1URL,
+      required this.image2URL});
 
+  final String image1URL;
+  final String image2URL;
   final double? image1WidthHeight;
   final double? image2WidthHeight;
   final double? logoWidthHeight;
@@ -26,7 +30,7 @@ class OverlappedImagesWidget extends StatelessWidget {
               shape: BoxShape.circle,
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage('images/mouse.jpg'),
+                image: NetworkImage(image1URL),
               ),
             ),
             width: image1WidthHeight,
@@ -44,7 +48,7 @@ class OverlappedImagesWidget extends StatelessWidget {
               shape: BoxShape.circle,
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage('images/wallet.jpg'),
+                image: NetworkImage(image2URL),
               ),
             ),
             width: image2WidthHeight,

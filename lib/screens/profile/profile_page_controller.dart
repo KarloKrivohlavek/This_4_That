@@ -32,7 +32,8 @@ class ProfilePageController extends GetxController {
           fullName: '',
           location: '',
           userID: '',
-          username: '')
+          username: '',
+          email: '')
       .obs;
   UserData get currentUserData => _currentUserData.value;
   set currentUserData(UserData value) => _currentUserData.value = value;
@@ -110,10 +111,15 @@ class ProfilePageController extends GetxController {
     removeFromActiveList(currentItem);
   }
 
-  void deleteCurrentItem(index) {
-    final currentItem = currentUserItemsActive.elementAt(index);
+  Future<void> deleteCurrentItem(index) async {
+    final currentItem = currentUserItemsArchived.elementAt(index);
     final itemID = currentItem.itemID;
-    firebaseService.deleteCurrentUserItems(itemID);
+    await firebaseService.deleteMatchedItemsFromDifferentUsers(itemID);
+    for (final image in currentItem.itemPictureList!) {
+      await firebaseService.deleteItemImagesFromStorage(image);
+    }
+    await firebaseService.deleteCurrentUserItems(itemID);
+    currentUserItemsArchived.remove(currentItem);
   }
 
   void removeFromActiveList(Item item) {

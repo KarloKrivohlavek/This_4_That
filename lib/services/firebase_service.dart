@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,11 +10,14 @@ import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:this_4_that/authentification_screens/authentification_screen_1_login.dart';
 import 'package:this_4_that/authentification_screens/authentification_screen_2_name_surname.dart';
+import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/data.dart';
 import 'package:this_4_that/models/item/item.dart';
+import 'package:this_4_that/models/match/match.dart';
 import 'package:this_4_that/pages.dart';
 import 'package:this_4_that/services/logger_service.dart';
 import 'package:this_4_that/services/storage_service.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../models/user/user.dart';
 
@@ -42,6 +46,7 @@ class FirebaseService extends GetxService {
 // collections
   String users = 'users';
   String items = 'items';
+  String matches = 'matches';
 
   ///  FUNCTION: get Google credential
   Future<void> signInWithGoogle() async {
@@ -154,6 +159,9 @@ class FirebaseService extends GetxService {
 
   Future<String> sendNewItemData(Item item) async {
     String itemID = '';
+    unawaited(Get.dialog(SpinKitChasingDots(
+      color: MyColors.orange,
+    )));
     try {
       await firebaseFirestore
           .collection(items)
@@ -164,10 +172,28 @@ class FirebaseService extends GetxService {
         });
         itemID = itemRef.id;
       });
+      Get.back();
+    } catch (e) {
+      logger.e(e);
+      Get.back();
+    }
+
+    return itemID;
+  }
+
+  Future<void> sendNewMatchData(MatchedItems match) async {
+    try {
+      await firebaseFirestore
+          .collection(matches)
+          .add(match.toJson())
+          .then((matchRef) {
+        firebaseFirestore.collection(matches).doc(matchRef.id).update({
+          'match_ID': matchRef.id,
+        });
+      });
     } catch (e) {
       logger.e(e);
     }
-    return itemID;
   }
 
   Future<String> uploadItemPictures(File file, String itemId) async {
@@ -256,6 +282,40 @@ class FirebaseService extends GetxService {
     return null;
   }
 
+  Future<void> deleteMatchedItemsFromDifferentUsers(String itemID) async {
+    try {
+      List<UserData> matchedUsersList = <UserData>[];
+
+      matchedUsersList = await firebaseFirestore
+          .collection('users')
+          .where('matched_item_list_IDs', arrayContains: itemID)
+          .get()
+          .then((value) =>
+              value.docs.map((e) => UserData.fromJson(e.data())).toList());
+      for (final user in matchedUsersList) {
+        firebaseFirestore.collection('users').doc(user.userID).update({
+          'matched_item_list_IDs': FieldValue.arrayRemove([itemID])
+        });
+      }
+      logger.wtf(matchedUsersList);
+    }
+// remove duplicates before sending a list (two litters can have the same therapy)
+
+    catch (e) {
+      SnackBar(content: Text('Error with getting all items'));
+    }
+  }
+
+  Future<void> deleteItemImagesFromStorage(String URL) async {
+    if (URL.isNotEmpty) {
+      try {
+        await firebaseStorage.refFromURL(URL).delete();
+      } catch (e) {
+        print(e);
+      }
+    }
+  }
+
   Future<UserData> getDifferentUserData(String userID) async {
     final differentUserData = await firebaseFirestore
         .collection('users')
@@ -291,6 +351,15 @@ class FirebaseService extends GetxService {
     return currentUserData;
   }
 
+  Future<Item> getItemData(String itemID) async {
+    final itemData = await firebaseFirestore
+        .collection('items')
+        .doc(itemID)
+        .get()
+        .then((value) => Item.fromJson(value.data()!));
+    return itemData;
+  }
+
   Future<List<Item>> getCurrentUserItems() async {
     final currentUserItems = await firebaseFirestore
         .collection('items')
@@ -299,6 +368,17 @@ class FirebaseService extends GetxService {
         .then(
             (value) => value.docs.map((e) => Item.fromJson(e.data())).toList());
     return currentUserItems;
+  }
+
+  Future<List<Item>> getCurrentUserItemsActive() async {
+    final currentUserItemsActive = await firebaseFirestore
+        .collection('items')
+        .where('user_ID', isEqualTo: firebaseAuth.currentUser?.uid)
+        .where('item_state', isEqualTo: 'active')
+        .get()
+        .then(
+            (value) => value.docs.map((e) => Item.fromJson(e.data())).toList());
+    return currentUserItemsActive;
   }
 
   Future<void> deleteCurrentUserItems(String itemId) async {

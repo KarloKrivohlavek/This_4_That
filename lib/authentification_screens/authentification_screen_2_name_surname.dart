@@ -18,7 +18,7 @@ class AuthentificationScreen2NameSurname
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: true,
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -38,18 +38,18 @@ class AuthentificationScreen2NameSurname
                       currentPosition: 0,
                     ),
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 10.h),
                   Text(
                     'Kako se zoveš?',
                     style: MyTextStyles.poppins40w700,
                   ),
-                  SizedBox(height: 10),
+                  SizedBox(height: 10.h),
                   Text(
                     'Ovo nećeš moći mijenjati, ali se neće prikazivati javno na profilu.',
                     style: MyTextStyles.poppins16w400,
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 20.h,
                   ),
                   TextField(
                     style: MyTextStyles.poppins16w400,

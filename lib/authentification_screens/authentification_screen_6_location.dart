@@ -9,7 +9,7 @@ import 'package:this_4_that/authentification_screens/authentification_controller
 import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/constants/strings.dart';
 import 'package:this_4_that/constants/text_styles.dart';
-import 'package:this_4_that/matched_item_screen.dart';
+import 'package:this_4_that/screens/matched_item_screen.dart';
 import 'package:this_4_that/widget/filled_color_button_widget.dart';
 import 'package:this_4_that/widget/number_of_pages_indicator_widget.dart';
 import 'package:this_4_that/widget/outlined_color_button_widget.dart';

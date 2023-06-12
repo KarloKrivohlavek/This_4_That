@@ -20,6 +20,7 @@ _$_UserData _$$_UserDataFromJson(Map<String, dynamic> json) => _$_UserData(
       profilePicture: json['profile_picture'] as String?,
       userID: json['user_ID'] as String,
       username: json['username'] as String,
+      email: json['email'] as String,
     );
 
 Map<String, dynamic> _$$_UserDataToJson(_$_UserData instance) =>
@@ -33,4 +34,5 @@ Map<String, dynamic> _$$_UserDataToJson(_$_UserData instance) =>
       'profile_picture': instance.profilePicture,
       'user_ID': instance.userID,
       'username': instance.username,
+      'email': instance.email,
     };

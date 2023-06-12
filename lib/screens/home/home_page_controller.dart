@@ -2,7 +2,9 @@
 
 import 'package:get/get.dart';
 import 'package:this_4_that/data.dart';
+import 'package:this_4_that/screens/matched_item_screen.dart';
 import 'package:this_4_that/models/item/item.dart';
+import 'package:this_4_that/models/match/match.dart';
 import 'package:this_4_that/models/swipe_item/swipe_item.dart';
 import 'package:this_4_that/models/user/user.dart';
 import 'package:this_4_that/services/firebase_service.dart';
@@ -34,7 +36,8 @@ class HomePageController extends GetxController {
           fullName: '',
           location: '',
           userID: '',
-          username: '')
+          username: '',
+          email: '')
       .obs;
   UserData get currentUserData => _currentUserData.value;
   set currentUserData(UserData value) => _currentUserData.value = value;
@@ -58,6 +61,15 @@ class HomePageController extends GetxController {
 
   final logger = Get.find<LoggerService>();
 
+  final RxInt _selectedItemIndex = 0.obs;
+  int get selectedItemIndex => _selectedItemIndex.value;
+  set selectedItemIndex(int value) => _selectedItemIndex.value = value;
+
+  final RxInt _modalBottomSheetItemIndex = 0.obs;
+  int get modalBottomSheetItemIndex => _modalBottomSheetItemIndex.value;
+  set modalBottomSheetItemIndex(int value) =>
+      _modalBottomSheetItemIndex.value = value;
+
   ///VARIABLES
 
   // all available cards with item image description etc.
@@ -76,28 +88,32 @@ class HomePageController extends GetxController {
   int selectedImageIndex = 0;
   int pendingImageIndex = -1;
   int currentSwapPageIndex = 0;
-  List<Map<String, dynamic>> images = [
-    {
-      'name': 'Lampa',
-      'url': 'images/lamp.jpg',
-      'isOn': false,
-    },
-    {
-      'name': 'Logitech mis',
-      'url': 'images/mouse.jpg',
-      'isOn': false,
-    },
-    {
-      'name': 'Novcanik',
-      'url': 'images/wallet.jpg',
-      'isOn': false,
-    },
-    {
-      'name': 'Sat',
-      'url': 'images/watch.jpg',
-      'isOn': false,
-    },
-  ];
+  // List<Map<String, dynamic>> images = [
+  //   {
+  //     'name': 'Lampa',
+  //     'url': 'images/lamp.jpg',
+  //     'isOn': false,
+  //   },
+  //   {
+  //     'name': 'Logitech mis',
+  //     'url': 'images/mouse.jpg',
+  //     'isOn': false,
+  //   },
+  //   {
+  //     'name': 'Novcanik',
+  //     'url': 'images/wallet.jpg',
+  //     'isOn': false,
+  //   },
+  //   {
+  //     'name': 'Sat',
+  //     'url': 'images/watch.jpg',
+  //     'isOn': false,
+  //   },
+  // ];
+
+  final RxList<Item> _currentUserItems = <Item>[].obs;
+  List<Item> get currentUserItems => _currentUserItems;
+  set currentUserItems(List<Item> value) => _currentUserItems.assignAll(value);
 
   /// INIT
 
@@ -106,7 +122,10 @@ class HomePageController extends GetxController {
     super.onInit();
     cardswipercontroller = CardSwiperController();
     currentUserData = await firebaseService.getCurrentUserData();
+    currentUserItems = await firebaseService.getCurrentUserItemsActive();
+    logger.wtf(currentUserItems);
     differentUserItems = await firebaseService.getDifferentUserItems();
+
     await fillCardsList(currentUserData.matchedItemListIds ?? []);
     logger.w(cards);
     cards.removeLast();
@@ -116,6 +135,48 @@ class HomePageController extends GetxController {
   }
 
   /// METHODS
+
+  Future<MatchedItems> checkIfMatched(int previousIndex) async {
+    MatchedItems match = MatchedItems(
+        item1Name: '',
+        item2Name: '',
+        user1Username: '',
+        user2Username: '',
+        item1PictureURL: '',
+        item2PictureURL: '',
+        user1ID: '',
+        user2ID: '',
+        item1ID: '',
+        item2ID: '',
+        matchID: '');
+
+    final differentUserItem =
+        await firebaseService.getItemData(cards[previousIndex].item.itemID);
+    logger.e(differentUserItem);
+    final differentUserData =
+        await firebaseService.getDifferentUserData(differentUserItem.userID);
+    logger.w(differentUserData);
+    if (differentUserData.matchedItemListIds != null) {
+      final currentUserItem = currentUserItems.elementAt(selectedItemIndex);
+      if (differentUserData.matchedItemListIds!
+          .contains(currentUserItems.elementAt(selectedItemIndex).itemID)) {
+        match = MatchedItems(
+            item1Name: currentUserItem.itemName,
+            item2Name: differentUserItem.itemName,
+            user1Username: currentUserData.username,
+            user2Username: differentUserData.username,
+            item1PictureURL: currentUserItem.itemPictureList![0],
+            item2PictureURL: differentUserItem.itemPictureList![0],
+            user1ID: currentUserData.userID,
+            user2ID: differentUserData.userID,
+            item1ID: currentUserItem.itemID,
+            item2ID: differentUserItem.itemID,
+            matchID: '');
+        await firebaseService.sendNewMatchData(match);
+      }
+    }
+    return match;
+  }
 
   Future<void> fillCardsList(List<String> matchedItems) async {
     logger.e(matchedItems);
@@ -146,11 +207,11 @@ class HomePageController extends GetxController {
 //* Function that is called when user swaps item:
 //* ----- it defines what happens when user swaps to certain side
 
-  bool onSwipe(
+  Future<bool> onSwipe(
     int previousIndex,
     int? currentIndex,
     CardSwiperDirection direction,
-  ) {
+  ) async {
     /// when user swipes left:
     /// ----- put the index of the item to be removed into a list
     if (direction.name == 'left') {
@@ -164,9 +225,12 @@ class HomePageController extends GetxController {
     if (direction.name == 'right') {
       firebaseService
           .updateUserDataMatchedList(cards[previousIndex].item.itemID);
+      final match = await checkIfMatched(previousIndex);
       // cards[previousIndex].item =
       //     cards[previousIndex].item.copyWith(isMatched: true);
       removedItemsFromList.add(previousIndex);
+
+      Get.to(() => MatchedItemPage(), arguments: match);
     }
 
     /// if there is the only one item left - change number of cards to display to 1
@@ -205,11 +269,11 @@ class HomePageController extends GetxController {
     }
   }
 
-  String getSelectedImageName() {
-    if (pendingImageIndex != -1) {
-      return images[pendingImageIndex]['name'];
-    } else {
-      return images[selectedImageIndex]['name'];
-    }
-  }
+  // String getSelectedImageName() {
+  //   if (pendingImageIndex != -1) {
+  //     return images[pendingImageIndex]['name'];
+  //   } else {
+  //     return images[selectedImageIndex]['name'];
+  //   }
+  // }
 }

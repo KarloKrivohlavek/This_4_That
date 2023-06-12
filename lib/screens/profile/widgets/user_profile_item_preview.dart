@@ -94,11 +94,12 @@ class UserProfileItemPreview extends GetView<ProfilePageController> {
                                               text: MyStrings.archiveItemDialog,
                                               button1: 'Arhiviraj',
                                               button2: 'Odustani',
-                                              action: () {}
-                                              // controller
-                                              //     .changeItemStateToArchived(
-                                              //         index)
-                                              ));
+                                              action: () {
+                                                controller
+                                                    .changeItemStateToArchived(
+                                                        index);
+                                                Get.back();
+                                              }));
                                         },
                                         child: Container(
                                           width: 35,
@@ -153,8 +154,9 @@ class UserProfileItemPreview extends GetView<ProfilePageController> {
                                         ),
                                       ),
                                       GestureDetector(
-                                        onTap: () {
-                                          controller.deleteCurrentItem(index);
+                                        onTap: () async {
+                                          await controller
+                                              .deleteCurrentItem(index);
                                         },
                                         child: Container(
                                           width: 35,

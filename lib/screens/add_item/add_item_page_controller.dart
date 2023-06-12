@@ -101,15 +101,19 @@ class AddItemPageController extends GetxController {
 
   // final logger = Get.find<LoggerService>();
 
+  String advertType = '';
+
   /// INIT
 
   @override
   Future<void> onInit() async {
     super.onInit();
+
     activeStep = 0;
     addListeners();
     pickedCategoriesConstants = MyConstants.allCategories;
     clearData();
+    checkArguments();
   }
 
   // @override
@@ -122,6 +126,16 @@ class AddItemPageController extends GetxController {
   ///
   /// METHODS
   ///
+
+  void checkArguments() {
+    if (Get.arguments != null) {
+      final advertTypeKey = Get.arguments.keys
+          .firstWhere((key) => key == 'advertType', orElse: () => '');
+      if (advertTypeKey.isNotEmpty) {
+        advertType = Get.arguments[advertTypeKey];
+      }
+    }
+  }
 
   void addListeners() {
     //ovaj listener sluzi za saveanje imena predmeta

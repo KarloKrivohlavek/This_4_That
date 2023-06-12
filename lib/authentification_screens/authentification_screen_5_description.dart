@@ -18,7 +18,7 @@ class AuthentificationScreen5Description
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: true,
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           leading: BackButton(
             color: MyColors.black,

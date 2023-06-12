@@ -16,6 +16,7 @@ class UserData with _$UserData {
     @JsonKey(name: 'profile_picture') String? profilePicture,
     @JsonKey(name: 'user_ID') required String userID,
     @JsonKey(name: 'username') required String username,
+    @JsonKey(name: 'email') required String email,
   }) = _UserData;
 
   factory UserData.fromJson(Map<String, dynamic> json) =>

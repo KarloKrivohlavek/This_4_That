@@ -13,6 +13,7 @@ dependencies:
   datepicker_dropdown: ^0.0.7+5
   flutter_card_swiper: ^5.1.0
   flutter_rating_bar: ^4.0.1
+  flutter_spinkit: ^5.2.0
   flutter_screenutil: 5.5.4
   flutter_svg: ^2.0.5
   freezed: ^2.3.4

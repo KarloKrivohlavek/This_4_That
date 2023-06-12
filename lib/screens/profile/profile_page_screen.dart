@@ -202,6 +202,7 @@ class ProfilePageScreen extends GetView<ProfilePageController> {
                     }));
               },
               child: Container(
+                padding: EdgeInsets.only(bottom: 10),
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Container(
@@ -223,16 +224,6 @@ class ProfilePageScreen extends GetView<ProfilePageController> {
                 ]),
               ),
             ),
-            GestureDetector(
-              onTap: () {
-                // controller.changeStateTO();
-                controller.printUID();
-              },
-              child: Container(
-                color: Colors.red,
-                height: 30,
-              ),
-            )
           ],
         )));
   }

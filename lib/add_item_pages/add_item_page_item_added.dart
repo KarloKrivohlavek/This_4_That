@@ -8,9 +8,11 @@ import 'package:this_4_that/constants/strings.dart';
 import 'package:this_4_that/constants/text_styles.dart';
 import 'package:this_4_that/pages.dart';
 import 'package:this_4_that/screens/add_item/add_item_page_controller.dart';
+import 'package:this_4_that/screens/home/home_page_controller.dart';
 import 'package:this_4_that/screens/home/home_page_screen.dart';
 import 'package:this_4_that/screens/main_page/main_page_controller.dart';
 import 'package:this_4_that/screens/main_page/main_page_screen.dart';
+import 'package:this_4_that/services/firebase_service.dart';
 import 'package:this_4_that/widget/filled_color_button_widget.dart';
 import 'package:this_4_that/widget/number_of_pages_indicator_widget.dart';
 import 'package:this_4_that/widget/outlined_color_button_widget.dart';
@@ -62,10 +64,22 @@ class AddItemPageItemAdded extends GetView<AddItemPageController> {
               Column(
                 children: [
                   GestureDetector(
-                    onTap: () {
-                      Get.find<MainPageController>().currentIndex = 0;
-                      Get.until((route) =>
-                          Get.currentRoute == MyRoutes.mainPageScreen);
+                    onTap: () async {
+                      if (controller.advertType == 'first') {
+                        Get.put(MainPageController());
+                        Get.offAllNamed(MyRoutes.mainPageScreen);
+                      } else {
+                        final mainController = Get.find<MainPageController>();
+                        mainController.currentIndex = 0;
+                        final homepageController =
+                            Get.find<HomePageController>();
+                        homepageController.currentUserItems.clear();
+                        homepageController.currentUserItems =
+                            await FirebaseService.instance
+                                .getCurrentUserItemsActive();
+                        Get.until((route) =>
+                            Get.currentRoute == MyRoutes.mainPageScreen);
+                      }
                     },
                     child: OutlinedColorButtonWidget(
                         buttonHeight: 48.h,

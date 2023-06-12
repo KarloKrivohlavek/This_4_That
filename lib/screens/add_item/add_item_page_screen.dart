@@ -119,7 +119,7 @@ class AddItemPageScreen extends GetView<AddItemPageController> {
                     //   ],
                     // ),
                     GestureDetector(
-                      onTap: () {
+                      onTap: () async {
                         // switch (controller.activeStep) {
                         //   case 1:
                         //     controller.itemNameIsEmpty
@@ -130,7 +130,8 @@ class AddItemPageScreen extends GetView<AddItemPageController> {
 
                         if (controller.activeStep == 4) {
                           controller.saveSelectedIndexCondition();
-                          controller.sendItemDataToFirebase();
+                          await controller.sendItemDataToFirebase();
+
                           Get.to(() => AddItemPageItemAdded());
                         }
 

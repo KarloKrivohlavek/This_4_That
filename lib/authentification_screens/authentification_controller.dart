@@ -26,7 +26,8 @@ class AuthentificationController extends GetxController {
           fullName: '',
           location: '',
           userID: '',
-          username: '')
+          username: '',
+          email: '')
       .obs;
   UserData get currentUserData => _currentUserData.value;
   set currentUserData(UserData value) => _currentUserData.value = value;
@@ -136,7 +137,9 @@ class AuthentificationController extends GetxController {
   void saveLocation({String location = 'Zagreb'}) {
     logger.w(descriptionController.text);
     currentUserData = currentUserData.copyWith(
-        location: location, userID: FirebaseAuth.instance.currentUser!.uid);
+        location: location,
+        userID: FirebaseAuth.instance.currentUser!.uid,
+        email: FirebaseAuth.instance.currentUser!.email!);
     logger.e(currentUserData);
     // Get.to(() => AuthentificationScreen6Location());
   }

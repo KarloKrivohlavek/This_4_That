@@ -38,6 +38,8 @@ mixin _$UserData {
   String get userID => throw _privateConstructorUsedError;
   @JsonKey(name: 'username')
   String get username => throw _privateConstructorUsedError;
+  @JsonKey(name: 'email')
+  String get email => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -59,7 +61,8 @@ abstract class $UserDataCopyWith<$Res> {
       @JsonKey(name: 'user_item_list_IDs') List<String>? userItemListIDs,
       @JsonKey(name: 'profile_picture') String? profilePicture,
       @JsonKey(name: 'user_ID') String userID,
-      @JsonKey(name: 'username') String username});
+      @JsonKey(name: 'username') String username,
+      @JsonKey(name: 'email') String email});
 }
 
 /// @nodoc
@@ -84,6 +87,7 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
     Object? profilePicture = freezed,
     Object? userID = null,
     Object? username = null,
+    Object? email = null,
   }) {
     return _then(_value.copyWith(
       dateOfBirth: null == dateOfBirth
@@ -122,6 +126,10 @@ class _$UserDataCopyWithImpl<$Res, $Val extends UserData>
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -142,7 +150,8 @@ abstract class _$$_UserDataCopyWith<$Res> implements $UserDataCopyWith<$Res> {
       @JsonKey(name: 'user_item_list_IDs') List<String>? userItemListIDs,
       @JsonKey(name: 'profile_picture') String? profilePicture,
       @JsonKey(name: 'user_ID') String userID,
-      @JsonKey(name: 'username') String username});
+      @JsonKey(name: 'username') String username,
+      @JsonKey(name: 'email') String email});
 }
 
 /// @nodoc
@@ -165,6 +174,7 @@ class __$$_UserDataCopyWithImpl<$Res>
     Object? profilePicture = freezed,
     Object? userID = null,
     Object? username = null,
+    Object? email = null,
   }) {
     return _then(_$_UserData(
       dateOfBirth: null == dateOfBirth
@@ -203,6 +213,10 @@ class __$$_UserDataCopyWithImpl<$Res>
           ? _value.username
           : username // ignore: cast_nullable_to_non_nullable
               as String,
+      email: null == email
+          ? _value.email
+          : email // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -228,7 +242,9 @@ class _$_UserData with DiagnosticableTreeMixin implements _UserData {
       @JsonKey(name: 'user_ID')
           required this.userID,
       @JsonKey(name: 'username')
-          required this.username})
+          required this.username,
+      @JsonKey(name: 'email')
+          required this.email})
       : _matchedItemListIds = matchedItemListIds,
         _userItemListIDs = userItemListIDs;
 
@@ -279,10 +295,13 @@ class _$_UserData with DiagnosticableTreeMixin implements _UserData {
   @override
   @JsonKey(name: 'username')
   final String username;
+  @override
+  @JsonKey(name: 'email')
+  final String email;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'UserData(dateOfBirth: $dateOfBirth, description: $description, fullName: $fullName, location: $location, matchedItemListIds: $matchedItemListIds, userItemListIDs: $userItemListIDs, profilePicture: $profilePicture, userID: $userID, username: $username)';
+    return 'UserData(dateOfBirth: $dateOfBirth, description: $description, fullName: $fullName, location: $location, matchedItemListIds: $matchedItemListIds, userItemListIDs: $userItemListIDs, profilePicture: $profilePicture, userID: $userID, username: $username, email: $email)';
   }
 
   @override
@@ -298,7 +317,8 @@ class _$_UserData with DiagnosticableTreeMixin implements _UserData {
       ..add(DiagnosticsProperty('userItemListIDs', userItemListIDs))
       ..add(DiagnosticsProperty('profilePicture', profilePicture))
       ..add(DiagnosticsProperty('userID', userID))
-      ..add(DiagnosticsProperty('username', username));
+      ..add(DiagnosticsProperty('username', username))
+      ..add(DiagnosticsProperty('email', email));
   }
 
   @override
@@ -322,7 +342,8 @@ class _$_UserData with DiagnosticableTreeMixin implements _UserData {
                 other.profilePicture == profilePicture) &&
             (identical(other.userID, userID) || other.userID == userID) &&
             (identical(other.username, username) ||
-                other.username == username));
+                other.username == username) &&
+            (identical(other.email, email) || other.email == email));
   }
 
   @JsonKey(ignore: true)
@@ -337,7 +358,8 @@ class _$_UserData with DiagnosticableTreeMixin implements _UserData {
       const DeepCollectionEquality().hash(_userItemListIDs),
       profilePicture,
       userID,
-      username);
+      username,
+      email);
 
   @JsonKey(ignore: true)
   @override
@@ -372,7 +394,9 @@ abstract class _UserData implements UserData {
       @JsonKey(name: 'user_ID')
           required final String userID,
       @JsonKey(name: 'username')
-          required final String username}) = _$_UserData;
+          required final String username,
+      @JsonKey(name: 'email')
+          required final String email}) = _$_UserData;
 
   factory _UserData.fromJson(Map<String, dynamic> json) = _$_UserData.fromJson;
 
@@ -403,6 +427,9 @@ abstract class _UserData implements UserData {
   @override
   @JsonKey(name: 'username')
   String get username;
+  @override
+  @JsonKey(name: 'email')
+  String get email;
   @override
   @JsonKey(ignore: true)
   _$$_UserDataCopyWith<_$_UserData> get copyWith =>
