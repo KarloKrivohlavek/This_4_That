@@ -14,6 +14,8 @@ import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/data.dart';
 import 'package:this_4_that/models/item/item.dart';
 import 'package:this_4_that/models/match/match.dart';
+import 'package:this_4_that/models/matchedChatData/matched_chat_data.dart';
+import 'package:this_4_that/models/message/message.dart';
 import 'package:this_4_that/pages.dart';
 import 'package:this_4_that/services/logger_service.dart';
 import 'package:this_4_that/services/storage_service.dart';
@@ -47,6 +49,8 @@ class FirebaseService extends GetxService {
   String users = 'users';
   String items = 'items';
   String matches = 'matches';
+  String chats = 'chats';
+  String messages = 'messages';
 
   ///  FUNCTION: get Google credential
   Future<void> signInWithGoogle() async {
@@ -181,7 +185,8 @@ class FirebaseService extends GetxService {
     return itemID;
   }
 
-  Future<void> sendNewMatchData(MatchedItems match) async {
+  Future<String?> sendNewMatchData(MatchedItems match) async {
+    String matchID = '';
     try {
       await firebaseFirestore
           .collection(matches)
@@ -190,10 +195,42 @@ class FirebaseService extends GetxService {
         firebaseFirestore.collection(matches).doc(matchRef.id).update({
           'match_ID': matchRef.id,
         });
+        matchID = matchRef.id;
       });
+      return matchID;
     } catch (e) {
       logger.e(e);
     }
+  }
+
+  Future<String> createNewChat(MatchedChatData match) async {
+    String chatID = '';
+    try {
+      //kreaira novi chat i dodaje mu chatID
+      await firebaseFirestore
+          .collection(chats)
+          .add(match.toJson())
+          .then((matchRef) {
+        firebaseFirestore.collection(chats).doc(matchRef.id).update({
+          'chat_ID': matchRef.id,
+        });
+        chatID = matchRef.id;
+      });
+      //kreiranje default poruke
+      final defaultMessage = Message(
+          senderID: 'default',
+          text: 'Započni s razmjenom!',
+          createdAt: DateTime.now().millisecondsSinceEpoch);
+      //kreairamo kolekciju messages unutar kolekcija chats
+      firebaseFirestore
+          .collection(chats)
+          .doc(chatID)
+          .collection(messages)
+          .add(defaultMessage.toJson());
+    } catch (e) {
+      logger.e(e);
+    }
+    return chatID;
   }
 
   Future<String> uploadItemPictures(File file, String itemId) async {
@@ -206,6 +243,28 @@ class FirebaseService extends GetxService {
 // Upload to Firebase Storage
       await firebaseStorage
           .ref('items/$userID/$itemId/${timeStamp}_$name')
+          .putFile(file)
+          .then((image) async {
+        final pictureUrl = await image.ref.getDownloadURL();
+
+        imageUrl = pictureUrl;
+      });
+    } on FirebaseAuthException {
+      imageUrl = '';
+    }
+    return imageUrl;
+  }
+
+  Future<String> uploadProfilePicture(File file) async {
+    var imageUrl = '';
+    final name = file.path.split('/').last;
+    final timeStamp = DateTime.now().toUtc().millisecondsSinceEpoch;
+    final userID = FirebaseAuth.instance.currentUser?.uid ?? 'default';
+
+    try {
+// Upload to Firebase Storage
+      await firebaseStorage
+          .ref('users/$userID/${timeStamp}_$name')
           .putFile(file)
           .then((image) async {
         final pictureUrl = await image.ref.getDownloadURL();
@@ -323,6 +382,18 @@ class FirebaseService extends GetxService {
         .get()
         .then((value) => UserData.fromJson(value.docs.first.data()));
     return differentUserData;
+  }
+
+  Future<List<MatchedItems>> getUsersMatches() async {
+    final userMatch = await firebaseFirestore
+        .collection('matches')
+        .where(Filter.or(
+            Filter('user1_ID', isEqualTo: firebaseAuth.currentUser?.uid),
+            Filter('user2_ID', isEqualTo: firebaseAuth.currentUser?.uid)))
+        .get()
+        .then((value) =>
+            value.docs.map((e) => MatchedItems.fromJson(e.data())).toList());
+    return userMatch;
   }
 
   Future<void> logOut() async {

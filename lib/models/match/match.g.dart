@@ -19,6 +19,7 @@ _$_MatchedItems _$$_MatchedItemsFromJson(Map<String, dynamic> json) =>
       item1ID: json['item1_ID'] as String,
       item2ID: json['item2_ID'] as String,
       matchID: json['match_ID'] as String,
+      chatID: json['chat_ID'] as String,
     );
 
 Map<String, dynamic> _$$_MatchedItemsToJson(_$_MatchedItems instance) =>
@@ -34,4 +35,5 @@ Map<String, dynamic> _$$_MatchedItemsToJson(_$_MatchedItems instance) =>
       'item1_ID': instance.item1ID,
       'item2_ID': instance.item2ID,
       'match_ID': instance.matchID,
+      'chat_ID': instance.chatID,
     };

@@ -2,6 +2,7 @@
 
 import 'package:get/get.dart';
 import 'package:this_4_that/data.dart';
+import 'package:this_4_that/models/matchedChatData/matched_chat_data.dart';
 import 'package:this_4_that/screens/matched_item_screen.dart';
 import 'package:this_4_that/models/item/item.dart';
 import 'package:this_4_that/models/match/match.dart';
@@ -148,18 +149,31 @@ class HomePageController extends GetxController {
         user2ID: '',
         item1ID: '',
         item2ID: '',
-        matchID: '');
-
+        matchID: '',
+        chatID: '');
+    //varijabla koja sadrzi item od drugog usera
     final differentUserItem =
         await firebaseService.getItemData(cards[previousIndex].item.itemID);
     logger.e(differentUserItem);
+    //varijabla koja sadrzi podatke od drugog usera
     final differentUserData =
         await firebaseService.getDifferentUserData(differentUserItem.userID);
     logger.w(differentUserData);
-    if (differentUserData.matchedItemListIds != null) {
+    if (differentUserData.matchedItemListIds != null &&
+        differentUserData.matchedItemListIds!.isNotEmpty) {
+      logger.wtf(differentUserData.matchedItemListIds);
       final currentUserItem = currentUserItems.elementAt(selectedItemIndex);
       if (differentUserData.matchedItemListIds!
           .contains(currentUserItems.elementAt(selectedItemIndex).itemID)) {
+        //varijabla koja sadrzi matchedChatData podatke
+        final matchedChatData = MatchedChatData(
+            user1ID: currentUserData.userID,
+            user2ID: differentUserData.userID,
+            chatID: '');
+        //stvara novi chat i vraca novi chatID
+
+        final chatID = await firebaseService.createNewChat(matchedChatData);
+        //varijabla koja sprema sve podatke o matchu
         match = MatchedItems(
             item1Name: currentUserItem.itemName,
             item2Name: differentUserItem.itemName,
@@ -171,7 +185,8 @@ class HomePageController extends GetxController {
             user2ID: differentUserData.userID,
             item1ID: currentUserItem.itemID,
             item2ID: differentUserItem.itemID,
-            matchID: '');
+            matchID: '',
+            chatID: chatID);
         await firebaseService.sendNewMatchData(match);
       }
     }
@@ -226,11 +241,13 @@ class HomePageController extends GetxController {
       firebaseService
           .updateUserDataMatchedList(cards[previousIndex].item.itemID);
       final match = await checkIfMatched(previousIndex);
-      // cards[previousIndex].item =
-      //     cards[previousIndex].item.copyWith(isMatched: true);
+      logger.e(match);
+
       removedItemsFromList.add(previousIndex);
 
-      Get.to(() => MatchedItemPage(), arguments: match);
+      if (match.chatID.isNotEmpty) {
+        Get.to(() => MatchedItemPage(), arguments: match);
+      }
     }
 
     /// if there is the only one item left - change number of cards to display to 1

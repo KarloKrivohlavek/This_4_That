@@ -16,7 +16,7 @@ class _BottomTabBarState extends State<BottomTabBar> {
   final pages = [
     // HomePage(),
     MessagesPage(),
-    ChatPage(),
+    // ChatPage(),
     // ProfilePage(),
   ];
   @override

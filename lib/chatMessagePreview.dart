@@ -2,7 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:this_4_that/constants/colors.dart';
 
 class MessagePreview extends StatelessWidget {
-  const MessagePreview({Key? key}) : super(key: key);
+  const MessagePreview(
+      {Key? key,
+      required this.differentUserItemName,
+      required this.differentUserName,
+      required this.currentUserItemImage,
+      required this.differentUserItemImage});
+
+  final String currentUserItemImage;
+  final String differentUserItemImage;
+  final String differentUserName;
+  final String differentUserItemName;
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +43,7 @@ class MessagePreview extends StatelessWidget {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage('images/mouse.jpg'),
+                              image: NetworkImage(currentUserItemImage),
                             ),
                           ),
                           width: 48,
@@ -51,7 +61,7 @@ class MessagePreview extends StatelessWidget {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage('images/wallet.jpg'),
+                              image: NetworkImage(differentUserItemImage),
                             ),
                           ),
                           width: 64,
@@ -90,11 +100,11 @@ class MessagePreview extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Stolna Lampa',
+                            differentUserItemName,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 20),
                           ),
-                          Text('Username'),
+                          Text(differentUserName),
                           Text(
                             'Nova Poruka',
                             style: TextStyle(fontWeight: FontWeight.bold),
@@ -109,16 +119,16 @@ class MessagePreview extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Text('12:30'),
+                      // Text('12:30'),
                       Container(
                         width: 20,
                         height: 20,
                         child: Center(
-                          child: Text(
-                            '2',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
+                            // child: Text(
+                            //   '2',
+                            //   style: TextStyle(color: Colors.white),
+                            // ),
+                            ),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.black,

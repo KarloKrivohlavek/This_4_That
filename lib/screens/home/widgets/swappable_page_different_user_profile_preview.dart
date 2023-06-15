@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:this_4_that/constants/text_styles.dart';
 import 'package:this_4_that/different_user_profile_page_preview.dart';
@@ -36,7 +37,7 @@ class SwappablePageDifferentUserPreview extends StatelessWidget {
               )),
         ),
         Container(
-          margin: const EdgeInsets.only(left: 10),
+          margin: EdgeInsets.only(left: 10, right: 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -44,11 +45,16 @@ class SwappablePageDifferentUserPreview extends StatelessWidget {
               SizedBox(
                 height: 15.h,
               ),
-              Text(
-                userProfileName,
-                style: GoogleFonts.poppins(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700,
+              Container(
+                width: 150.w,
+                child: Text(
+                  userProfileName,
+                  style: GoogleFonts.poppins(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                 ),
               ),
               Row(

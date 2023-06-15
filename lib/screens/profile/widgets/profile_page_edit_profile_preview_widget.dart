@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/data.dart';
+import 'package:this_4_that/pages.dart';
 import 'package:this_4_that/screens/profile/profile_page_controller.dart';
 import 'package:this_4_that/src/edit_profile_page.dart';
 import 'package:this_4_that/widget/profile_widget.dart';
@@ -45,33 +47,37 @@ class ProfilePageEditProfilePreviewWidget extends StatelessWidget {
                     fit: BoxFit.fill,
                     image: imagePath == null
                         ? AssetImage('images/default_user_profile_picture.png')
-                        : AssetImage(imagePath!))),
+                            as ImageProvider
+                        : NetworkImage(imagePath!))),
             // child: ProfileWidget(
             //   imagePath: imagePath,
             //   onClicked: () {},
             // ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                userName,
-                style:
-                    const TextStyle(fontWeight: FontWeight.w700, fontSize: 24),
-              ),
-              Text(
-                fullName,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 16,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  userName,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w700, fontSize: 24),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
                 ),
-              )
-            ],
+                Text(
+                  fullName,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 16,
+                  ),
+                )
+              ],
+            ),
           ),
           FloatingActionButton(
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => EditProfilePage()));
+              Get.toNamed(MyRoutes.editProfilePageScreen);
             },
             backgroundColor: Colors.white,
             foregroundColor: MyColors.black,

@@ -42,6 +42,8 @@ mixin _$MatchedItems {
   String get item2ID => throw _privateConstructorUsedError;
   @JsonKey(name: 'match_ID')
   String get matchID => throw _privateConstructorUsedError;
+  @JsonKey(name: 'chat_ID')
+  String get chatID => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -66,7 +68,8 @@ abstract class $MatchedItemsCopyWith<$Res> {
       @JsonKey(name: 'user2_ID') String user2ID,
       @JsonKey(name: 'item1_ID') String item1ID,
       @JsonKey(name: 'item2_ID') String item2ID,
-      @JsonKey(name: 'match_ID') String matchID});
+      @JsonKey(name: 'match_ID') String matchID,
+      @JsonKey(name: 'chat_ID') String chatID});
 }
 
 /// @nodoc
@@ -93,6 +96,7 @@ class _$MatchedItemsCopyWithImpl<$Res, $Val extends MatchedItems>
     Object? item1ID = null,
     Object? item2ID = null,
     Object? matchID = null,
+    Object? chatID = null,
   }) {
     return _then(_value.copyWith(
       item1Name: null == item1Name
@@ -139,6 +143,10 @@ class _$MatchedItemsCopyWithImpl<$Res, $Val extends MatchedItems>
           ? _value.matchID
           : matchID // ignore: cast_nullable_to_non_nullable
               as String,
+      chatID: null == chatID
+          ? _value.chatID
+          : chatID // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -162,7 +170,8 @@ abstract class _$$_MatchedItemsCopyWith<$Res>
       @JsonKey(name: 'user2_ID') String user2ID,
       @JsonKey(name: 'item1_ID') String item1ID,
       @JsonKey(name: 'item2_ID') String item2ID,
-      @JsonKey(name: 'match_ID') String matchID});
+      @JsonKey(name: 'match_ID') String matchID,
+      @JsonKey(name: 'chat_ID') String chatID});
 }
 
 /// @nodoc
@@ -187,6 +196,7 @@ class __$$_MatchedItemsCopyWithImpl<$Res>
     Object? item1ID = null,
     Object? item2ID = null,
     Object? matchID = null,
+    Object? chatID = null,
   }) {
     return _then(_$_MatchedItems(
       item1Name: null == item1Name
@@ -233,6 +243,10 @@ class __$$_MatchedItemsCopyWithImpl<$Res>
           ? _value.matchID
           : matchID // ignore: cast_nullable_to_non_nullable
               as String,
+      chatID: null == chatID
+          ? _value.chatID
+          : chatID // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -251,7 +265,8 @@ class _$_MatchedItems with DiagnosticableTreeMixin implements _MatchedItems {
       @JsonKey(name: 'user2_ID') required this.user2ID,
       @JsonKey(name: 'item1_ID') required this.item1ID,
       @JsonKey(name: 'item2_ID') required this.item2ID,
-      @JsonKey(name: 'match_ID') required this.matchID});
+      @JsonKey(name: 'match_ID') required this.matchID,
+      @JsonKey(name: 'chat_ID') required this.chatID});
 
   factory _$_MatchedItems.fromJson(Map<String, dynamic> json) =>
       _$$_MatchedItemsFromJson(json);
@@ -289,10 +304,13 @@ class _$_MatchedItems with DiagnosticableTreeMixin implements _MatchedItems {
   @override
   @JsonKey(name: 'match_ID')
   final String matchID;
+  @override
+  @JsonKey(name: 'chat_ID')
+  final String chatID;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'MatchedItems(item1Name: $item1Name, item2Name: $item2Name, user1Username: $user1Username, user2Username: $user2Username, item1PictureURL: $item1PictureURL, item2PictureURL: $item2PictureURL, user1ID: $user1ID, user2ID: $user2ID, item1ID: $item1ID, item2ID: $item2ID, matchID: $matchID)';
+    return 'MatchedItems(item1Name: $item1Name, item2Name: $item2Name, user1Username: $user1Username, user2Username: $user2Username, item1PictureURL: $item1PictureURL, item2PictureURL: $item2PictureURL, user1ID: $user1ID, user2ID: $user2ID, item1ID: $item1ID, item2ID: $item2ID, matchID: $matchID, chatID: $chatID)';
   }
 
   @override
@@ -310,7 +328,8 @@ class _$_MatchedItems with DiagnosticableTreeMixin implements _MatchedItems {
       ..add(DiagnosticsProperty('user2ID', user2ID))
       ..add(DiagnosticsProperty('item1ID', item1ID))
       ..add(DiagnosticsProperty('item2ID', item2ID))
-      ..add(DiagnosticsProperty('matchID', matchID));
+      ..add(DiagnosticsProperty('matchID', matchID))
+      ..add(DiagnosticsProperty('chatID', chatID));
   }
 
   @override
@@ -334,7 +353,8 @@ class _$_MatchedItems with DiagnosticableTreeMixin implements _MatchedItems {
             (identical(other.user2ID, user2ID) || other.user2ID == user2ID) &&
             (identical(other.item1ID, item1ID) || other.item1ID == item1ID) &&
             (identical(other.item2ID, item2ID) || other.item2ID == item2ID) &&
-            (identical(other.matchID, matchID) || other.matchID == matchID));
+            (identical(other.matchID, matchID) || other.matchID == matchID) &&
+            (identical(other.chatID, chatID) || other.chatID == chatID));
   }
 
   @JsonKey(ignore: true)
@@ -351,7 +371,8 @@ class _$_MatchedItems with DiagnosticableTreeMixin implements _MatchedItems {
       user2ID,
       item1ID,
       item2ID,
-      matchID);
+      matchID,
+      chatID);
 
   @JsonKey(ignore: true)
   @override
@@ -390,7 +411,9 @@ abstract class _MatchedItems implements MatchedItems {
       @JsonKey(name: 'item2_ID')
           required final String item2ID,
       @JsonKey(name: 'match_ID')
-          required final String matchID}) = _$_MatchedItems;
+          required final String matchID,
+      @JsonKey(name: 'chat_ID')
+          required final String chatID}) = _$_MatchedItems;
 
   factory _MatchedItems.fromJson(Map<String, dynamic> json) =
       _$_MatchedItems.fromJson;
@@ -428,6 +451,9 @@ abstract class _MatchedItems implements MatchedItems {
   @override
   @JsonKey(name: 'match_ID')
   String get matchID;
+  @override
+  @JsonKey(name: 'chat_ID')
+  String get chatID;
   @override
   @JsonKey(ignore: true)
   _$$_MatchedItemsCopyWith<_$_MatchedItems> get copyWith =>

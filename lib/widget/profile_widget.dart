@@ -3,13 +3,13 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 
 class ProfileWidget extends StatelessWidget {
-  final String imagePath;
+  final String? imagePath;
   final bool isEdit;
   final VoidCallback onClicked;
 
   const ProfileWidget({
     Key? key,
-    required this.imagePath,
+    this.imagePath,
     this.isEdit = false,
     required this.onClicked,
   }) : super(key: key);
@@ -28,9 +28,9 @@ class ProfileWidget extends StatelessWidget {
   }
 
   Widget buildImage() {
-    final image = imagePath.contains('https://')
-        ? NetworkImage(imagePath)
-        : AssetImage(imagePath);
+    final image = imagePath!.isNotEmpty
+        ? NetworkImage(imagePath!)
+        : AssetImage('images/default_user_profile_picture.png');
 
     return ClipOval(
       child: Material(

@@ -192,7 +192,7 @@ class AddItemPageController extends GetxController {
     logger.e(newItem);
   }
 
-  Future pickImage() async {
+  Future<void> pickImage() async {
     try {
       final pickedImage =
           await ImagePicker().pickImage(source: ImageSource.gallery);

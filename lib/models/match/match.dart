@@ -18,6 +18,7 @@ class MatchedItems with _$MatchedItems {
     @JsonKey(name: 'item1_ID') required String item1ID,
     @JsonKey(name: 'item2_ID') required String item2ID,
     @JsonKey(name: 'match_ID') required String matchID,
+    @JsonKey(name: 'chat_ID') required String chatID,
   }) = _MatchedItems;
 
   factory MatchedItems.fromJson(Map<String, dynamic> json) =>
