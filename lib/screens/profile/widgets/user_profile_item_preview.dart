@@ -170,20 +170,6 @@ class UserProfileItemPreview extends GetView<ProfilePageController> {
                                     ],
                                   ),
                           ),
-                          // TextButton(
-                          //     onPressed: () {
-                          //       Navigator.push(
-                          //         context,
-                          //         MaterialPageRoute(
-                          //             builder: (context) =>
-                          //                 AuthentificationScreen1Login()),
-                          //       );
-                          //     },
-                          //     child: Expanded(
-                          //         child: Container(
-                          //       color: Colors.pink,
-                          //       child: Text('Auth Screen 1'),
-                          //     )))
                         ],
                       ),
                     )

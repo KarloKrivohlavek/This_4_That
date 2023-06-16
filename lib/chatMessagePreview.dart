@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:this_4_that/constants/colors.dart';
 
 class MessagePreview extends StatelessWidget {
@@ -31,8 +32,8 @@ class MessagePreview extends StatelessWidget {
               children: [
                 Container(
                   // margin: EdgeInsets.only(right: 60),
-                  width: 120,
-                  height: 130,
+                  width: 120.w,
+                  height: 80.h,
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
@@ -105,11 +106,11 @@ class MessagePreview extends StatelessWidget {
                                 fontWeight: FontWeight.bold, fontSize: 20),
                           ),
                           Text(differentUserName),
-                          Text(
-                            'Nova Poruka',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                            overflow: TextOverflow.ellipsis,
-                          )
+                          // Text(
+                          //   'Nova Poruka',
+                          //   style: TextStyle(fontWeight: FontWeight.bold),
+                          //   overflow: TextOverflow.ellipsis,
+                          // )
                         ],
                       ),
                     ),
@@ -119,16 +120,9 @@ class MessagePreview extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      // Text('12:30'),
                       Container(
                         width: 20,
                         height: 20,
-                        child: Center(
-                            // child: Text(
-                            //   '2',
-                            //   style: TextStyle(color: Colors.white),
-                            // ),
-                            ),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.black,

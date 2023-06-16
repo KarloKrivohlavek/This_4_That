@@ -4,6 +4,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/screens/add_item/add_item_page_controller.dart';
 import 'package:this_4_that/screens/home/home_page_screen.dart';
+import 'package:this_4_that/screens/messages/messages_page_controller.dart';
 import 'package:this_4_that/screens/messages/messages_page_screen.dart';
 import 'package:this_4_that/screens/profile/profile_page_controller.dart';
 import 'package:this_4_that/screens/profile/profile_page_screen.dart';
@@ -33,12 +34,12 @@ class MainPageScreen extends GetView<MainPageController> {
               onTap: (value) {
                 controller.currentIndex = value;
                 if (controller.currentIndex == 1) {
-                  // ovo treba dodati
                   Get.find<AddItemPageController>().onInit();
                 }
-
+                if (controller.currentIndex == 2) {
+                  Get.find<MessagesPageController>().onInit();
+                }
                 if (controller.currentIndex == 3) {
-                  // ovo treba dodati
                   Get.find<ProfilePageController>().onInit();
                 }
               },

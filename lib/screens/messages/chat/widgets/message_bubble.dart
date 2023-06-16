@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:this_4_that/constants/colors.dart';
 
 class MessageBubble extends StatelessWidget {
   MessageBubble({required this.time, required this.text, required this.isMe});
@@ -23,18 +24,19 @@ class MessageBubble extends StatelessWidget {
             ),
           ),
           Material(
+            shadowColor: Colors.transparent,
             borderRadius: isMe
                 ? BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    bottomLeft: Radius.circular(30.0),
-                    bottomRight: Radius.circular(30.0))
+                    topLeft: Radius.circular(20.0),
+                    bottomLeft: Radius.circular(20.0),
+                    bottomRight: Radius.circular(20.0))
                 : BorderRadius.only(
-                    bottomLeft: Radius.circular(30.0),
-                    bottomRight: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0),
+                    bottomLeft: Radius.circular(20.0),
+                    bottomRight: Radius.circular(20.0),
+                    topRight: Radius.circular(20.0),
                   ),
             elevation: 5.0,
-            color: isMe ? Colors.lightBlueAccent : Colors.white,
+            color: isMe ? MyColors.orange : MyColors.grey,
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
               child: Text(

@@ -1,8 +1,12 @@
 import 'dart:convert';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:this_4_that/models/match/match.dart';
+import 'package:this_4_that/models/message/message.dart';
 import 'package:this_4_that/services/firebase_service.dart';
 import 'package:this_4_that/services/logger_service.dart';
 
@@ -13,17 +17,64 @@ class ChatPageController extends GetxController {
 
   final firebaseService = Get.find<FirebaseService>();
   final logger = Get.find<LoggerService>();
+  final messageController = TextEditingController();
+  bool isCurrentUserFirstUserBool = true;
 
   /// INIT
 
   String chatID = '';
+  MatchedItems match = MatchedItems(
+      item1Name: '',
+      item2Name: '',
+      user1Username: '',
+      user2Username: '',
+      item1PictureURL: '',
+      item2PictureURL: '',
+      user1ID: '',
+      user2ID: '',
+      item1ID: '',
+      item2ID: '',
+      matchID: '',
+      chatID: '');
   @override
   Future<void> onInit() async {
     super.onInit();
-    chatID = Get.arguments;
+    checkArguments();
+    chatID = match.chatID;
+    logger.e(match);
+    logger.w(chatID);
+    isCurrentUserFirstUserBool = isCurrentUserFirstUser();
+    messageController.addListener(() {});
   }
 
   ///
   /// METHODS
-  ///
+
+  Future<void> sendMessage() async {
+    final newMessage = Message(
+        senderID: FirebaseAuth.instance.currentUser!.uid,
+        text: messageController.text,
+        createdAt: DateTime.now().millisecondsSinceEpoch);
+    if (messageController.text.isNotEmpty) {
+      await firebaseService.sendNewMessage(newMessage, chatID);
+      messageController.clear();
+    }
+  }
+
+  bool isCurrentUserFirstUser() {
+    if (match.user1ID == FirebaseAuth.instance.currentUser?.uid) {
+      return true;
+    }
+    return false;
+  }
+
+  void checkArguments() {
+    if (Get.arguments != null) {
+      final matchedItemKey = Get.arguments.keys
+          .firstWhere((key) => key == 'matchedItem', orElse: () => '');
+      if (matchedItemKey.isNotEmpty) {
+        match = Get.arguments[matchedItemKey];
+      }
+    }
+  }
 }

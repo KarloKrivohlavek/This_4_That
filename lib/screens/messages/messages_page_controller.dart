@@ -35,5 +35,11 @@ class MessagesPageController extends GetxController {
 
   ///
   /// METHODS
-  ///
+
+  Future<void> deleteItemFromMessagesList(
+      MatchedItems currentItem, bool isCurrentUserFirst) async {
+    await firebaseService.deleteMatchedItemsFromDifferentUsers(
+        isCurrentUserFirst ? currentItem.item2ID : currentItem.item1ID);
+    matchedItemsList.remove(currentItem);
+  }
 }
