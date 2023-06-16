@@ -206,20 +206,20 @@ class ProfilePageScreen extends GetView<ProfilePageController> {
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Container(
-                    height: 50,
-                    width: 50,
+                    height: 40,
+                    width: 40,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.grey,
                     ),
                     child: Icon(
                       MdiIcons.logout,
-                      size: 40,
+                      size: 20,
                     ),
                   ),
                   Text(
                     'Odjavi se',
-                    style: MyTextStyles.poppins24w700,
+                    style: MyTextStyles.poppins16w400,
                   )
                 ]),
               ),

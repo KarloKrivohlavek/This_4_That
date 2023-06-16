@@ -134,20 +134,25 @@ class FirebaseService extends GetxService {
 
   /// If this is new user, create new document in 'users' collection
   Future<void> checkIfNewUser(UserCredential userCredential) async {
-    if (await firebaseFirestore
-        .collection(users)
-        .doc(userCredential.user?.uid)
-        .get()
-        .then((snapshot) => !snapshot.exists)) {
-      await firebaseFirestore
+    try {
+      if (await firebaseFirestore
           .collection(users)
           .doc(userCredential.user?.uid)
-          .set({
-        'user_ID': userCredential.user?.uid,
-      });
-      Get.to(() => AuthentificationScreen2NameSurname());
-    } else
-      Get.toNamed(MyRoutes.mainPageScreen);
+          .get()
+          .then((snapshot) => !snapshot.exists)) {
+        await firebaseFirestore
+            .collection(users)
+            .doc(userCredential.user?.uid)
+            .set({
+          'user_ID': userCredential.user?.uid,
+        });
+        Get.to(() => AuthentificationScreen2NameSurname());
+      } else
+        Get.toNamed(MyRoutes.mainPageScreen);
+    } catch (e) {
+      logger.e(e);
+      Get.snackbar('Eroooorr', 'Salje provjeru checkIfnewUser');
+    }
   }
 
   Future<void> sendNewUserData(UserData user) async {
@@ -158,6 +163,7 @@ class FirebaseService extends GetxService {
           .update(user.toJson());
     } catch (e) {
       logger.e(e);
+      Get.snackbar('Error', 'Dogodila se greska priliko slanja NewUserDate');
     }
   }
 
@@ -179,10 +185,25 @@ class FirebaseService extends GetxService {
       Get.back();
     } catch (e) {
       logger.e(e);
+      Get.snackbar(
+          'Error', 'Dogodila se greska prilikom slanja nove Item Datae');
       Get.back();
     }
 
     return itemID;
+  }
+
+  Future<void> sendNewMessage(Message newMessage, String chatID) async {
+    try {
+      await FirebaseService.instance.firebaseFirestore
+          .collection('chats')
+          .doc(chatID)
+          .collection('messages')
+          .add(newMessage.toJson());
+    } catch (e) {
+      logger.e(e);
+      Get.snackbar('Error', 'Dogodila se greska prilikom slanja nove poruke');
+    }
   }
 
   Future<String?> sendNewMatchData(MatchedItems match) async {
@@ -200,6 +221,8 @@ class FirebaseService extends GetxService {
       return matchID;
     } catch (e) {
       logger.e(e);
+      Get.snackbar(
+          'Error', 'Dogodila se greska prilikom slanja nove match date');
     }
   }
 
@@ -393,7 +416,22 @@ class FirebaseService extends GetxService {
         .get()
         .then((value) =>
             value.docs.map((e) => MatchedItems.fromJson(e.data())).toList());
-    return userMatch;
+    List<MatchedItems> userMatchList = [];
+
+    for (final matchedItem in userMatch) {
+      bool firstItem = await doesItemExist(matchedItem.item1ID);
+      bool secondItem = await doesItemExist(matchedItem.item2ID);
+      bool isFirstUser = firebaseAuth.currentUser!.uid == matchedItem.user1ID;
+      // provjeravamo jesmo li mi prvi ili drugi user i ako smo prvi user matchedItem se ne dodaje ali ako smo drugi user matchedItem se dodaje u listu
+      if (isFirstUser == true && firstItem == true) {
+        userMatchList.add(matchedItem);
+      } else if (isFirstUser == false && secondItem == true) {
+        userMatchList.add(matchedItem);
+      } else if (firstItem == true && secondItem == true) {
+        userMatchList.add(matchedItem);
+      }
+    }
+    return userMatchList;
   }
 
   Future<void> logOut() async {
@@ -431,6 +469,20 @@ class FirebaseService extends GetxService {
     return itemData;
   }
 
+  Future<bool> doesItemExist(String itemID) async {
+    final itemDocument =
+        await firebaseFirestore.collection('items').doc(itemID).get();
+    bool documentExists = itemDocument.exists;
+    return documentExists;
+  }
+
+  Future<bool> doesMatchExist(String matchID) async {
+    final matchDocument =
+        await firebaseFirestore.collection('matches').doc(matchID).get();
+    bool matchDocumentExists = matchDocument.exists;
+    return matchDocumentExists;
+  }
+
   Future<List<Item>> getCurrentUserItems() async {
     final currentUserItems = await firebaseFirestore
         .collection('items')
@@ -457,6 +509,29 @@ class FirebaseService extends GetxService {
       await firebaseFirestore.collection(items).doc(itemId).delete();
     } catch (e) {
       logger.e(e);
+      Get.snackbar(
+          'errooor', 'Nastala je greska priliko brisanja currentUserItemsa');
+    }
+  }
+
+  Future<void> deleteMatchById(String matchID) async {
+    try {
+      await firebaseFirestore.collection(matches).doc(matchID).delete();
+    } catch (e) {
+      logger.e(e);
+      Get.snackbar('errooor', 'Nastala je greska priliko brisanja ');
+    }
+  }
+
+  Future<void> deleteChatById(String chatID) async {
+    try {
+      final chatReference =
+          await firebaseFirestore.collection(chats).doc(chatID);
+      await firebaseFirestore.runTransaction(
+          (transaction) async => transaction.delete(chatReference));
+    } catch (e) {
+      logger.e(e);
+      Get.snackbar('errooor', 'Nastala je greska priliko brisanja ');
     }
   }
 
@@ -469,13 +544,19 @@ class FirebaseService extends GetxService {
   // }
 
   Future<List<Item>> getDifferentUserItems() async {
-    final currentUserItems = await firebaseFirestore
-        .collection('items')
-        .where('user_ID', isNotEqualTo: firebaseAuth.currentUser?.uid)
-        .where('item_state', isEqualTo: 'active')
-        .get()
-        .then(
-            (value) => value.docs.map((e) => Item.fromJson(e.data())).toList());
+    List<Item> currentUserItems = [];
+    try {
+      currentUserItems = await firebaseFirestore
+          .collection('items')
+          .where('user_ID', isNotEqualTo: firebaseAuth.currentUser?.uid)
+          .where('item_state', isEqualTo: 'active')
+          .get()
+          .then((value) =>
+              value.docs.map((e) => Item.fromJson(e.data())).toList());
+    } catch (e) {
+      logger.w(e);
+      Get.snackbar('Eroor', 'Greska prilikom dohvacanja DifferentUserItema');
+    }
     return currentUserItems;
   }
 }

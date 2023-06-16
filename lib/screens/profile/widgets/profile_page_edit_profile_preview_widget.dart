@@ -54,6 +54,9 @@ class ProfilePageEditProfilePreviewWidget extends StatelessWidget {
             //   onClicked: () {},
             // ),
           ),
+          SizedBox(
+            width: 20.w,
+          ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,6 +67,9 @@ class ProfilePageEditProfilePreviewWidget extends StatelessWidget {
                       fontWeight: FontWeight.w700, fontSize: 24),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
+                ),
+                SizedBox(
+                  height: 15.h,
                 ),
                 Text(
                   fullName,

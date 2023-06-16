@@ -11,20 +11,28 @@ class OverlappedImagesWidget extends StatelessWidget {
       required this.image2WidthHeight,
       required this.logoWidthHeight,
       required this.image1URL,
-      required this.image2URL});
+      required this.image2URL,
+      this.position1 = 0,
+      this.position2 = 100,
+      this.position3 = 75});
 
   final String image1URL;
   final String image2URL;
   final double? image1WidthHeight;
   final double? image2WidthHeight;
   final double? logoWidthHeight;
+
+  final double position1;
+  final double position2;
+  final double position3;
+
   @override
   Widget build(BuildContext context) {
     return Stack(
       alignment: Alignment.center,
       children: [
         Positioned(
-          left: 0,
+          left: position1,
           child: Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
@@ -38,7 +46,7 @@ class OverlappedImagesWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          left: 100,
+          left: position2,
           child: Container(
             decoration: BoxDecoration(
               border: Border.all(
@@ -56,7 +64,7 @@ class OverlappedImagesWidget extends StatelessWidget {
           ),
         ),
         Positioned(
-          left: 75,
+          left: position3,
           child: Container(
             child: SizedBox(
               width: logoWidthHeight,

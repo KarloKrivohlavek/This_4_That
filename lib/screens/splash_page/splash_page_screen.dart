@@ -36,7 +36,7 @@ class SplashPageScreen extends GetView<SplashPageController> {
       body: Container(
         color: MyColors.orange,
         child: Center(
-          child: Image.asset('images/logo.png'),
+          child: SizedBox(height: 100.h, child: Image.asset('images/logo.png')),
         ),
       ),
     );

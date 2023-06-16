@@ -3,8 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:this_4_that/constants/colors.dart';
+import 'package:this_4_that/constants/text_styles.dart';
 import 'package:this_4_that/screens/profile/profile_page_controller.dart';
 import 'package:this_4_that/widget/button_widget.dart';
 import 'package:this_4_that/widget/filled_color_button_widget.dart';
@@ -22,19 +25,23 @@ class EditProfilePageScreen extends GetView<ProfilePageController> {
   Widget build(BuildContext context) => Obx(
         () => Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.orange,
+            elevation: 0,
+            backgroundColor: MyColors.orange,
           ),
           body: ListView(
             padding: EdgeInsets.symmetric(horizontal: 32),
             physics: BouncingScrollPhysics(),
             children: [
-              ProfileWidget(
-                  imagePath: controller.profileImage,
-                  // controller.currentUserData.profilePicture.toString(),
-                  isEdit: true,
-                  onClicked: () async {
-                    await controller.changeProfilePicture();
-                  }),
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: ProfileWidget(
+                    imagePath: controller.profileImage,
+                    // controller.currentUserData.profilePicture.toString(),
+                    isEdit: true,
+                    onClicked: () async {
+                      await controller.changeProfilePicture();
+                    }),
+              ),
               const SizedBox(height: 24),
               TextFieldWidget(
                 controller: controller.userNameController,
@@ -64,6 +71,20 @@ class EditProfilePageScreen extends GetView<ProfilePageController> {
                     isEnabled: controller.userNameIsEmpty &&
                         controller.descriptionIsEmpty),
               ),
+              SizedBox(
+                height: 100.h,
+              ),
+              GestureDetector(
+                child: Center(
+                  child: Text(
+                    'Izbriši računa',
+                    style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.red),
+                  ),
+                ),
+              )
             ],
           ),
         ),
