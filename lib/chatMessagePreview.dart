@@ -45,22 +45,7 @@ class MessagePreview extends StatelessWidget {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: Image.network(
-                                'https://www.kindacode.com/no-image.jpg',
-                                errorBuilder: (context, error, stackTrace) {
-                                  print(
-                                      'error: -------------------------  $error');
-                                  return Container(
-                                    color: Colors.pink,
-                                    height: 100,
-                                    width: 100,
-                                    child: const Text(
-                                      'Whoops!',
-                                      style: TextStyle(fontSize: 30),
-                                    ),
-                                  );
-                                },
-                              ).image,
+                              image: Image.network(currentUserItemImage).image,
                             ),
                           ),
                           width: 48,
@@ -78,18 +63,8 @@ class MessagePreview extends StatelessWidget {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: Image.network(
-                                'https://www.kindacode.com/no-image.jpg',
-                                errorBuilder: (context, error, stackTrace) {
-                                  print(
-                                      'erorr!!!! ----------------- ${error.toString()}');
-                                  return Container(
-                                    color: Colors.green,
-                                    height: 100,
-                                    width: 100,
-                                  );
-                                },
-                              ).image,
+                              image:
+                                  Image.network(differentUserItemImage).image,
                             ),
                           ),
                           width: 64,

@@ -187,6 +187,7 @@ class ProfilePageController extends GetxController {
       await firebaseService.deleteItemImagesFromStorage(image);
     }
     await firebaseService.deleteCurrentUserItems(itemID);
+    await firebaseService.deleteAllMatchesWithItemID(itemID);
     currentUserItemsArchived.remove(currentItem);
   }
 

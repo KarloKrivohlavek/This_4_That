@@ -155,8 +155,17 @@ class UserProfileItemPreview extends GetView<ProfilePageController> {
                                       ),
                                       GestureDetector(
                                         onTap: () async {
-                                          await controller
-                                              .deleteCurrentItem(index);
+                                          Get.dialog(CustomDialog(
+                                              title: 'Brisanje oglassa',
+                                              text:
+                                                  'Napomena: Brišući ovaj oglas, trajno ćete ga ukloniti sa stranice i nećete ga moći vratiti. Jeste li sigurni da želite izbrisati ovaj oglas?',
+                                              button1: 'Izbriši',
+                                              button2: 'Odustani',
+                                              action: () async {
+                                                await controller
+                                                    .deleteCurrentItem(index);
+                                                Get.back();
+                                              }));
                                         },
                                         child: Container(
                                           width: 35,
