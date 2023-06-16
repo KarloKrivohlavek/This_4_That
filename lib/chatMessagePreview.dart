@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:this_4_that/constants/colors.dart';
@@ -44,7 +45,22 @@ class MessagePreview extends StatelessWidget {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: NetworkImage(currentUserItemImage),
+                              image: Image.network(
+                                'https://www.kindacode.com/no-image.jpg',
+                                errorBuilder: (context, error, stackTrace) {
+                                  print(
+                                      'error: -------------------------  $error');
+                                  return Container(
+                                    color: Colors.pink,
+                                    height: 100,
+                                    width: 100,
+                                    child: const Text(
+                                      'Whoops!',
+                                      style: TextStyle(fontSize: 30),
+                                    ),
+                                  );
+                                },
+                              ).image,
                             ),
                           ),
                           width: 48,
@@ -62,7 +78,18 @@ class MessagePreview extends StatelessWidget {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: NetworkImage(differentUserItemImage),
+                              image: Image.network(
+                                'https://www.kindacode.com/no-image.jpg',
+                                errorBuilder: (context, error, stackTrace) {
+                                  print(
+                                      'erorr!!!! ----------------- ${error.toString()}');
+                                  return Container(
+                                    color: Colors.green,
+                                    height: 100,
+                                    width: 100,
+                                  );
+                                },
+                              ).image,
                             ),
                           ),
                           width: 64,

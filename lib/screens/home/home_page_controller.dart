@@ -187,7 +187,8 @@ class HomePageController extends GetxController {
             item2ID: differentUserItem.itemID,
             matchID: '',
             chatID: chatID);
-        await firebaseService.sendNewMatchData(match);
+        final matchId = await firebaseService.sendNewMatchData(match);
+        match.copyWith(matchID: matchId!);
       }
     }
     return match;
