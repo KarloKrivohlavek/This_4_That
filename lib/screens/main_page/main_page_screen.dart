@@ -9,6 +9,7 @@ import 'package:this_4_that/screens/profile/profile_page_controller.dart';
 import 'package:this_4_that/screens/profile/profile_page_screen.dart';
 
 import '../add_item/add_item_page_screen.dart';
+import '../messages/messages_page_controller.dart';
 import 'main_page_controller.dart';
 
 ///
@@ -35,6 +36,10 @@ class MainPageScreen extends GetView<MainPageController> {
                 if (controller.currentIndex == 1) {
                   // ovo treba dodati
                   Get.find<AddItemPageController>().onInit();
+                }
+                if (controller.currentIndex == 2) {
+                  // ovo treba dodati
+                  Get.find<MessagesPageController>().onInit();
                 }
 
                 if (controller.currentIndex == 3) {

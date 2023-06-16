@@ -182,7 +182,7 @@ class ProfilePageController extends GetxController {
   Future<void> deleteCurrentItem(index) async {
     final currentItem = currentUserItemsArchived.elementAt(index);
     final itemID = currentItem.itemID;
-    await firebaseService.deleteMatchedItemsFromDifferentUsers(itemID);
+    // await firebaseService.deleteMatchedItemsFromDifferentUsers(itemID);
     for (final image in currentItem.itemPictureList!) {
       await firebaseService.deleteItemImagesFromStorage(image);
     }
