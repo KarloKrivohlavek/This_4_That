@@ -523,25 +523,6 @@ class FirebaseService extends GetxService {
     }
   }
 
-  Future<void> deleteAllMatchesWithItemID(String itemID) async {
-    try {
-      List<MatchedItems> matchesList = await firebaseFirestore
-          .collection('matches')
-          .get()
-          .then((value) =>
-              value.docs.map((e) => MatchedItems.fromJson(e.data())).toList());
-      for (final match in matchesList) {
-        if (match.item1ID == itemID || match.item2ID == itemID) {
-          await deleteChatById(match.chatID);
-          await deleteMatchById(match.matchID);
-        }
-      }
-    } catch (e) {
-      logger.e(e);
-      Get.snackbar('errooor', 'Nastala je greska priliko brisanja ');
-    }
-  }
-
   Future<void> deleteChatById(String chatID) async {
     try {
       final chatReference =
