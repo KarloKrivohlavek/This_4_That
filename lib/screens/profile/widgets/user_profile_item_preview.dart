@@ -154,9 +154,17 @@ class UserProfileItemPreview extends GetView<ProfilePageController> {
                                         ),
                                       ),
                                       GestureDetector(
-                                        onTap: () async {
-                                          await controller
-                                              .deleteCurrentItem(index);
+                                        onTap: () {
+                                          Get.dialog(CustomDialog(
+                                            title: 'Brisanje oglasa',
+                                            text: MyStrings.deleteItemDialog,
+                                            button1: 'Arhiviraj',
+                                            button2: 'Odustani',
+                                            action: () async {
+                                              await controller
+                                                  .deleteCurrentItem(index);
+                                            },
+                                          ));
                                         },
                                         child: Container(
                                           width: 35,
