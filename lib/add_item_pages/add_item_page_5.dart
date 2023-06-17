@@ -6,7 +6,7 @@ import 'package:this_4_that/constants/constants.dart';
 import 'package:this_4_that/screens/add_item/add_item_page_controller.dart';
 
 class AddItemPage5 extends GetView<AddItemPageController> {
-  AddItemPage5({super.key});
+  const AddItemPage5({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +36,10 @@ class AddItemPage5 extends GetView<AddItemPageController> {
                   return Obx(
                     () => Column(children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(vertical: 2),
+                        padding: const EdgeInsets.symmetric(vertical: 2),
                         child: Container(
                           height: 50.w,
-                          padding: EdgeInsets.only(left: 40),
+                          padding: const EdgeInsets.only(left: 40),
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(50),
                               color: controller.selectedIndexCondition == index
@@ -53,7 +53,7 @@ class AddItemPage5 extends GetView<AddItemPageController> {
                                 alignment: Alignment.centerLeft,
                                 child: Text(
                                   MyConstants.buttonValuesCondition[index],
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 16,
                                     color: Colors.black,
                                   ),
@@ -65,7 +65,7 @@ class AddItemPage5 extends GetView<AddItemPageController> {
                           index == controller.selectedIndexCondition - 1 ||
                           index ==
                               MyConstants.buttonValuesCondition.length - 1))
-                        Divider(
+                        const Divider(
                           height: 0,
                           indent: 30,
                           endIndent: 30,

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:this_4_that/constants/text_styles.dart';
@@ -51,5 +50,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => Size(double.infinity, 200);
+  Size get preferredSize => const Size(double.infinity, 200);
 }

@@ -8,10 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:this_4_that/authentification_screens/authentification_screen_1_login.dart';
 import 'package:this_4_that/authentification_screens/authentification_screen_2_name_surname.dart';
 import 'package:this_4_that/constants/colors.dart';
-import 'package:this_4_that/data.dart';
 import 'package:this_4_that/models/item/item.dart';
 import 'package:this_4_that/models/match/match.dart';
 import 'package:this_4_that/models/matchedChatData/matched_chat_data.dart';
@@ -146,9 +144,10 @@ class FirebaseService extends GetxService {
             .set({
           'user_ID': userCredential.user?.uid,
         });
-        Get.to(() => AuthentificationScreen2NameSurname());
-      } else
-        Get.toNamed(MyRoutes.mainPageScreen);
+        Get.off(() => const AuthentificationScreen2NameSurname());
+      } else {
+        Get.offAllNamed(MyRoutes.mainPageScreen);
+      }
     } catch (e) {
       logger.e(e);
       Get.snackbar('Eroooorr', 'Salje provjeru checkIfnewUser');
@@ -169,7 +168,7 @@ class FirebaseService extends GetxService {
 
   Future<String> sendNewItemData(Item item) async {
     String itemID = '';
-    unawaited(Get.dialog(SpinKitChasingDots(
+    unawaited(Get.dialog(const SpinKitChasingDots(
       color: MyColors.orange,
     )));
     try {
@@ -224,6 +223,7 @@ class FirebaseService extends GetxService {
       Get.snackbar(
           'Error', 'Dogodila se greska prilikom slanja nove match date');
     }
+    return null;
   }
 
   Future<String> createNewChat(MatchedChatData match) async {
@@ -359,7 +359,7 @@ class FirebaseService extends GetxService {
 // remove duplicates before sending a list (two litters can have the same therapy)
 
     catch (e) {
-      SnackBar(content: Text('Error with getting all items'));
+      const SnackBar(content: Text('Error with getting all items'));
     }
     return null;
   }
@@ -384,7 +384,7 @@ class FirebaseService extends GetxService {
 // remove duplicates before sending a list (two litters can have the same therapy)
 
     catch (e) {
-      SnackBar(content: Text('Error with getting all items'));
+      const SnackBar(content: Text('Error with getting all items'));
     }
   }
 
@@ -435,6 +435,16 @@ class FirebaseService extends GetxService {
   }
 
   Future<void> logOut() async {
+    await signOutFromGoogle();
+
+    try {
+      await firebaseAuth.signOut();
+    } on FirebaseAuthException catch (e) {
+      logger.e(e);
+    }
+  }
+
+  Future<void> signOutFromGoogle() async {
     final socialPlatform = storageService.getString(key: 'socialPlatform');
     if (socialPlatform == 'google') {
       final googleSignIn = GoogleSignIn();
@@ -443,12 +453,6 @@ class FirebaseService extends GetxService {
 
     await storageService.deleteValue(key: 'socialPlatform');
     await storageService.deleteValue(key: 'isLoggedIn');
-
-    try {
-      await firebaseAuth.signOut();
-    } on FirebaseAuthException catch (e) {
-      logger.e(e);
-    }
   }
 
   Future<UserData> getCurrentUserData() async {
@@ -546,12 +550,73 @@ class FirebaseService extends GetxService {
     }
   }
 
+  Future<void> deleteAllUserItems() async {
+    try {
+      List<Item> itemList = await firebaseFirestore
+          .collection('items')
+          .where('user_ID', isEqualTo: firebaseAuth.currentUser?.uid)
+          .get()
+          .then((value) =>
+              value.docs.map((e) => Item.fromJson(e.data())).toList());
+
+      for (final item in itemList) {
+        if (item.itemPictureList != null) {
+          for (final image in item.itemPictureList!) {
+            await deleteItemImagesFromStorage(image);
+          }
+        }
+        await deleteCurrentUserItems(item.itemID);
+      }
+    } catch (e) {
+      logger.e(e);
+      Get.snackbar(
+          'errooor', 'Nastala je greska priliko brisanja svih userovih itema');
+    }
+  }
+
+  Future<void> deleteCurrentUserProfilePictureFromStorage() async {
+    try {
+      final userData = await getCurrentUserData();
+      final profilePicture = userData.profilePicture;
+      if (profilePicture != null) {
+        if (profilePicture.isNotEmpty) {
+          await firebaseStorage.refFromURL(profilePicture).delete();
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> deleteUser() async {
+    try {
+      final userID = firebaseAuth.currentUser?.uid;
+
+      await firebaseFirestore.collection(users).doc(userID).delete();
+    } catch (e) {
+      logger.e(e);
+      Get.snackbar('errooor', 'Nastala je greska priliko brisanja Usera ');
+    }
+  }
+
   Future<void> deleteChatById(String chatID) async {
     try {
-      final chatReference =
-          await firebaseFirestore.collection(chats).doc(chatID);
-      await firebaseFirestore.runTransaction(
-          (transaction) async => transaction.delete(chatReference));
+      final chatDocuments = await firebaseFirestore
+          .collection(chats)
+          .doc(chatID)
+          .collection(messages)
+          .get();
+      final documents = chatDocuments.docs;
+      for (final document in documents) {
+        final chatReference = firebaseFirestore
+            .collection(chats)
+            .doc(chatID)
+            .collection(messages)
+            .doc(document.id);
+        await firebaseFirestore.runTransaction(
+            (transaction) async => transaction.delete(chatReference));
+      }
+      await firebaseFirestore.collection(chats).doc(chatID).delete();
     } catch (e) {
       logger.e(e);
       Get.snackbar('errooor', 'Nastala je greska priliko brisanja ');

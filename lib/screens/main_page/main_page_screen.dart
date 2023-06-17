@@ -10,7 +10,6 @@ import 'package:this_4_that/screens/profile/profile_page_controller.dart';
 import 'package:this_4_that/screens/profile/profile_page_screen.dart';
 
 import '../add_item/add_item_page_screen.dart';
-import '../messages/messages_page_controller.dart';
 import 'main_page_controller.dart';
 
 ///
@@ -19,11 +18,13 @@ import 'main_page_controller.dart';
 
 class MainPageScreen extends GetView<MainPageController> {
   final List<Widget> pages = [
-    HomePageScreen(),
-    AddItemPageScreen(),
-    MessagesPageScreen(),
-    ProfilePageScreen(),
+    const HomePageScreen(),
+    const AddItemPageScreen(),
+    const MessagesPageScreen(),
+    const ProfilePageScreen(),
   ];
+
+  MainPageScreen({super.key});
 
   @override
   Widget build(BuildContext context) => SafeArea(
@@ -48,9 +49,10 @@ class MainPageScreen extends GetView<MainPageController> {
               showSelectedLabels: false,
               showUnselectedLabels: false,
               backgroundColor: MyColors.orange,
-              selectedIconTheme: IconThemeData(color: MyColors.white, size: 40),
+              selectedIconTheme:
+                  const IconThemeData(color: MyColors.white, size: 40),
               selectedItemColor: Colors.amberAccent,
-              unselectedIconTheme: IconThemeData(
+              unselectedIconTheme: const IconThemeData(
                 color: MyColors.black,
               ),
               unselectedItemColor: Colors.black,

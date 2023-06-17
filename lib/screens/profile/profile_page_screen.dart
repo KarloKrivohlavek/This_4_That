@@ -1,24 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:this_4_that/authentification_screens/authentification_screen_1_login.dart';
 import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/constants/strings.dart';
 import 'package:this_4_that/constants/text_styles.dart';
-import 'package:this_4_that/data.dart';
-import 'package:this_4_that/pages.dart';
-import 'package:this_4_that/profile_page.dart';
 import 'package:this_4_that/screens/profile/profile_page_controller.dart';
 import 'package:this_4_that/screens/profile/widgets/profile_page_edit_profile_preview_widget.dart';
 import 'package:this_4_that/screens/profile/widgets/user_profile_item_preview.dart';
-import 'package:this_4_that/services/firebase_service.dart';
-import 'package:this_4_that/src/edit_profile_page.dart';
-import 'package:this_4_that/user.dart';
-import 'package:this_4_that/user_preferences.dart';
 import 'package:this_4_that/widget/custom_dialog.dart';
-import 'package:this_4_that/widget/profile_widget.dart';
 
 ///
 /// This is a screen in which we write widgets concerning [HelloScreen]
@@ -29,7 +19,6 @@ class ProfilePageScreen extends GetView<ProfilePageController> {
 
   @override
   Widget build(BuildContext context) {
-    final user = UserPreferences.getUser();
     // final User user;
     // final ProfilePageController controller
     return Obx(() => Scaffold(
@@ -202,17 +191,17 @@ class ProfilePageScreen extends GetView<ProfilePageController> {
                     }));
               },
               child: Container(
-                padding: EdgeInsets.only(bottom: 10),
+                padding: const EdgeInsets.only(bottom: 10),
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Container(
                     height: 40,
                     width: 40,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: Colors.grey,
                     ),
-                    child: Icon(
+                    child: const Icon(
                       MdiIcons.logout,
                       size: 20,
                     ),

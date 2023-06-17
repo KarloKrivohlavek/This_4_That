@@ -1,9 +1,6 @@
-import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:this_4_that/models/match/match.dart';
 import 'package:this_4_that/models/message/message.dart';

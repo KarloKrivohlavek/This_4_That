@@ -1,14 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:this_4_that/constants/colors.dart';
-import 'package:this_4_that/models/message/message.dart';
 import 'package:this_4_that/screens/messages/chat/widgets/custom_appbar.dart';
 import 'package:this_4_that/screens/messages/chat/widgets/message_bubble.dart';
 import 'package:this_4_that/services/firebase_service.dart';
-import 'package:this_4_that/widget/overlapped_images_widget.dart';
 
 import 'chat_page_controller.dart';
 
@@ -17,6 +14,8 @@ import 'chat_page_controller.dart';
 ///
 
 class ChatPageScreen extends GetView<ChatPageController> {
+  const ChatPageScreen({super.key});
+
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: CustomAppBar(
@@ -87,28 +86,28 @@ class ChatPageScreen extends GetView<ChatPageController> {
                 return Expanded(
                     child: Center(
                         child: ListView(
-                  children: messagesList,
                   reverse: true,
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                  children: messagesList,
                 )));
               }),
           Padding(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             child: TextField(
               onTap: () {},
               controller: controller.messageController,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 3, color: MyColors.grey),
+                  borderSide: const BorderSide(width: 3, color: MyColors.grey),
                   borderRadius: BorderRadius.circular(50.0),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(width: 3, color: MyColors.orange),
+                  borderSide: const BorderSide(width: 3, color: MyColors.orange),
                   borderRadius: BorderRadius.circular(50.0),
                 ),
                 hintText: 'Poruka...',
                 suffixIcon: (IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     MdiIcons.send,
                   ),
                   onPressed: () {

@@ -1,13 +1,10 @@
 import 'dart:io';
-import 'dart:ui';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:this_4_that/authentification_screens/authentification_screen_1_login.dart';
 import 'package:this_4_that/services/firebase_service.dart';
 import 'package:this_4_that/services/logger_service.dart';
 
@@ -118,7 +115,7 @@ class ProfilePageController extends GetxController {
           await ImagePicker().pickImage(source: ImageSource.gallery);
 
       if (pickedImage == null) return;
-      final imageTemporary = File(pickedImage!.path);
+      final imageTemporary = File(pickedImage.path);
 
       image = imageTemporary;
     } on PlatformException catch (e) {
@@ -139,11 +136,10 @@ class ProfilePageController extends GetxController {
 
   Future<void> changeProfilePicture() async {
     await pickUserProfileImage();
-    logger.e('1');
+    await firebaseService.deleteCurrentUserProfilePictureFromStorage();
     profileImage = await firebaseService.uploadProfilePicture(image!);
     logger.w(profileImage);
     await firebaseService.updateUserData({'profile_picture': profileImage});
-    logger.wtf(3);
   }
 
   Future<void> changeItemStatus(String itemID, String status) async {
@@ -189,6 +185,14 @@ class ProfilePageController extends GetxController {
     await firebaseService.deleteCurrentUserItems(itemID);
     await firebaseService.deleteAllMatchesWithItemID(itemID);
     currentUserItemsArchived.remove(currentItem);
+  }
+
+  Future<void> deleteUserAccount() async {
+    await firebaseService.deleteAllUserItems();
+    await firebaseService.deleteCurrentUserProfilePictureFromStorage();
+    await firebaseService.deleteUser();
+    await firebaseService.signOutFromGoogle();
+    await FirebaseAuth.instance.currentUser!.delete();
   }
 
   void removeFromActiveList(Item item) {

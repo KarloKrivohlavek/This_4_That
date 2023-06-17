@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:this_4_that/constants/colors.dart';
 
 class MessageBubble extends StatelessWidget {
-  MessageBubble({required this.time, required this.text, required this.isMe});
+  const MessageBubble({super.key, required this.time, required this.text, required this.isMe});
 
   final String time;
   final String text;
@@ -11,14 +11,14 @@ class MessageBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(10.0),
       child: Column(
         crossAxisAlignment:
             isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
         children: <Widget>[
           Text(
             time,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 12.0,
               color: Colors.black54,
             ),
@@ -26,11 +26,11 @@ class MessageBubble extends StatelessWidget {
           Material(
             shadowColor: Colors.transparent,
             borderRadius: isMe
-                ? BorderRadius.only(
+                ? const BorderRadius.only(
                     topLeft: Radius.circular(20.0),
                     bottomLeft: Radius.circular(20.0),
                     bottomRight: Radius.circular(20.0))
-                : BorderRadius.only(
+                : const BorderRadius.only(
                     bottomLeft: Radius.circular(20.0),
                     bottomRight: Radius.circular(20.0),
                     topRight: Radius.circular(20.0),
@@ -38,7 +38,7 @@ class MessageBubble extends StatelessWidget {
             elevation: 5.0,
             color: isMe ? MyColors.orange : MyColors.grey,
             child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
               child: Text(
                 text,
                 style: TextStyle(

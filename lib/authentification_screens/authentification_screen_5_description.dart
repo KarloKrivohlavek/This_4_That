@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:this_4_that/authentification_screens/authentification_controller.dart';
-import 'package:this_4_that/authentification_screens/authentification_screen_6_location.dart';
 import 'package:this_4_that/constants/colors.dart';
-import 'package:this_4_that/constants/strings.dart';
 import 'package:this_4_that/constants/text_styles.dart';
 import 'package:this_4_that/widget/filled_color_button_widget.dart';
 import 'package:this_4_that/widget/number_of_pages_indicator_widget.dart';
@@ -30,26 +27,26 @@ class AuthentificationScreen5Description
           elevation: 0,
         ),
         body: Padding(
-          padding: EdgeInsets.only(left: 16, right: 16, bottom: 16),
+          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
+                  SizedBox(
                     height: 10,
                     child: NumberOfPagesIndicator(
                       numberOfItems: 5,
                       currentPosition: 3,
                     ),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text(
                     'Reci nam nešto o sebi',
                     style: MyTextStyles.poppins40w700,
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text(
                     'Ovo će biti prikazano javno na profilu',
                     style: MyTextStyles.poppins16w400,

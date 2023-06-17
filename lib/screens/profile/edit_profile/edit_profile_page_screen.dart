@@ -1,26 +1,24 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:this_4_that/constants/colors.dart';
-import 'package:this_4_that/constants/text_styles.dart';
+import 'package:this_4_that/pages.dart';
 import 'package:this_4_that/screens/profile/profile_page_controller.dart';
-import 'package:this_4_that/widget/button_widget.dart';
+import 'package:this_4_that/widget/custom_dialog.dart';
 import 'package:this_4_that/widget/filled_color_button_widget.dart';
 import 'package:this_4_that/widget/profile_widget.dart';
 import 'package:this_4_that/widget/textfield_widget.dart';
 
-import 'edit_profile_page_controller.dart';
 
 ///
 /// This is a screen in which we write widgets concerning [HelloScreen]
 ///
 
 class EditProfilePageScreen extends GetView<ProfilePageController> {
+  const EditProfilePageScreen({super.key});
+
   @override
   Widget build(BuildContext context) => Obx(
         () => Scaffold(
@@ -29,11 +27,11 @@ class EditProfilePageScreen extends GetView<ProfilePageController> {
             backgroundColor: MyColors.orange,
           ),
           body: ListView(
-            padding: EdgeInsets.symmetric(horizontal: 32),
-            physics: BouncingScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: 32),
+            physics: const BouncingScrollPhysics(),
             children: [
               Padding(
-                padding: EdgeInsets.only(top: 20),
+                padding: const EdgeInsets.only(top: 20),
                 child: ProfileWidget(
                     imagePath: controller.profileImage,
                     // controller.currentUserData.profilePicture.toString(),
@@ -75,6 +73,18 @@ class EditProfilePageScreen extends GetView<ProfilePageController> {
                 height: 100.h,
               ),
               GestureDetector(
+                onTap: () {
+                  Get.dialog(CustomDialog(
+                      title: 'Brisanje računa',
+                      text:
+                          'Jeste li sigurni da želite trajno izbrisati račun, ovom akcijom će biti izbrisani svi vaši oglasi i matchevi s drugim korisnicima.',
+                      button1: 'Izbriši',
+                      button2: 'Odustani',
+                      action: () async {
+                        await controller.deleteUserAccount();
+                        Get.offAllNamed(MyRoutes.authentificationScreen);
+                      }));
+                },
                 child: Center(
                   child: Text(
                     'Izbriši računa',

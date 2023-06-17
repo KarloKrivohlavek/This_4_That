@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:this_4_that/constants/text_styles.dart';
-import 'package:this_4_that/different_user_profile_page_preview.dart';
 
 class SwappablePageDifferentUserPreview extends StatelessWidget {
   SwappablePageDifferentUserPreview({
@@ -31,13 +28,13 @@ class SwappablePageDifferentUserPreview extends StatelessWidget {
               shape: BoxShape.circle,
               image: DecorationImage(
                 image: userProfilePicture!.contains('default')
-                    ? AssetImage('images/default_user_profile_picture.png')
+                    ? const AssetImage('images/default_user_profile_picture.png')
                         as ImageProvider
                     : NetworkImage(userProfilePicture!),
               )),
         ),
         Container(
-          margin: EdgeInsets.only(left: 10, right: 10),
+          margin: const EdgeInsets.only(left: 10, right: 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,7 +42,7 @@ class SwappablePageDifferentUserPreview extends StatelessWidget {
               SizedBox(
                 height: 15.h,
               ),
-              Container(
+              SizedBox(
                 width: 150.w,
                 child: Text(
                   userProfileName,

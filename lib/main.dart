@@ -4,29 +4,19 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:this_4_that/chat_page.dart';
-import 'package:this_4_that/scratch_files/home_page.dart';
-import 'package:this_4_that/add_item_page.dart';
 import 'package:this_4_that/pages.dart';
-import 'package:this_4_that/profile_page.dart';
-import 'package:this_4_that/screens/splash_page/splash_page_controller.dart';
 import 'package:this_4_that/services/firebase_service.dart';
 import 'package:this_4_that/services/logger_service.dart';
 import 'package:this_4_that/services/storage_service.dart';
-
-import 'package:this_4_that/user_preferences.dart';
-import 'package:this_4_that/user.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   Get.put(LoggerService());
   await GetStorage.init();
-  await UserPreferences.init();
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  runApp(This4ThatApp());
+  runApp(const This4ThatApp());
 }
 
 class InitialBinding extends Bindings {

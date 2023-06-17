@@ -1,8 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:this_4_that/services/firebase_service.dart';
 
-import '../../models/user/user.dart';
 
 class AddItemPage0Controller extends GetxController {
   /// DEPENDENCIES

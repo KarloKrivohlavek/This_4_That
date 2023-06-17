@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 
@@ -30,7 +29,7 @@ class ProfileWidget extends StatelessWidget {
   Widget buildImage() {
     final image = imagePath!.isNotEmpty
         ? NetworkImage(imagePath!)
-        : AssetImage('images/default_user_profile_picture.png');
+        : const AssetImage('images/default_user_profile_picture.png');
 
     return ClipOval(
       child: Material(

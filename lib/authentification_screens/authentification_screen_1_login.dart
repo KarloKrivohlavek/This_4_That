@@ -1,19 +1,13 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:this_4_that/authentification_screens/authentification_controller.dart';
-import 'package:this_4_that/authentification_screens/authentification_screen_2_name_surname.dart';
 import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/constants/strings.dart';
 import 'package:this_4_that/constants/text_styles.dart';
-import 'package:this_4_that/services/firebase_service.dart';
 
-import 'package:this_4_that/widget/number_of_pages_indicator_widget.dart';
 
 class AuthentificationScreen1Login extends GetView<AuthentificationController> {
-  AuthentificationScreen1Login({Key? key}) : super(key: key);
+  const AuthentificationScreen1Login({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,11 +17,11 @@ class AuthentificationScreen1Login extends GetView<AuthentificationController> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            color: Color(0x80F2C14E),
+            color: const Color(0x80F2C14E),
             height: MediaQuery.of(context).size.height * 0.65,
             child: Container(
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.all(20),
+              padding: const EdgeInsets.all(20),
               child: Stack(
                 children: [
                   Center(child: Image.asset('images/login_image.png')),
@@ -54,17 +48,17 @@ class AuthentificationScreen1Login extends GetView<AuthentificationController> {
                     style: MyTextStyles.poppins24w700,
                   ),
                 ),
-                SizedBox(height: 30),
-                Container(
+                const SizedBox(height: 30),
+                SizedBox(
                   width: MediaQuery.of(context).size.width * 0.7,
                   child: TextButton(
                     onPressed: () {
                       controller.googleSignIn();
                     },
                     child: Container(
-                      padding: EdgeInsets.all(4),
+                      padding: const EdgeInsets.all(4),
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(50)),
+                          borderRadius: const BorderRadius.all(Radius.circular(50)),
                           border: Border.all(color: MyColors.black, width: 1)),
                       child: Row(children: [
                         SizedBox(
@@ -72,8 +66,8 @@ class AuthentificationScreen1Login extends GetView<AuthentificationController> {
                           height: 40,
                           child: Image.asset('images/google_logo.png'),
                         ),
-                        SizedBox(width: 20),
-                        Text(
+                        const SizedBox(width: 20),
+                        const Text(
                           'Nastavi koristeći Google',
                           style: TextStyle(
                               fontSize: 16,

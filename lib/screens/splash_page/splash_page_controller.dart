@@ -1,5 +1,4 @@
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:this_4_that/pages.dart';
 import 'package:this_4_that/services/firebase_service.dart';
 import 'package:this_4_that/services/logger_service.dart';
@@ -31,14 +30,14 @@ class SplashPageController extends GetxController {
       doesUserDataExist =
           await FirebaseService.instance.doesUserDataHaveAName();
       if (doesUserDataExist) {
-        Future.delayed(Duration(seconds: 2))
+        Future.delayed(const Duration(seconds: 2))
             .then((value) => Get.offAllNamed(MyRoutes.mainPageScreen));
       } else {
-        Future.delayed(Duration(seconds: 2)).then((value) =>
+        Future.delayed(const Duration(seconds: 2)).then((value) =>
             Get.offAllNamed(MyRoutes.authentificationScreenNameSurname));
       }
     } else {
-      Future.delayed(Duration(seconds: 2))
+      Future.delayed(const Duration(seconds: 2))
           .then((value) => Get.offAllNamed(MyRoutes.authentificationScreen));
     }
   }

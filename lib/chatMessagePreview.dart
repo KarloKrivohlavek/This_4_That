@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:this_4_that/constants/colors.dart';
@@ -19,19 +18,19 @@ class MessagePreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(5),
+      margin: const EdgeInsets.all(5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             width: MediaQuery.of(context).size.width,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
+                SizedBox(
                   // margin: EdgeInsets.only(right: 60),
                   width: 120.w,
                   height: 80.h,
@@ -74,6 +73,13 @@ class MessagePreview extends StatelessWidget {
                       Positioned(
                         left: 20,
                         child: Container(
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: MyColors.orange,
+                          ),
+                          width: 24,
+                          height: 24,
+                          padding: const EdgeInsets.all(5),
                           child: SizedBox(
                             width: 20,
                             height: 20,
@@ -81,13 +87,6 @@ class MessagePreview extends StatelessWidget {
                               'images/logo.png',
                             ),
                           ),
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: MyColors.orange,
-                          ),
-                          width: 24,
-                          height: 24,
-                          padding: EdgeInsets.all(5),
                         ),
                       ),
                     ],
@@ -97,14 +96,14 @@ class MessagePreview extends StatelessWidget {
                   child: Container(
                     // margin: EdgeInsets.only(left: 110, top: 15),
                     child: Padding(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
                             differentUserItemName,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 20),
                           ),
                           Text(differentUserName),
@@ -125,12 +124,12 @@ class MessagePreview extends StatelessWidget {
                       Container(
                         width: 20,
                         height: 20,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.black,
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         width: 10,
                         height: 10,
                       )
@@ -140,7 +139,7 @@ class MessagePreview extends StatelessWidget {
               ],
             ),
           ),
-          Divider(
+          const Divider(
             color: Colors.black,
             indent: 10,
             endIndent: 10,

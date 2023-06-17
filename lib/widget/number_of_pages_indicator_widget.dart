@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:this_4_that/constants/colors.dart';
-import 'package:this_4_that/constants/text_styles.dart';
 
 class NumberOfPagesIndicator extends StatelessWidget {
   NumberOfPagesIndicator(
-      {required this.numberOfItems, required this.currentPosition});
+      {super.key, required this.numberOfItems, required this.currentPosition});
   int currentPosition;
   int numberOfItems;
   @override

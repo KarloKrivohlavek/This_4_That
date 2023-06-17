@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:this_4_that/add_item_pages/add_item_page_2.dart';
-import 'package:this_4_that/scratch_files/ex_homepage.dart';
 import 'package:im_stepper/stepper.dart';
 
 import 'add_item_pages/add_item_page_1.dart';
-import 'package:this_4_that/main.dart';
 import 'add_item_pages/add_item_page_3.dart';
 import 'add_item_pages/add_item_page_4.dart';
 import 'add_item_pages/add_item_page_5.dart';
@@ -13,7 +10,7 @@ import 'add_item_pages/add_item_page_5.dart';
 class MessagesPage extends StatefulWidget {
   VoidCallback? onReturn;
 
-  MessagesPage({
+  MessagesPage({super.key, 
     this.onReturn,
   });
 
@@ -21,7 +18,7 @@ class MessagesPage extends StatefulWidget {
   static Route route() {
     return MaterialPageRoute(
       builder: (_) => MessagesPage(),
-      settings: RouteSettings(name: routeName),
+      settings: const RouteSettings(name: routeName),
     );
   }
 
@@ -68,26 +65,26 @@ class _MessagesPageState extends State<MessagesPage> {
                     },
 
                     // DOT-STEPPER DECORATIONS
-                    fixedDotDecoration: FixedDotDecoration(
+                    fixedDotDecoration: const FixedDotDecoration(
                       color: Colors.black,
                     ),
 
-                    indicatorDecoration: IndicatorDecoration(
+                    indicatorDecoration: const IndicatorDecoration(
                       // style: PaintingStyle.stroke,
                       strokeWidth: 0,
                       color: Colors.orange,
                     ),
-                    lineConnectorDecoration: LineConnectorDecoration(
+                    lineConnectorDecoration: const LineConnectorDecoration(
                       color: Colors.blue,
                       strokeWidth: 0,
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     height: MediaQuery.of(context).size.height * 0.70,
                     child: PageView(
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       controller: _pageController,
-                      children: [
+                      children: const [
                         AddItemPage1(),
                         AddItemPage2(),
                         AddItemPage3(),
@@ -145,7 +142,7 @@ class _MessagesPageState extends State<MessagesPage> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
         ),
-        child: Padding(
+        child: const Padding(
           padding: EdgeInsets.all(16),
           child: Text(
             'Dalje',
@@ -174,7 +171,7 @@ class _MessagesPageState extends State<MessagesPage> {
   /// Returns the previous button widget.
   Widget previousButton() {
     return Padding(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.orange,
@@ -182,7 +179,7 @@ class _MessagesPageState extends State<MessagesPage> {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
         ),
-        child: Text(
+        child: const Text(
           'Prev',
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
         ),

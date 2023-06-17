@@ -1,14 +1,10 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:this_4_that/categories.dart';
 import 'package:this_4_that/constants/constants.dart';
 import 'package:this_4_that/models/categoryType/categoryType.dart';
 import 'package:this_4_that/models/item/item.dart';
@@ -65,6 +61,10 @@ class AddItemPageController extends GetxController {
   int dotCount = 5;
 
   File? image;
+
+  final RxBool _buttonIsEnabled = false.obs;
+  bool get buttonIsEnabled => _buttonIsEnabled.value;
+  set buttonIsEnabled(bool value) => _buttonIsEnabled.value = value;
 
   final RxList<File?> _imageList = <File?>[null].obs;
   List<File?> get imageList => _imageList;
@@ -142,19 +142,22 @@ class AddItemPageController extends GetxController {
     itemNameController.addListener(() {
       itemNameIsEmpty = itemNameController.text.isNotEmpty &&
           itemNameController.text.length > 3;
+      if (itemNameIsEmpty && itemDescriptionIsEmpty) {
+        buttonIsEnabled = true;
+      } else {
+        buttonIsEnabled = false;
+      }
     });
     itemDescriptionController.addListener(() {
+      logger.v(itemDescriptionController.text);
       itemDescriptionIsEmpty = itemDescriptionController.text.isNotEmpty &&
           itemDescriptionController.text.length > 3;
+      if (itemNameIsEmpty && itemDescriptionIsEmpty) {
+        buttonIsEnabled = true;
+      } else {
+        buttonIsEnabled = false;
+      }
     });
-  }
-
-  void saveTitleAndDescription() {
-    newItem = newItem.copyWith(
-        itemName: titleController
-            .text, // dohvati pomoću controllera title koji je upisan u title textfield
-        itemDescription: descriptionController
-            .text); // dohvati pomoću controllera description koji je upisan u description textfield
   }
 
   void saveItemName() {
@@ -192,21 +195,29 @@ class AddItemPageController extends GetxController {
     logger.e(newItem);
   }
 
+  void checkIfPictureIsAdded() {
+    logger.v(imageList.length);
+    if (imageList.length > 1) {
+      buttonIsEnabled = true;
+    } else {
+      buttonIsEnabled = false;
+    }
+    logger.w(buttonIsEnabled);
+  }
+
   Future<void> pickImage() async {
     try {
       final pickedImage =
           await ImagePicker().pickImage(source: ImageSource.gallery);
 
       if (pickedImage == null) return;
-      final imageTemporary = File(pickedImage!.path);
+      final imageTemporary = File(pickedImage.path);
 
       image = imageTemporary;
       if (imageList.length < 5) {
         imageList.insert(0, image);
       }
-    } on PlatformException catch (e) {
-      print('Failed to pick image $e');
-    }
+    } on PlatformException catch (e) {}
   }
 
   List<CategoryType> searchCategory(String query) {
@@ -289,6 +300,15 @@ class AddItemPageController extends GetxController {
       final isOn = pickedCategoriesConstants.elementAt(index).isOn;
       pickedCategoriesConstants[index] =
           pickedCategoriesConstants[index].copyWith(isOn: !isOn);
+      checkIfPickedItemListIsEmpty();
+    }
+  }
+
+  void checkIfPickedItemListIsEmpty() {
+    if (pickedCategories.isNotEmpty) {
+      buttonIsEnabled = true;
+    } else {
+      buttonIsEnabled = false;
     }
   }
 
@@ -301,5 +321,6 @@ class AddItemPageController extends GetxController {
     final isOn = pickedCategoriesConstants.elementAt(index).isOn;
     pickedCategoriesConstants[index] =
         pickedCategoriesConstants[index].copyWith(isOn: !isOn);
+    checkIfPickedItemListIsEmpty();
   }
 }

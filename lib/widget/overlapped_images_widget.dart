@@ -1,7 +1,5 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:this_4_that/constants/colors.dart';
 
 class OverlappedImagesWidget extends StatelessWidget {
@@ -66,6 +64,13 @@ class OverlappedImagesWidget extends StatelessWidget {
         Positioned(
           left: position3,
           child: Container(
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: MyColors.orange,
+            ),
+            width: logoWidthHeight,
+            height: logoWidthHeight,
+            padding: const EdgeInsets.all(5),
             child: SizedBox(
               width: logoWidthHeight,
               height: logoWidthHeight,
@@ -73,13 +78,6 @@ class OverlappedImagesWidget extends StatelessWidget {
                 'images/logo.png',
               ),
             ),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: MyColors.orange,
-            ),
-            width: logoWidthHeight,
-            height: logoWidthHeight,
-            padding: EdgeInsets.all(5),
           ),
         ),
       ],

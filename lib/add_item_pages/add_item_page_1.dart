@@ -1,16 +1,11 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:this_4_that/screens/add_item/add_item_page_controller.dart';
-import 'package:this_4_that/widget/filled_color_button_widget.dart';
 
 import '../widget/addImageContainer.dart';
 
 class AddItemPage1 extends GetView<AddItemPageController> {
-  AddItemPage1({super.key});
+  const AddItemPage1({super.key});
 
   @override
   Widget build(BuildContext context) => Obx(() => Padding(
@@ -53,11 +48,13 @@ class AddItemPage1 extends GetView<AddItemPageController> {
                         : 4,
                     itemBuilder: (BuildContext context, index) {
                       return GestureDetector(
-                          onTap: () {
+                          onTap: () async {
                             if (controller.imageList.elementAt(index) != null) {
                               controller.imageList.removeAt(index);
+                              controller.checkIfPictureIsAdded();
                             } else {
-                              controller.pickImage();
+                              await controller.pickImage();
+                              controller.checkIfPictureIsAdded();
                             }
                           },
                           child: addImageContainer(

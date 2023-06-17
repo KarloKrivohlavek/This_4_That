@@ -1,7 +1,4 @@
-// import 'dart:ffi';
-
 import 'package:get/get.dart';
-import 'package:this_4_that/data.dart';
 import 'package:this_4_that/models/matchedChatData/matched_chat_data.dart';
 import 'package:this_4_that/screens/matched_item_screen.dart';
 import 'package:this_4_that/models/item/item.dart';
@@ -10,7 +7,6 @@ import 'package:this_4_that/models/swipe_item/swipe_item.dart';
 import 'package:this_4_that/models/user/user.dart';
 import 'package:this_4_that/services/firebase_service.dart';
 import 'package:this_4_that/services/logger_service.dart';
-import 'package:this_4_that/swapItem.dart';
 import 'package:this_4_that/swappable_page.dart';
 
 import '../../flutter_card_swiper.dart';
@@ -89,28 +85,6 @@ class HomePageController extends GetxController {
   int selectedImageIndex = 0;
   int pendingImageIndex = -1;
   int currentSwapPageIndex = 0;
-  // List<Map<String, dynamic>> images = [
-  //   {
-  //     'name': 'Lampa',
-  //     'url': 'images/lamp.jpg',
-  //     'isOn': false,
-  //   },
-  //   {
-  //     'name': 'Logitech mis',
-  //     'url': 'images/mouse.jpg',
-  //     'isOn': false,
-  //   },
-  //   {
-  //     'name': 'Novcanik',
-  //     'url': 'images/wallet.jpg',
-  //     'isOn': false,
-  //   },
-  //   {
-  //     'name': 'Sat',
-  //     'url': 'images/watch.jpg',
-  //     'isOn': false,
-  //   },
-  // ];
 
   final RxList<Item> _currentUserItems = <Item>[].obs;
   List<Item> get currentUserItems => _currentUserItems;
@@ -188,7 +162,7 @@ class HomePageController extends GetxController {
             matchID: '',
             chatID: chatID);
         final matchId = await firebaseService.sendNewMatchData(match);
-        match.copyWith(matchID: matchId!);
+        match = match.copyWith(matchID: matchId!);
       }
     }
     return match;
@@ -247,7 +221,7 @@ class HomePageController extends GetxController {
       removedItemsFromList.add(previousIndex);
 
       if (match.chatID.isNotEmpty) {
-        Get.to(() => MatchedItemPage(), arguments: match);
+        Get.to(() => const MatchedItemPage(), arguments: match);
       }
     }
 

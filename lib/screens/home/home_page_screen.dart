@@ -48,13 +48,13 @@ class HomePageScreen extends GetView<HomePageController> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Divider(
+                                        const Divider(
                                           color: MyColors.orange,
                                           thickness: 3,
                                           indent: 150,
                                           endIndent: 150,
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 10,
                                         ),
                                         Container(
@@ -97,7 +97,7 @@ class HomePageScreen extends GetView<HomePageController> {
                                                         ),
                                                         child: Container(
                                                           decoration:
-                                                              BoxDecoration(),
+                                                              const BoxDecoration(),
                                                           child: Column(
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
@@ -162,9 +162,10 @@ class HomePageScreen extends GetView<HomePageController> {
                                       ],
                                     ),
                                     Padding(
-                                      padding: EdgeInsets.only(
+                                      padding: const EdgeInsets.only(
                                           left: 16, right: 16, bottom: 16),
                                       child: GestureDetector(
+                                        behavior: HitTestBehavior.translucent,
                                         onTap: () {
                                           controller.selectedItemIndex =
                                               controller
@@ -252,8 +253,8 @@ class HomePageScreen extends GetView<HomePageController> {
                                               Container(
                                                 padding:
                                                     const EdgeInsets.all(20),
-                                                child: Column(
-                                                  children: const [
+                                                child: const Column(
+                                                  children: [
                                                     FilterWidgetPreview(
                                                       filterType: 'Vrijednost',
                                                       filterValue: '100 - 500€',
@@ -311,6 +312,7 @@ class HomePageScreen extends GetView<HomePageController> {
                                 /// ovo je to stajalo
 
                                 GestureDetector(
+                                  behavior: HitTestBehavior.translucent,
                                   onTap: () {
                                     showModalBottomSheet(
                                         shape: RoundedRectangleBorder(
@@ -325,13 +327,13 @@ class HomePageScreen extends GetView<HomePageController> {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Divider(
+                                                  const Divider(
                                                     color: MyColors.orange,
                                                     thickness: 3,
                                                     indent: 150,
                                                     endIndent: 150,
                                                   ),
-                                                  SizedBox(
+                                                  const SizedBox(
                                                     height: 10,
                                                   ),
                                                   Container(
@@ -364,6 +366,9 @@ class HomePageScreen extends GetView<HomePageController> {
                                                       itemBuilder:
                                                           (context, index) {
                                                         return GestureDetector(
+                                                            behavior:
+                                                                HitTestBehavior
+                                                                    .translucent,
                                                             onTap: () {
                                                               controller
                                                                   .onContainerTapped(
@@ -379,7 +384,7 @@ class HomePageScreen extends GetView<HomePageController> {
                                                               ),
                                                               child: Container(
                                                                 decoration:
-                                                                    BoxDecoration(),
+                                                                    const BoxDecoration(),
                                                                 child: Column(
                                                                   mainAxisAlignment:
                                                                       MainAxisAlignment
@@ -429,16 +434,28 @@ class HomePageScreen extends GetView<HomePageController> {
                                                 ],
                                               ),
                                               Padding(
-                                                padding: EdgeInsets.only(
+                                                padding: const EdgeInsets.only(
                                                     left: 16,
                                                     right: 16,
                                                     bottom: 16),
-                                                child: FilledColorButtonWidget(
-                                                    buttonHeight: 50,
-                                                    buttonText: 'Primjeni',
-                                                    buttonWidth:
-                                                        double.infinity,
-                                                    isEnabled: true),
+                                                child: GestureDetector(
+                                                  behavior: HitTestBehavior
+                                                      .translucent,
+                                                  onTap: () {
+                                                    controller
+                                                            .selectedItemIndex =
+                                                        controller
+                                                            .modalBottomSheetItemIndex;
+                                                  },
+                                                  child:
+                                                      FilledColorButtonWidget(
+                                                          buttonHeight: 50,
+                                                          buttonText:
+                                                              'Primjeni',
+                                                          buttonWidth:
+                                                              double.infinity,
+                                                          isEnabled: true),
+                                                ),
                                               )
                                             ],
                                           );
@@ -519,8 +536,8 @@ class HomePageScreen extends GetView<HomePageController> {
                                                           padding:
                                                               const EdgeInsets
                                                                   .all(20),
-                                                          child: Column(
-                                                            children: const [
+                                                          child: const Column(
+                                                            children: [
                                                               FilterWidgetPreview(
                                                                 filterType:
                                                                     'Vrijednost',
@@ -686,8 +703,8 @@ class HomePageScreen extends GetView<HomePageController> {
                       borderRadius: BorderRadius.circular(20),
                       color: MyColors.white,
                     ),
-                    margin: EdgeInsets.only(top: 16, left: 16, right: 16),
-                    padding: EdgeInsets.all(16),
+                    margin: const EdgeInsets.only(top: 16, left: 16, right: 16),
+                    padding: const EdgeInsets.all(16),
                     height: Get.height,
                     child: Center(
                       child: Column(
@@ -704,7 +721,7 @@ class HomePageScreen extends GetView<HomePageController> {
                                 'Dodaj oglas!',
                                 style: MyTextStyles.poppins40w700,
                               ),
-                              Container(
+                              SizedBox(
                                 width: Get.width * 0.6,
                                 child: Text(
                                   'Moraš dodati oglas ili imati aktivan oglas kako bi ti mogli prikazivati oglase drugih korisnika.',
@@ -714,6 +731,7 @@ class HomePageScreen extends GetView<HomePageController> {
                             ],
                           ),
                           GestureDetector(
+                            behavior: HitTestBehavior.translucent,
                             onTap: () {
                               Get.find<MainPageController>().currentIndex = 1;
                             },

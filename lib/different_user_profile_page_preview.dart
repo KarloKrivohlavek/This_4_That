@@ -5,18 +5,17 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/constants/text_styles.dart';
 
-class DifferentUserProfilePagePreview extends StatefulWidget {
-  const DifferentUserProfilePagePreview({
-    super.key,
-  });
-
-  @override
-  State<DifferentUserProfilePagePreview> createState() =>
-      _DifferentUserProfilePagePreviewState();
-}
-
-class _DifferentUserProfilePagePreviewState
-    extends State<DifferentUserProfilePagePreview> {
+class DifferentUserProfilePagePreview extends StatelessWidget {
+  DifferentUserProfilePagePreview(
+      {super.key,
+      required this.userProfileName,
+      required this.userProfileDescription,
+      required this.userProfilePicture,
+      required this.location});
+  final String userProfileName;
+  final String userProfileDescription;
+  final String userProfilePicture;
+  final String location;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,7 +25,7 @@ class _DifferentUserProfilePagePreviewState
               onTap: () {
                 Get.back();
               },
-              child: Icon(
+              child: const Icon(
                 MdiIcons.arrowLeft,
                 color: MyColors.black,
               ),
@@ -36,7 +35,7 @@ class _DifferentUserProfilePagePreviewState
           ),
           backgroundColor: MyColors.white,
           body: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,8 +49,11 @@ class _DifferentUserProfilePagePreviewState
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
-                              image: AssetImage(
-                                  'images/default_user_profile_picture.png'),
+                              image: userProfilePicture!.contains('default')
+                                  ? const AssetImage(
+                                          'images/default_user_profile_picture.png')
+                                      as ImageProvider
+                                  : NetworkImage(userProfilePicture!),
                             )),
                       ),
                       SizedBox(
@@ -63,14 +65,14 @@ class _DifferentUserProfilePagePreviewState
                           children: [
                             Container(
                               child: Text(
-                                'Username,',
+                                userProfileName,
                                 style: MyTextStyles.poppins24w700,
                                 textAlign: TextAlign.center,
                               ),
                             ),
                             Container(
                               child: Text(
-                                '21-Godine',
+                                ' ,21',
                                 style: MyTextStyles.poppins24w400,
                                 textAlign: TextAlign.center,
                               ),
@@ -81,19 +83,19 @@ class _DifferentUserProfilePagePreviewState
                     ],
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Row(
                   children: [
-                    Icon(MdiIcons.mapMarker),
+                    const Icon(MdiIcons.mapMarker),
                     Text(
-                      'Grad korisnika',
+                      location,
                       style: MyTextStyles.poppins16w400,
                     )
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Text(
@@ -101,19 +103,103 @@ class _DifferentUserProfilePagePreviewState
                   style: MyTextStyles.poppins24w700,
                 ),
                 Text(
-                  'Tekst povezan s korisnikom lorem ipsum Studiram medicinu i volim računala. Veliki sam fan Marvela pa se javite',
+                  userProfileDescription,
                   style: MyTextStyles.poppins16w400,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 Text(
                   'Recenzije korisnika',
                   style: MyTextStyles.poppins24w700,
                 ),
+                Container(
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '5,0',
+                            style: MyTextStyles.poppins24w700,
+                          ),
+                          Text(
+                            '3 Recenzije',
+                            style: MyTextStyles.poppins16w400,
+                          )
+                        ],
+                      ),
+                      NumberOfRatingsIndicator(
+                        ratingCountPerCategory: 20,
+                        scoreCategory: '5',
+                      ),
+                      NumberOfRatingsIndicator(
+                        ratingCountPerCategory: 2,
+                        scoreCategory: '4',
+                      ),
+                      NumberOfRatingsIndicator(
+                        ratingCountPerCategory: 1,
+                        scoreCategory: '3',
+                      ),
+                      NumberOfRatingsIndicator(
+                        ratingCountPerCategory: 1,
+                        scoreCategory: '2',
+                      ),
+                      NumberOfRatingsIndicator(
+                        ratingCountPerCategory: 1,
+                        scoreCategory: '1',
+                      ),
+                    ],
+                  ),
+                )
               ],
             ),
           )),
+    );
+  }
+}
+
+class NumberOfRatingsIndicator extends StatelessWidget {
+  const NumberOfRatingsIndicator({
+    required this.ratingCountPerCategory,
+    required this.scoreCategory,
+    super.key,
+  });
+  final String scoreCategory;
+  final double ratingCountPerCategory;
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          margin: EdgeInsets.only(right: 15),
+          child: Text(
+            scoreCategory,
+            style: MyTextStyles.poppins16w400,
+          ),
+        ),
+        Expanded(
+          child: Stack(
+            children: [
+              Container(
+                height: 10,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: MyColors.grey,
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: MyColors.orange,
+                ),
+                height: 10,
+                width: 20.w * ratingCountPerCategory,
+              )
+            ],
+          ),
+        )
+      ],
     );
   }
 }

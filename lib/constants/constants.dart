@@ -1,4 +1,3 @@
-import 'package:this_4_that/categories.dart';
 import 'package:this_4_that/models/categoryType/categoryType.dart';
 
 class MyConstants {

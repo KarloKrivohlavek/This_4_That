@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:this_4_that/chat_page.dart';
-import 'package:this_4_that/scratch_files/home_page.dart';
 import 'package:this_4_that/add_item_page.dart';
-import 'package:this_4_that/profile_page.dart';
 
 class BottomTabBar extends StatefulWidget {
   const BottomTabBar({Key? key}) : super(key: key);
@@ -33,9 +30,9 @@ class _BottomTabBarState extends State<BottomTabBar> {
         showSelectedLabels: false,
         showUnselectedLabels: false,
         backgroundColor: Colors.orange,
-        selectedIconTheme: IconThemeData(color: Colors.white, size: 40),
+        selectedIconTheme: const IconThemeData(color: Colors.white, size: 40),
         selectedItemColor: Colors.amberAccent,
-        unselectedIconTheme: IconThemeData(
+        unselectedIconTheme: const IconThemeData(
           color: Colors.black,
         ),
         unselectedItemColor: Colors.black,

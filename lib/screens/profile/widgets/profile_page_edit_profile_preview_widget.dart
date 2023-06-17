@@ -3,13 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:this_4_that/constants/colors.dart';
-import 'package:this_4_that/data.dart';
 import 'package:this_4_that/pages.dart';
-import 'package:this_4_that/screens/profile/profile_page_controller.dart';
-import 'package:this_4_that/src/edit_profile_page.dart';
-import 'package:this_4_that/widget/profile_widget.dart';
 
-import '../../../models/user/user.dart';
 
 class ProfilePageEditProfilePreviewWidget extends StatelessWidget {
   ProfilePageEditProfilePreviewWidget(
@@ -46,7 +41,7 @@ class ProfilePageEditProfilePreviewWidget extends StatelessWidget {
                 image: DecorationImage(
                     fit: BoxFit.fill,
                     image: imagePath == null
-                        ? AssetImage('images/default_user_profile_picture.png')
+                        ? const AssetImage('images/default_user_profile_picture.png')
                             as ImageProvider
                         : NetworkImage(imagePath!))),
             // child: ProfileWidget(

@@ -4,7 +4,7 @@ import 'package:this_4_that/constants/text_styles.dart';
 
 class OutlinedColorButtonWidget extends StatelessWidget {
   OutlinedColorButtonWidget(
-      {required this.buttonHeight,
+      {super.key, required this.buttonHeight,
       required this.buttonText,
       required this.buttonWidth,
       required this.isOn});
@@ -25,7 +25,7 @@ class OutlinedColorButtonWidget extends StatelessWidget {
           border: Border.all(color: MyColors.orange, width: 2)),
       child: Center(
           child: Padding(
-              padding: EdgeInsets.only(top: 6, bottom: 6),
+              padding: const EdgeInsets.only(top: 6, bottom: 6),
               child: Text(
                 buttonText,
                 style: MyTextStyles.poppins16w400,

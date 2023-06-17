@@ -18,7 +18,6 @@ import 'package:this_4_that/screens/profile/profile_page_binding.dart';
 import 'package:this_4_that/screens/profile/profile_page_screen.dart';
 import 'package:this_4_that/screens/splash_page/splash_page_binding.dart';
 import 'package:this_4_that/screens/splash_page/splash_page_screen.dart';
-import '';
 import 'screens/add_item_page_0/add_item_page_0_binding.dart';
 
 ///

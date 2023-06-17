@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/screens/add_item/add_item_page_controller.dart';
 
 class AddItemPage2 extends GetView<AddItemPageController> {
-  AddItemPage2({super.key});
+  const AddItemPage2({super.key});
 
   @override
   Widget build(BuildContext context) => Scaffold(

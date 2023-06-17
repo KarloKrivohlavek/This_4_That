@@ -3,7 +3,7 @@ import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/constants/text_styles.dart';
 
 class FilledColorButtonWidget extends StatelessWidget {
-  FilledColorButtonWidget({
+  FilledColorButtonWidget({super.key, 
     required this.buttonHeight,
     required this.buttonText,
     required this.buttonWidth,
@@ -12,7 +12,7 @@ class FilledColorButtonWidget extends StatelessWidget {
   double buttonWidth;
   double buttonHeight;
   String buttonText;
-  bool isEnabled = false;
+  bool isEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class FilledColorButtonWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(50)),
       child: Center(
           child: Padding(
-              padding: EdgeInsets.only(top: 6, bottom: 6),
+              padding: const EdgeInsets.only(top: 6, bottom: 6),
               child: Text(
                 buttonText,
                 style: MyTextStyles.poppins16w400,

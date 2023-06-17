@@ -1,17 +1,10 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:this_4_that/add_item_pages/add_item_page_item_added.dart';
-import 'package:this_4_that/constants/colors.dart';
-import 'package:this_4_that/constants/strings.dart';
 import 'package:this_4_that/constants/text_styles.dart';
 import 'package:this_4_that/pages.dart';
 import 'package:this_4_that/screens/main_page/main_page_controller.dart';
-import 'package:this_4_that/widget/filled_color_button_widget.dart';
-import 'package:this_4_that/widget/number_of_pages_indicator_widget.dart';
 import 'package:this_4_that/widget/outlined_color_button_widget.dart';
 import 'package:this_4_that/widget/overlapped_images_widget.dart';
 
@@ -33,15 +26,15 @@ class _MatchedItemPageState extends State<MatchedItemPage> {
           elevation: 0,
         ),
         body: Padding(
-          padding: EdgeInsets.all(16),
+          padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 10),
-                  Container(
+                  const SizedBox(height: 10),
+                  SizedBox(
                     width: 200.w,
                     child: Text(
                       'Vaša ponuda se poklapa!',
@@ -49,8 +42,8 @@ class _MatchedItemPageState extends State<MatchedItemPage> {
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  SizedBox(height: 30),
-                  Container(
+                  const SizedBox(height: 30),
+                  SizedBox(
                     height: 200.h,
                     width: MediaQuery.of(context).size.width * 0.75,
                     child: Row(
@@ -68,7 +61,7 @@ class _MatchedItemPageState extends State<MatchedItemPage> {
                       ],
                     ),
                   ),
-                  Container(
+                  SizedBox(
                     width: 270.w,
                     child: Text(
                       'Javite se korisniku ${Get.arguments.user2Username} i razmjenite predmete!',

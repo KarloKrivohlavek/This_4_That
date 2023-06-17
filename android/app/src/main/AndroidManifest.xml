@@ -2,7 +2,7 @@
     package="com.KarloKrivohlavek.this_4_that">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="this_4_that"
+        android:label="This 4 That"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 

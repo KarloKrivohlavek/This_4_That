@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:get/get.dart';
 import 'package:this_4_that/constants/text_styles.dart';
 import 'package:this_4_that/different_user_profile_page_preview.dart';
 import 'package:this_4_that/models/swipe_item/swipe_item.dart';
 import 'package:this_4_that/screens/home/widgets/swappable_page_different_user_profile_preview.dart';
 
-import 'package:this_4_that/swappable_item.dart';
 import 'package:shadow_overlay/shadow_overlay.dart';
 
 // ignore: must_be_immutable
@@ -108,9 +105,9 @@ class _SwappablePageState extends State<SwappablePage> {
                             ),
                           ),
                         )
-                      : SizedBox(),
+                      : const SizedBox(),
                   Container(
-                    margin: EdgeInsets.only(top: 300),
+                    margin: const EdgeInsets.only(top: 300),
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     width: MediaQuery.of(context).size.width,
                     child: Column(
@@ -132,8 +129,8 @@ class _SwappablePageState extends State<SwappablePage> {
                         Row(
                           children: [
                             widget.item.userName.isEmpty
-                                ? SizedBox()
-                                : Icon(Icons.location_pin),
+                                ? const SizedBox()
+                                : const Icon(Icons.location_pin),
                             Text(
                               widget.item.location,
                               style: const TextStyle(fontSize: 16),
@@ -143,8 +140,8 @@ class _SwappablePageState extends State<SwappablePage> {
                         Row(
                           children: [
                             widget.item.userName.isEmpty
-                                ? SizedBox()
-                                : Icon(Icons.search),
+                                ? const SizedBox()
+                                : const Icon(Icons.search),
                             Text(
                               widget.item.condition,
                               style: const TextStyle(fontSize: 16),
@@ -157,8 +154,8 @@ class _SwappablePageState extends State<SwappablePage> {
                         Row(
                           children: [
                             widget.item.userName.isEmpty
-                                ? SizedBox()
-                                : Text(
+                                ? const SizedBox()
+                                : const Text(
                                     'O predmetu',
                                     style: TextStyle(
                                       fontSize: 25,
@@ -187,8 +184,8 @@ class _SwappablePageState extends State<SwappablePage> {
                         Row(
                           children: [
                             widget.item.userName.isEmpty
-                                ? SizedBox()
-                                : Text(
+                                ? const SizedBox()
+                                : const Text(
                                     'Tko mijenja?',
                                     style: TextStyle(
                                       fontSize: 25,
@@ -206,11 +203,18 @@ class _SwappablePageState extends State<SwappablePage> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      DifferentUserProfilePagePreview()),
+                                      DifferentUserProfilePagePreview(
+                                        userProfilePicture:
+                                            widget.item.userPictureURL,
+                                        userProfileName: widget.item.userName,
+                                        userProfileDescription:
+                                            widget.item.itemDescription,
+                                        location: widget.item.location,
+                                      )),
                             );
                           },
                           child: widget.item.userName.isEmpty
-                              ? SizedBox()
+                              ? const SizedBox()
                               : SwappablePageDifferentUserPreview(
                                   userProfileName: widget.item.userName,
                                   userProfileRating: 5,

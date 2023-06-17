@@ -1,10 +1,7 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:this_4_that/constants/colors.dart';
-import 'package:this_4_that/constants/text_styles.dart';
-import 'package:this_4_that/themes.dart';
 
 class CustomDialog extends StatelessWidget {
   CustomDialog(

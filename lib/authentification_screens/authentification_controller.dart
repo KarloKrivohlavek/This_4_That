@@ -1,9 +1,6 @@
-import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:this_4_that/authentification_screens/authentification_screen_3_username.dart';
 import 'package:this_4_that/authentification_screens/authentification_screen_4_date_of_birth.dart';
@@ -98,7 +95,7 @@ class AuthentificationController extends GetxController {
     currentUserData =
         currentUserData.copyWith(fullName: firstAndLastNameController.text);
     logger.e(currentUserData);
-    Get.to(() => AuthentificationScreen3Username());
+    Get.to(() => const AuthentificationScreen3Username());
   }
 
   void saveUsername() {
@@ -106,7 +103,7 @@ class AuthentificationController extends GetxController {
     currentUserData =
         currentUserData.copyWith(username: usernameController.text);
     logger.e(currentUserData);
-    Get.to(() => AuthentificationScreen4DateOfBirth());
+    Get.to(() => const AuthentificationScreen4DateOfBirth());
   }
 
   void saveDateOfBirth() {
@@ -116,7 +113,7 @@ class AuthentificationController extends GetxController {
 
     String finalDate = '$selectedMonth/$selectedDay/$selectedYear';
     currentUserData = currentUserData.copyWith(dateOfBirth: finalDate);
-    Get.to(() => AuthentificationScreen5Description());
+    Get.to(() => const AuthentificationScreen5Description());
   }
 
   bool checkIfDatePicked() {
@@ -131,7 +128,7 @@ class AuthentificationController extends GetxController {
     currentUserData =
         currentUserData.copyWith(description: descriptionController.text);
     logger.e(currentUserData);
-    Get.to(() => AuthentificationScreen6Location());
+    Get.to(() => const AuthentificationScreen6Location());
   }
 
   void saveLocation({String location = 'Zagreb'}) {

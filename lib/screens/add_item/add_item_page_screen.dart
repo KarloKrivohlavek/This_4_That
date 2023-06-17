@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:im_stepper/stepper.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:this_4_that/add_item_pages/add_item_page_item_added.dart';
 import 'package:this_4_that/constants/colors.dart';
-import 'package:this_4_that/constants/text_styles.dart';
-import 'package:this_4_that/screens/add_item/widgets/next_button_widget.dart';
-import 'package:this_4_that/screens/main_page/main_page_controller.dart';
 import 'package:this_4_that/widget/filled_color_button_widget.dart';
 import 'package:this_4_that/widget/number_of_pages_indicator_widget.dart';
-import 'package:this_4_that/widget/outlined_color_button_widget.dart';
 
 import '../../add_item_pages/add_item_page_1.dart';
 import '../../add_item_pages/add_item_page_2.dart';
@@ -36,11 +31,12 @@ class AddItemPageScreen extends GetView<AddItemPageController> {
                       ? GestureDetector(
                           onTap: () {
                             controller.activeStep--;
+                            controller.buttonIsEnabled = true;
                             controller.pageController.jumpToPage(
                               (controller.pageController.page ?? 1).toInt() - 1,
                             );
                           },
-                          child: Icon(
+                          child: const Icon(
                             MdiIcons.arrowLeft,
                             color: MyColors.black,
                           ),
@@ -55,7 +51,7 @@ class AddItemPageScreen extends GetView<AddItemPageController> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Container(
+                    SizedBox(
                       height: 5.h,
                       child: NumberOfPagesIndicator(
                           numberOfItems: controller.dotCount,
@@ -97,7 +93,7 @@ class AddItemPageScreen extends GetView<AddItemPageController> {
                       child: PageView(
                         physics: const NeverScrollableScrollPhysics(),
                         controller: controller.pageController,
-                        children: [
+                        children: const [
                           AddItemPage1(),
                           AddItemPage2(),
                           AddItemPage3(),
@@ -120,26 +116,20 @@ class AddItemPageScreen extends GetView<AddItemPageController> {
                     // ),
                     GestureDetector(
                       onTap: () async {
-                        // switch (controller.activeStep) {
-                        //   case 1:
-                        //     controller.itemNameIsEmpty
-                        //         ? controller.saveItemName()
-                        //         : () {};
-                        //     break;
-                        // }
-
                         if (controller.activeStep == 4) {
                           controller.saveSelectedIndexCondition();
                           await controller.sendItemDataToFirebase();
 
-                          Get.to(() => AddItemPageItemAdded());
+                          Get.to(() => const AddItemPageItemAdded());
                         }
 
                         /// ACTIVE STEP MUST BE CHECKED FOR (dotCount - 1) AND NOT FOR dotCount To PREVENT Overflow ERROR.
                         if (controller.activeStep < controller.dotCount - 1) {
                           if (controller.activeStep == 1) {
-                            controller.saveItemName();
-                            controller.saveItemDescription();
+                            if (controller.buttonIsEnabled) {
+                              controller.saveItemName();
+                              controller.saveItemDescription();
+                            }
                           }
 
                           if (controller.activeStep == 2) {
@@ -149,19 +139,27 @@ class AddItemPageScreen extends GetView<AddItemPageController> {
                           if (controller.activeStep == 3) {
                             controller.saveSelectedIndexPrice();
                           }
+                          if (controller.buttonIsEnabled) {
+                            controller.activeStep++;
+                            if (controller.activeStep == 3 ||
+                                controller.activeStep == 4) {
+                              controller.buttonIsEnabled = true;
+                            } else {
+                              controller.buttonIsEnabled = false;
+                            }
 
-                          controller.activeStep++;
-                          controller.pageController
-                              .jumpToPage(controller.activeStep);
+                            controller.pageController
+                                .jumpToPage(controller.activeStep);
+                          }
                         }
-                        print(controller.itemNameIsEmpty);
-                        print(controller.activeStep);
                       },
-                      child: FilledColorButtonWidget(
-                          buttonHeight: 50,
-                          buttonText: 'Dalje',
-                          buttonWidth: double.infinity,
-                          isEnabled: controller.itemNameIsEmpty),
+                      child: Obx(
+                        () => FilledColorButtonWidget(
+                            buttonHeight: 50,
+                            buttonText: 'Dalje',
+                            buttonWidth: double.infinity,
+                            isEnabled: controller.buttonIsEnabled),
+                      ),
                     )
                   ],
                 ),

@@ -1,19 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
-import 'package:this_4_that/authentification_screens/authentification_screen_1_login.dart';
 import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/constants/strings.dart';
-import 'package:this_4_that/data.dart';
 import 'package:this_4_that/screens/profile/profile_page_controller.dart';
-import 'package:this_4_that/services/firebase_service.dart';
 import 'package:this_4_that/widget/custom_dialog.dart';
 import 'package:get/get.dart';
 
 class UserProfileItemPreview extends GetView<ProfilePageController> {
   const UserProfileItemPreview(
-      {required this.itemName,
+      {super.key, required this.itemName,
       required this.pictureURL,
       required this.index,
       required this.isActiveButtonOn});
@@ -46,7 +41,7 @@ class UserProfileItemPreview extends GetView<ProfilePageController> {
                     const SizedBox(
                       width: 20,
                     ),
-                    Container(
+                    SizedBox(
                       height: MediaQuery.of(context).size.height * 0.15,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -66,7 +61,7 @@ class UserProfileItemPreview extends GetView<ProfilePageController> {
                             ),
                           ),
                           const SizedBox(height: 30),
-                          Container(
+                          SizedBox(
                             width: MediaQuery.of(context).size.width * 0.35,
                             child: isActiveButtonOn
                                 //Ovo je row za aktivne predmete

@@ -36,7 +36,7 @@ class _addImageContainerState extends State<addImageContainer> {
                     border: Border.all(color: Colors.orange)),
               ),
               Padding(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(10),
                 child: Container(
                   height: 32,
                   width: 32,
@@ -44,7 +44,7 @@ class _addImageContainerState extends State<addImageContainer> {
                       border: Border.all(color: Colors.black),
                       shape: BoxShape.circle,
                       color: Colors.orange),
-                  child: Icon(
+                  child: const Icon(
                     MdiIcons.close,
                     color: Colors.black,
                   ),
@@ -57,7 +57,7 @@ class _addImageContainerState extends State<addImageContainer> {
                   shape: BoxShape.circle,
                   border: Border.all(color: Colors.orange),
                 ),
-                child: Icon(
+                child: const Icon(
                   MdiIcons.plus,
                   color: Colors.orange,
                 ),
