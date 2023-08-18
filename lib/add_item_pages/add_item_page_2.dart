@@ -8,7 +8,7 @@ class AddItemPage2 extends GetView<AddItemPageController> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        resizeToAvoidBottomInset: true,
+        resizeToAvoidBottomInset: false,
         body: Padding(
           padding: const EdgeInsets.all(14),
           child: Column(
@@ -25,7 +25,11 @@ class AddItemPage2 extends GetView<AddItemPageController> {
                 onTap: () {
                   FocusScope.of(context).requestFocus(controller.node1);
                 },
+                onSubmitted: (d) {
+                  FocusScope.of(context).requestFocus(controller.node2);
+                },
                 focusNode: controller.node1,
+                textInputAction: TextInputAction.next,
                 controller: controller.itemNameController,
                 decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -65,6 +69,7 @@ class AddItemPage2 extends GetView<AddItemPageController> {
                   focusNode: controller.node2,
                   maxLines: 9,
                   controller: controller.itemDescriptionController,
+                  textInputAction: TextInputAction.done,
                   decoration: InputDecoration(
                       enabledBorder: OutlineInputBorder(
                         borderSide:

@@ -70,6 +70,9 @@ class FirebaseService extends GetxService {
 
       // Obtain the auth details from the request
       final googleAuth = await googleUser.authentication;
+      Get.dialog(const SpinKitChasingDots(
+        color: MyColors.orange,
+      ));
 
 // preko ove funkcije šaljemo tokene za google i povratno dobivamo user credentials
 
@@ -144,7 +147,7 @@ class FirebaseService extends GetxService {
             .set({
           'user_ID': userCredential.user?.uid,
         });
-        Get.off(() => const AuthentificationScreen2NameSurname());
+        Get.off(() => AuthentificationScreen2NameSurname());
       } else {
         Get.offAllNamed(MyRoutes.mainPageScreen);
       }
@@ -647,4 +650,38 @@ class FirebaseService extends GetxService {
     }
     return currentUserItems;
   }
+
+  Future<List<Item>> getFilteredItems(FilterItemsRequest request) async {
+    List<Item> currentUserItems = [];
+    try {
+      currentUserItems = await firebaseFirestore
+          .collection('items')
+          .where(Filter.and(
+            Filter("item_state", isEqualTo: "active"),
+            Filter("price_range", isEqualTo: request.price_range),
+            Filter("condition", isEqualTo: request.condition),
+            Filter("category_list", arrayContainsAny: request.categories),
+          ))
+          .snapshots()
+          .first
+          .then((value) =>
+              value.docs.map((e) => Item.fromJson(e.data())).toList());
+    } catch (e) {
+      logger.w(e);
+      Get.snackbar('Eroor', 'Greska prilikom dohvacanja DifferentUserItema');
+    }
+    return currentUserItems;
+  }
+}
+
+class FilterItemsRequest {
+  final String price_range;
+  final String condition;
+  final List<String> categories;
+
+  const FilterItemsRequest({
+    required this.price_range,
+    required this.condition,
+    required this.categories,
+  });
 }

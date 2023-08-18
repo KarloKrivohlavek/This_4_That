@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/constants/constants.dart';
 import 'package:this_4_that/screens/add_item/add_item_page_controller.dart';
+import 'package:this_4_that/widget/custom_divider.dart';
 
 class AddItemPage4 extends GetView<AddItemPageController> {
   const AddItemPage4({super.key});

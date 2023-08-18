@@ -16,6 +16,12 @@ class MyTextStyles {
     fontWeight: FontWeight.w400,
   );
 
+  static final poppins16w700 = GoogleFonts.poppins(
+    color: MyColors.black,
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w700,
+  );
+
   static final poppins40w700 = GoogleFonts.poppins(
     color: MyColors.black,
     fontSize: 40.sp,

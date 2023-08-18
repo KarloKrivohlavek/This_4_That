@@ -220,14 +220,33 @@ class AddItemPageController extends GetxController {
     } on PlatformException catch (e) {}
   }
 
-  List<CategoryType> searchCategory(String query) {
-    final suggestions = MyConstants.allCategories.where((category) {
-      final categoryTitle = category.category.toLowerCase();
-      final input = query.toLowerCase();
-      return categoryTitle.contains(input);
-    }).toList();
+  // final RxList<CategoryType> _searchCategory = <CategoryType>[].obs;
+  // List<CategoryType> get searchCategory => _searchCategory;
+  // set searchCategory(List<CategoryType> value) =>
+  //     _searchCategory.assignAll(value);
 
-    return MyConstants.allCategories = suggestions;
+  // List<CategoryType> searchCategory(String query) {
+  //   final suggestions = MyConstants.allCategories.where((category) {
+  //     final categoryTitle = category.category.toLowerCase();
+  //     final input = query.toLowerCase();
+  //     return categoryTitle.contains(input);
+  //   }).toList();
+  //
+  //   return MyConstants.allCategories = suggestions;
+  // }
+
+  void searchCategory(String query) {
+    final suggestions = MyConstants.allCategories
+        .where((category) {
+          final categoryTitle = category.category.toLowerCase();
+          final input = query.toLowerCase();
+          return categoryTitle.contains(input);
+        })
+        .map((e) =>
+            pickedCategories.contains(e.category) ? e.copyWith(isOn: true) : e)
+        .toList();
+
+    pickedCategoriesConstants.assignAll(suggestions);
   }
 
   int countIsOn(List<CategoryType> categories) {

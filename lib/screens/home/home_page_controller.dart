@@ -1,5 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:this_4_that/constants/constants.dart';
+import 'package:this_4_that/models/categoryType/categoryType.dart';
 import 'package:this_4_that/models/matchedChatData/matched_chat_data.dart';
+import 'package:this_4_that/models/price_filter/price_filter.dart';
 import 'package:this_4_that/screens/matched_item_screen.dart';
 import 'package:this_4_that/models/item/item.dart';
 import 'package:this_4_that/models/match/match.dart';
@@ -18,6 +22,8 @@ class HomePageController extends GetxController {
 
   ///REACTIVE VARIABLES
 
+  final controller = TextEditingController();
+
   final RxInt _currentIndex = 0.obs;
   int get currentIndex => _currentIndex.value;
   set currentIndex(int value) => _currentIndex.value = value;
@@ -26,6 +32,10 @@ class HomePageController extends GetxController {
   int get numberOfCardsDisplayed => _numberOfCardsDisplayed.value;
   set numberOfCardsDisplayed(int value) =>
       _numberOfCardsDisplayed.value = value;
+
+  final RxBool _buttonIsEnabled = false.obs;
+  bool get buttonIsEnabled => _buttonIsEnabled.value;
+  set buttonIsEnabled(bool value) => _buttonIsEnabled.value = value;
 
   final Rx<UserData> _currentUserData = UserData(
           dateOfBirth: '',
@@ -38,6 +48,43 @@ class HomePageController extends GetxController {
       .obs;
   UserData get currentUserData => _currentUserData.value;
   set currentUserData(UserData value) => _currentUserData.value = value;
+
+  // List<PriceFilter> priceFilterList = [];
+
+  // final Rx<PriceFilter> _selectedPriceFilter = PriceFilter(
+  //   price: '',
+  //   isOn: false,
+  // ).obs;
+  // PriceFilter get selectedPriceFilter => _selectedPriceFilter.value;
+  // set selectedPriceFilter(PriceFilter value) =>
+  //     _selectedPriceFilter.value = value;
+
+  final List<String> filterListNames = MyConstants.buttonValuesPrice;
+
+  final List<PriceFilter> priceFilters = [
+    PriceFilter(price: "0 - 50 €", isOn: true),
+    PriceFilter(price: "50 - 100 €", isOn: true),
+    PriceFilter(price: "100 - 200 €", isOn: true),
+    PriceFilter(price: "200 - 500 €", isOn: true),
+    PriceFilter(price: "500 - 1000 €", isOn: true),
+    PriceFilter(price: "1000 - 1500 €", isOn: true),
+    PriceFilter(price: "1500+ €", isOn: true),
+  ].obs;
+
+  final RxList<PriceFilter> selectedPriceFilters = <PriceFilter>[].obs;
+  final RxString firstSelectedPriceFilterValue = ''.obs;
+
+  final List<PriceFilter> conditionFilters = [
+    PriceFilter(price: "Novo nekorišteno", isOn: true),
+    PriceFilter(price: "Novo raspakirano", isOn: true),
+    PriceFilter(price: "Rabljeno bez tragova korištenja", isOn: true),
+    PriceFilter(price: "Rabljeno sa tragovima korištenja", isOn: true),
+    PriceFilter(price: "Rabljeno s defektima", isOn: true),
+    PriceFilter(price: "Potrgano/neispravno", isOn: true),
+  ].obs;
+
+  final RxList<PriceFilter> selectedConditionFilters = <PriceFilter>[].obs;
+  final RxString firstSelectedConditionFilterValue = ''.obs;
 
   final RxList<SwappablePage> _cards = <SwappablePage>[
     SwappablePage(
@@ -67,6 +114,16 @@ class HomePageController extends GetxController {
   set modalBottomSheetItemIndex(int value) =>
       _modalBottomSheetItemIndex.value = value;
 
+  int countIsOn(List<CategoryType> categories) {
+    int counter = 0;
+    for (int i = 0; i < categories.length; ++i) {
+      if (categories[i].isOn == true) {
+        counter++;
+      }
+    }
+    return counter;
+  }
+
   ///VARIABLES
 
   // all available cards with item image description etc.
@@ -90,6 +147,17 @@ class HomePageController extends GetxController {
   List<Item> get currentUserItems => _currentUserItems;
   set currentUserItems(List<Item> value) => _currentUserItems.assignAll(value);
 
+  final RxList<String> _pickedCategories = <String>[].obs;
+  List<String> get pickedCategories => _pickedCategories;
+  set pickedCategories(List<String> value) =>
+      _pickedCategories.assignAll(value);
+
+  final RxList<CategoryType> _pickedCategoriesConstants = <CategoryType>[].obs;
+  List<CategoryType> get pickedCategoriesConstants =>
+      _pickedCategoriesConstants;
+  set pickedCategoriesConstants(List<CategoryType> value) =>
+      _pickedCategoriesConstants.assignAll(value);
+
   /// INIT
 
   @override
@@ -100,6 +168,12 @@ class HomePageController extends GetxController {
     currentUserItems = await firebaseService.getCurrentUserItemsActive();
     logger.wtf(currentUserItems);
     differentUserItems = await firebaseService.getDifferentUserItems();
+    pickedCategoriesConstants = MyConstants.allCategories;
+    logger.wtf(pickedCategoriesConstants);
+    // List.generate(
+    //     MyConstants.buttonValuesPrice.length,
+    //     (index) => priceFilterList.add(PriceFilter(
+    //         price: MyConstants.buttonValuesPrice[index], isOn: false)));
 
     await fillCardsList(currentUserData.matchedItemListIds ?? []);
     logger.w(cards);
@@ -110,6 +184,39 @@ class HomePageController extends GetxController {
   }
 
   /// METHODS
+
+  void toggleCheckbox(int index) {
+    priceFilters[index] =
+        priceFilters[index].copyWith(isOn: !priceFilters[index].isOn);
+    updateSelectedPriceFilters(priceFilters);
+
+    update();
+  }
+
+  void toggleCheckboxCondition(int index) {
+    conditionFilters[index] =
+        conditionFilters[index].copyWith(isOn: !conditionFilters[index].isOn);
+    updateSelectedConditionFilters(conditionFilters);
+
+    update();
+  }
+
+  void updateSelectedPriceFilters(List<PriceFilter> allSelectedPriceFilters) {
+    selectedPriceFilters.assignAll(
+        allSelectedPriceFilters.where((priceFilter) => priceFilter.isOn));
+    firstSelectedPriceFilterValue.value =
+        selectedPriceFilters.isNotEmpty ? selectedPriceFilters[0].price : '';
+  }
+
+  void updateSelectedConditionFilters(
+      List<PriceFilter> allSelectedConditionFilters) {
+    selectedConditionFilters.assignAll(
+        allSelectedConditionFilters.where((priceFilter) => priceFilter.isOn));
+    firstSelectedConditionFilterValue.value =
+        selectedConditionFilters.isNotEmpty
+            ? selectedConditionFilters[0].price
+            : '';
+  }
 
   Future<MatchedItems> checkIfMatched(int previousIndex) async {
     MatchedItems match = MatchedItems(
@@ -167,6 +274,9 @@ class HomePageController extends GetxController {
     }
     return match;
   }
+  // void applyFilters(dynamic filterparams)
+  // final filtered = service.getfildere(request)
+  // cards.assignall(filtered)
 
   Future<void> fillCardsList(List<String> matchedItems) async {
     logger.e(matchedItems);
@@ -261,6 +371,52 @@ class HomePageController extends GetxController {
     }
   }
 
+  void checkIfPickedItemListIsEmpty() {
+    if (pickedCategories.isNotEmpty) {
+      buttonIsEnabled = true;
+    } else {
+      buttonIsEnabled = false;
+    }
+  }
+
+  void searchCategory(String query) {
+    final suggestions = MyConstants.allCategories
+        .where((category) {
+          final categoryTitle = category.category.toLowerCase();
+          final input = query.toLowerCase();
+          return categoryTitle.contains(input);
+        })
+        .map((e) =>
+            pickedCategories.contains(e.category) ? e.copyWith(isOn: true) : e)
+        .toList();
+
+    pickedCategoriesConstants.assignAll(suggestions);
+  }
+
+  void addPickedItemToList(CategoryType pickedCategory) {
+    if (pickedCategories.length < 3) {
+      pickedCategories.add(pickedCategory.category);
+
+      final index = pickedCategoriesConstants
+          .indexWhere((element) => element == pickedCategory);
+      final isOn = pickedCategoriesConstants.elementAt(index).isOn;
+      pickedCategoriesConstants[index] =
+          pickedCategoriesConstants[index].copyWith(isOn: !isOn);
+      checkIfPickedItemListIsEmpty();
+    }
+  }
+
+  void removePickedItemToList(CategoryType pickedCategory) {
+    pickedCategories.remove(pickedCategory.category);
+    logger.wtf(pickedCategories);
+
+    final index = pickedCategoriesConstants
+        .indexWhere((element) => element == pickedCategory);
+    final isOn = pickedCategoriesConstants.elementAt(index).isOn;
+    pickedCategoriesConstants[index] =
+        pickedCategoriesConstants[index].copyWith(isOn: !isOn);
+    checkIfPickedItemListIsEmpty();
+  }
   // String getSelectedImageName() {
   //   if (pendingImageIndex != -1) {
   //     return images[pendingImageIndex]['name'];

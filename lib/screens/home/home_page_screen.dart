@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/constants/text_styles.dart';
+import 'package:this_4_that/screens/home/widgets/filterModalBottomSheet.dart';
 import 'package:this_4_that/screens/home/widgets/filter_widget_preview.dart';
 import 'package:this_4_that/screens/main_page/main_page_controller.dart';
 import 'package:this_4_that/widget/filled_color_button_widget.dart';
+import 'package:wtf_sliding_sheet/wtf_sliding_sheet.dart';
 
 import '../../widget/button_widget.dart';
 import 'home_page_controller.dart';
@@ -17,7 +20,7 @@ import 'home_page_controller.dart';
 ///
 
 class HomePageScreen extends GetView<HomePageController> {
-  const HomePageScreen({super.key});
+  HomePageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -36,152 +39,157 @@ class HomePageScreen extends GetView<HomePageController> {
                         onTap: () {
                           controller.modalBottomSheetItemIndex =
                               controller.selectedItemIndex;
-                          showModalBottomSheet(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
-                              context: context,
-                              builder: (context) {
-                                return Wrap(
-                                  spacing: 40,
-                                  children: [
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                          showSlidingBottomSheet(context, builder: (context) {
+                            return SlidingSheetDialog(
+                                elevation: 8,
+                                cornerRadius: 20,
+                                snapSpec: const SnapSpec(
+                                    snap: true,
+                                    snappings: [0.5, 0.8],
+                                    positioning: SnapPositioning
+                                        .relativeToAvailableSpace),
+                                builder: (context, state) {
+                                  return Material(
+                                    type: MaterialType.transparency,
+                                    child: Wrap(
                                       children: [
-                                        const Divider(
-                                          color: MyColors.orange,
-                                          thickness: 3,
-                                          indent: 150,
-                                          endIndent: 150,
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        Container(
-                                          padding: const EdgeInsets.only(
-                                            left: 20,
-                                          ),
-                                          child: Text(
-                                            'Koji predmet mijenjaš?',
-                                            style: MyTextStyles.poppins24w700,
-                                          ),
-                                        ),
-                                        Container(
-                                          height: 300,
-                                          padding: const EdgeInsets.all(20),
-                                          child: Obx(
-                                            () => GridView.builder(
-                                              shrinkWrap: true,
-                                              itemCount: controller
-                                                  .currentUserItems.length,
-                                              gridDelegate:
-                                                  const SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: 2,
-                                                mainAxisSpacing: 15,
-                                                crossAxisSpacing: 15,
-                                              ),
-                                              itemBuilder: (context, index) {
-                                                return GestureDetector(
-                                                    onTap: () {
-                                                      controller
-                                                              .modalBottomSheetItemIndex =
-                                                          index;
-                                                    },
-                                                    child: Obx(
-                                                      () => Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(20),
-                                                        ),
-                                                        child: Container(
-                                                          decoration:
-                                                              const BoxDecoration(),
-                                                          child: Column(
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Expanded(
-                                                                child:
-                                                                    Container(
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    border: Border.all(
-                                                                        color: controller.modalBottomSheetItemIndex ==
-                                                                                index
-                                                                            ? MyColors
-                                                                                .orange
-                                                                            : Colors
-                                                                                .transparent,
-                                                                        width:
-                                                                            4),
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            20),
-                                                                    image:
-                                                                        DecorationImage(
-                                                                      fit: BoxFit
-                                                                          .cover,
-                                                                      image: NetworkImage(controller
-                                                                          .currentUserItems
-                                                                          .elementAt(
-                                                                              index)
-                                                                          .itemPictureList![0]),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                // child: Image.asset(
-                                                                //   _images[index]['url'],
-                                                                //   fit: BoxFit.cover,
-                                                                // ),
-                                                              ),
-                                                              Container(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .all(3),
-                                                                  child: Text(
-                                                                    controller
-                                                                        .currentUserItems
-                                                                        .elementAt(
-                                                                            index)
-                                                                        .itemName,
-                                                                    style: MyTextStyles
-                                                                        .poppins16w400,
-                                                                  ))
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ));
-                                              },
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Divider(
+                                              color: MyColors.orange,
+                                              thickness: 3,
+                                              indent: 150,
+                                              endIndent: 150,
                                             ),
-                                          ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Container(
+                                              padding: const EdgeInsets.only(
+                                                left: 20,
+                                              ),
+                                              child: Text(
+                                                'Koji predmet mijenjaš?',
+                                                style:
+                                                    MyTextStyles.poppins24w700,
+                                              ),
+                                            ),
+                                            Container(
+                                              padding: const EdgeInsets.all(20),
+                                              child: Obx(
+                                                () => GridView.builder(
+                                                  shrinkWrap: true,
+                                                  itemCount: controller
+                                                      .currentUserItems.length,
+                                                  gridDelegate:
+                                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                                    crossAxisCount: 2,
+                                                    mainAxisSpacing: 15,
+                                                    crossAxisSpacing: 15,
+                                                  ),
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    return GestureDetector(
+                                                        onTap: () {
+                                                          controller
+                                                                  .modalBottomSheetItemIndex =
+                                                              index;
+                                                        },
+                                                        child: Obx(
+                                                          () => Container(
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20),
+                                                            ),
+                                                            child: Container(
+                                                              decoration:
+                                                                  const BoxDecoration(),
+                                                              child: Column(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Expanded(
+                                                                    child:
+                                                                        Container(
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        border: Border.all(
+                                                                            color: controller.modalBottomSheetItemIndex == index
+                                                                                ? MyColors.orange
+                                                                                : Colors.transparent,
+                                                                            width: 4),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(20),
+                                                                        image:
+                                                                            DecorationImage(
+                                                                          fit: BoxFit
+                                                                              .cover,
+                                                                          image: NetworkImage(controller
+                                                                              .currentUserItems
+                                                                              .elementAt(index)
+                                                                              .itemPictureList![0]),
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    // child: Image.asset(
+                                                                    //   _images[index]['url'],
+                                                                    //   fit: BoxFit.cover,
+                                                                    // ),
+                                                                  ),
+                                                                  Container(
+                                                                      padding:
+                                                                          const EdgeInsets.all(
+                                                                              3),
+                                                                      child:
+                                                                          Text(
+                                                                        controller
+                                                                            .currentUserItems
+                                                                            .elementAt(index)
+                                                                            .itemName,
+                                                                        style: MyTextStyles
+                                                                            .poppins16w400,
+                                                                      ))
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ));
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 16, right: 16, bottom: 16),
+                                          child: GestureDetector(
+                                            behavior:
+                                                HitTestBehavior.translucent,
+                                            onTap: () {
+                                              controller.selectedItemIndex =
+                                                  controller
+                                                      .modalBottomSheetItemIndex;
+                                              Get.back();
+                                            },
+                                            child: FilledColorButtonWidget(
+                                                buttonHeight: 50,
+                                                buttonText: 'Primijeni',
+                                                buttonWidth: double.infinity,
+                                                isEnabled: true),
+                                          ),
+                                        )
                                       ],
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 16, right: 16, bottom: 16),
-                                      child: GestureDetector(
-                                        behavior: HitTestBehavior.translucent,
-                                        onTap: () {
-                                          controller.selectedItemIndex =
-                                              controller
-                                                  .modalBottomSheetItemIndex;
-                                          Get.back();
-                                        },
-                                        child: FilledColorButtonWidget(
-                                            buttonHeight: 50,
-                                            buttonText: 'Primijeni',
-                                            buttonWidth: double.infinity,
-                                            isEnabled: true),
-                                      ),
-                                    )
-                                  ],
-                                );
-                              });
+                                  );
+                                });
+                          });
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -246,56 +254,14 @@ class HomePageScreen extends GetView<HomePageController> {
                                   onPressed: () {
                                     showModalBottomSheet(
                                         context: context,
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(20.0),
+                                          ),
+                                        ),
                                         builder: (context) {
-                                          return Wrap(
-                                            spacing: 40,
-                                            children: [
-                                              Container(
-                                                padding:
-                                                    const EdgeInsets.all(20),
-                                                child: const Column(
-                                                  children: [
-                                                    FilterWidgetPreview(
-                                                      filterType: 'Vrijednost',
-                                                      filterValue: '100 - 500€',
-                                                    ),
-                                                    FilterWidgetPreview(
-                                                      filterType: 'Stanje',
-                                                      filterValue: 'Vrlo dobro',
-                                                    ),
-                                                    FilterWidgetPreview(
-                                                      filterType:
-                                                          'Udaljenost(km)',
-                                                      filterValue: '25',
-                                                    ),
-                                                    FilterWidgetPreview(
-                                                      filterType: 'Kategorija',
-                                                      filterValue:
-                                                          'Uredski pribor',
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Container(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                              10),
-                                                      child: ButtonWidget(
-                                                        color: Colors.black,
-                                                        text: 'Primjeni',
-                                                        onClicked: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              )
-                                            ],
+                                          return filterModalBottomSheet(
+                                            controller: controller,
                                           );
                                         });
                                   },

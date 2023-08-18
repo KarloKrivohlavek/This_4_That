@@ -18,7 +18,7 @@ import 'main_page_controller.dart';
 
 class MainPageScreen extends GetView<MainPageController> {
   final List<Widget> pages = [
-    const HomePageScreen(),
+    HomePageScreen(),
     const AddItemPageScreen(),
     const MessagesPageScreen(),
     const ProfilePageScreen(),

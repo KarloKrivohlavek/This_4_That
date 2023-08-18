@@ -13,12 +13,14 @@ import 'package:this_4_that/screens/messages/chat/chat_page_binding.dart';
 import 'package:this_4_that/screens/messages/chat/chat_page_screen.dart';
 import 'package:this_4_that/screens/messages/messages_page_binding.dart';
 import 'package:this_4_that/screens/messages/messages_page_screen.dart';
+import 'package:this_4_that/screens/messages/trade_confirmation/trade_confirmation_binding.dart';
 import 'package:this_4_that/screens/profile/edit_profile/edit_profile_page_screen.dart';
 import 'package:this_4_that/screens/profile/profile_page_binding.dart';
 import 'package:this_4_that/screens/profile/profile_page_screen.dart';
 import 'package:this_4_that/screens/splash_page/splash_page_binding.dart';
 import 'package:this_4_that/screens/splash_page/splash_page_screen.dart';
 import 'screens/add_item_page_0/add_item_page_0_binding.dart';
+import 'screens/messages/trade_confirmation/trade_confirmation_screen.dart';
 
 ///
 /// All pages used in the application
@@ -82,6 +84,11 @@ final pages = [
     page: SplashPageScreen.new,
     binding: SplashPageBinding(),
   ),
+  GetPage(
+    name: MyRoutes.tradeConfirmationScreen,
+    page: TradeConfirmationScreen.new,
+    binding: TradeConfirmationBinding(),
+  ),
 ];
 
 /// All pages have their designated names which can be found here
@@ -97,6 +104,6 @@ class MyRoutes {
   static const authentificationScreenNameSurname =
       '/authentification_screen_2_name_surname';
   static const addItemPage0 = '/add_item_page_0';
-
+  static const tradeConfirmationScreen = '/trade_confirmation_screen.dart';
   static const splashPageScreen = '/splash_page_screen';
 }

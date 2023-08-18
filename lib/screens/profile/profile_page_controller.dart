@@ -167,6 +167,14 @@ class ProfilePageController extends GetxController {
     }
   }
 
+  changeItemStateToActive(index) {
+    final currentItem = currentUserItemsArchived.elementAt(index);
+    final itemID = currentItem.itemID;
+
+    changeItemStatus(itemID, 'active');
+    removeFromArchivedList(currentItem);
+  }
+
   changeItemStateToArchived(index) {
     final currentItem = currentUserItemsActive.elementAt(index);
     final itemID = currentItem.itemID;

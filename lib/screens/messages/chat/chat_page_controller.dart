@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -64,6 +63,37 @@ class ChatPageController extends GetxController {
     }
     return false;
   }
+
+  String differentUserItemImageURL() {
+    String differentUserImageURL;
+    if (isCurrentUserFirstUserBool) {
+      differentUserImageURL = match.item1PictureURL;
+    }
+    differentUserImageURL = match.item2PictureURL;
+    return differentUserImageURL;
+  }
+
+  String differentUserUsername() {
+    String differentUserImageURL;
+    if (isCurrentUserFirstUserBool) {
+      differentUserImageURL = match.user1Username;
+    }
+    differentUserImageURL = match.user2Username;
+    return differentUserImageURL;
+  }
+
+  String currentUserItemImageURL() {
+    String differentUserImageURL;
+    if (isCurrentUserFirstUserBool) {
+      differentUserImageURL = match.item2PictureURL;
+    }
+    differentUserImageURL = match.item1PictureURL;
+    return differentUserImageURL;
+  }
+
+  // controller.isCurrentUserFirstUserBool
+  // ? controller.match.user2Username
+  //     : controller.match.user1Username
 
   void checkArguments() {
     if (Get.arguments != null) {

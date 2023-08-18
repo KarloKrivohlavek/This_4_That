@@ -10,6 +10,7 @@ dependencies:
   card_swiper: ^2.0.4
   cloud_firestore: ^4.7.0
   cupertino_icons: ^1.0.2
+  connectivity_plus: ^4.0.2
   datepicker_dropdown: ^0.0.7+5
   flutter_card_swiper: ^5.1.0
   flutter_rating_bar: ^4.0.1
@@ -33,6 +34,7 @@ dependencies:
   shadow_overlay: ^1.0.5
   shared_preferences: ^2.1.0
   cached_network_image: ^3.2.3
+  wtf_sliding_sheet: ^1.1.0
 
   firebase_auth: ^4.6.0
   firebase_core: ^2.12.0

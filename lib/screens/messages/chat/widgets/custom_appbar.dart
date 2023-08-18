@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/constants/text_styles.dart';
+import 'package:this_4_that/pages.dart';
+import 'package:this_4_that/widget/custom_dialog.dart';
 import 'package:this_4_that/widget/overlapped_images_widget.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -17,7 +21,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200,
+      height: 80.h,
       color: Colors.transparent,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -42,6 +46,34 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           Text(
             differentUsername,
             style: MyTextStyles.poppins24w700,
+          ),
+          GestureDetector(
+            onTap: () {
+              // Get.dialog(CustomDialog(
+              //     title: 'Potvrda razmjene',
+              //     text:
+              //         'Jeste li sigurni da želite potvrditi razmjenu? Nakon potvrde, vaš predmet će biti uklonjen s popisa dostupnih predmeta i više se neće prikazivati drugim korisnicima aplikacije.',
+              //     button1: 'Potvrdi',
+              //     button2: 'Odustani',
+              //     action: () {
+              //       Get.toNamed(MyRoutes.tradeConfirmationScreen);
+              //     }));
+              Get.toNamed(MyRoutes.tradeConfirmationScreen);
+              print('Radi li ovo');
+            },
+            child: Container(
+              margin: EdgeInsets.only(left: 30),
+              height: 24,
+              width: 24,
+              decoration: BoxDecoration(
+                color: MyColors.green,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.check,
+                color: MyColors.white,
+              ),
+            ),
           )
         ],
       ),

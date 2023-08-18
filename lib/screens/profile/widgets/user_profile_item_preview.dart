@@ -8,7 +8,8 @@ import 'package:get/get.dart';
 
 class UserProfileItemPreview extends GetView<ProfilePageController> {
   const UserProfileItemPreview(
-      {super.key, required this.itemName,
+      {super.key,
+      required this.itemName,
       required this.pictureURL,
       required this.index,
       required this.isActiveButtonOn});
@@ -113,16 +114,20 @@ class UserProfileItemPreview extends GetView<ProfilePageController> {
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
                                       GestureDetector(
-                                        onTap: () {
-                                          final currentItem = controller
-                                              .currentUserItemsArchived
-                                              .elementAt(index);
-                                          final itemID = currentItem.itemID;
-
-                                          controller.changeItemStatus(
-                                              itemID, 'active');
-                                          controller.removeFromArchivedList(
-                                              currentItem);
+                                        onTap: () async {
+                                          Get.dialog(CustomDialog(
+                                              title:
+                                                  'Ponovno aktiviranje oglasa?',
+                                              text:
+                                                  'Ovim putem će te ponovo objaviti vaš oglas i drugi korisnici će moći stupiti s vama u razmjenu',
+                                              button1: 'Aktiviraj',
+                                              button2: 'Odustani',
+                                              action: () async {
+                                                await controller
+                                                    .changeItemStateToActive(
+                                                        index);
+                                                Get.back();
+                                              }));
                                         },
                                         child: Container(
                                           margin:

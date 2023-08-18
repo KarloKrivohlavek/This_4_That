@@ -37,7 +37,8 @@ class AddItemPage3 extends GetView<AddItemPageController> {
                   borderRadius: BorderRadius.circular(50.0),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: const BorderSide(width: 3, color: MyColors.orange),
+                  borderSide:
+                      const BorderSide(width: 3, color: MyColors.orange),
                   borderRadius: BorderRadius.circular(50.0),
                 ),
               ),
@@ -48,40 +49,41 @@ class AddItemPage3 extends GetView<AddItemPageController> {
             Padding(
                 padding: const EdgeInsets.all(5),
                 child: Obx(
-                  () => Text(
-                      '${controller.countIsOn(controller.pickedCategoriesConstants)} / 3'),
+                  () => Text('${controller.pickedCategories.length} / 3'),
                 )),
             Expanded(
               child: Obx(
-                () => Wrap(
-                  children: controller.pickedCategoriesConstants
-                      .map((value) => GestureDetector(
-                            onTap: () {
-                              if (controller.countIsOn(controller
-                                          .pickedCategoriesConstants) <
-                                      3 &&
-                                  !value.isOn) {
-                                controller.addPickedItemToList(value);
-                              } else if (value.isOn) {
-                                controller.removePickedItemToList(value);
-                              }
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(2),
-                              child: Container(
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    color: value.isOn
-                                        ? MyColors.orange
-                                        : Colors.white,
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(
-                                        color: MyColors.orange, width: 2)),
-                                child: Text(value.category),
+                () => SingleChildScrollView(
+                  child: Wrap(
+                    children: controller.pickedCategoriesConstants
+                        .map((value) => GestureDetector(
+                              onTap: () {
+                                if (controller.countIsOn(controller
+                                            .pickedCategoriesConstants) <
+                                        3 &&
+                                    !value.isOn) {
+                                  controller.addPickedItemToList(value);
+                                } else if (value.isOn) {
+                                  controller.removePickedItemToList(value);
+                                }
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(2),
+                                child: Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      color: value.isOn
+                                          ? MyColors.orange
+                                          : Colors.white,
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(
+                                          color: MyColors.orange, width: 2)),
+                                  child: Text(value.category),
+                                ),
                               ),
-                            ),
-                          ))
-                      .toList(),
+                            ))
+                        .toList(),
+                  ),
                 ),
               ),
             )

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:this_4_that/network/dependency_injection.dart';
 import 'package:this_4_that/pages.dart';
 import 'package:this_4_that/services/firebase_service.dart';
 import 'package:this_4_that/services/logger_service.dart';
@@ -17,6 +18,7 @@ Future<void> main() async {
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const This4ThatApp());
+  DependencyInjection.init();
 }
 
 class InitialBinding extends Bindings {
