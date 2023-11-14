@@ -1,6 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/constants/text_styles.dart';
-import 'package:this_4_that/different_user_profile_page_preview.dart';
+import 'package:this_4_that/screens/home/widgets/different_user_profile_page_preview.dart';
 import 'package:this_4_that/models/swipe_item/swipe_item.dart';
 import 'package:this_4_that/screens/home/widgets/swappable_page_different_user_profile_preview.dart';
 
@@ -21,6 +26,10 @@ class SwappablePage extends StatefulWidget {
 
 class _SwappablePageState extends State<SwappablePage> {
   int currentPosition = 0;
+  static final customCacheManager = CacheManager(Config(
+    'customCacheKey',
+    maxNrOfCacheObjects: 150,
+  ));
 
   @override
   Widget build(BuildContext context) => Container(
@@ -73,21 +82,40 @@ class _SwappablePageState extends State<SwappablePage> {
                           padding: const EdgeInsets.only(top: 0),
                           child: Column(
                             children: [
-                              ShadowOverlay(
-                                shadowHeight: 150,
-                                shadowWidth: MediaQuery.of(context).size.width,
-                                child: Container(
-                                  margin: const EdgeInsets.only(bottom: 20),
-                                  height: 400,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    image: DecorationImage(
-                                      image: NetworkImage(widget.item
-                                          .itemPictureList[currentPosition]),
-                                      fit: BoxFit.cover,
+                              ClipRRect(
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(
+                                      20.0), // Adjust the radius as needed
+                                  topRight: Radius.circular(
+                                      20.0), // Adjust the radius as needed
+                                ),
+                                child: ShaderMask(
+                                  shaderCallback: (rect) {
+                                    return const LinearGradient(
+                                      begin: Alignment.center,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Colors.black,
+                                        Colors.transparent
+                                      ],
+                                    ).createShader(Rect.fromLTRB(
+                                        0, 0, rect.width, rect.height));
+                                  },
+                                  blendMode: BlendMode.dstIn,
+                                  child: CachedNetworkImage(
+                                    cacheManager: customCacheManager,
+                                    imageUrl: widget
+                                        .item.itemPictureList[currentPosition],
+                                    height: 400,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                    placeholder: (context, url) =>
+                                        SpinKitChasingDots(
+                                      color: MyColors.orange,
                                     ),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
                                   ),
-                                  // width: MediaQuery.of(context).size.width,
                                 ),
                               ),
                             ],
@@ -107,7 +135,7 @@ class _SwappablePageState extends State<SwappablePage> {
                         )
                       : const SizedBox(),
                   Container(
-                    margin: const EdgeInsets.only(top: 300),
+                    margin: const EdgeInsets.only(top: 350),
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     width: MediaQuery.of(context).size.width,
                     child: Column(
@@ -117,14 +145,14 @@ class _SwappablePageState extends State<SwappablePage> {
                           Text(
                             widget.item.itemName,
                             style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w700,
-                            ),
+                                fontSize: 24,
+                                fontWeight: FontWeight.w700,
+                                overflow: TextOverflow.ellipsis),
                             textAlign: TextAlign.left,
                           ),
                         ]),
                         const SizedBox(
-                          height: 10,
+                          height: 20,
                         ),
                         Row(
                           children: [
@@ -143,7 +171,7 @@ class _SwappablePageState extends State<SwappablePage> {
                                 ? const SizedBox()
                                 : const Icon(Icons.search),
                             Text(
-                              widget.item.condition,
+                              widget.item.condition[0]!,
                               style: const TextStyle(fontSize: 16),
                             ),
                           ],
@@ -208,8 +236,9 @@ class _SwappablePageState extends State<SwappablePage> {
                                             widget.item.userPictureURL,
                                         userProfileName: widget.item.userName,
                                         userProfileDescription:
-                                            widget.item.itemDescription,
+                                            widget.item.userDescription,
                                         location: widget.item.location,
+                                        userAge: widget.item.userDateOfBirth,
                                       )),
                             );
                           },

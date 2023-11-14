@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -11,11 +12,13 @@ class DifferentUserProfilePagePreview extends StatelessWidget {
       required this.userProfileName,
       required this.userProfileDescription,
       required this.userProfilePicture,
-      required this.location});
+      required this.location,
+      required this.userAge});
   final String userProfileName;
   final String userProfileDescription;
   final String userProfilePicture;
   final String location;
+  final String userAge;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -53,7 +56,8 @@ class DifferentUserProfilePagePreview extends StatelessWidget {
                                   ? const AssetImage(
                                           'images/default_user_profile_picture.png')
                                       as ImageProvider
-                                  : NetworkImage(userProfilePicture!),
+                                  : CachedNetworkImageProvider(
+                                      userProfilePicture!),
                             )),
                       ),
                       SizedBox(
@@ -64,15 +68,17 @@ class DifferentUserProfilePagePreview extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Container(
+                              width: Get.width * 0.7,
                               child: Text(
                                 userProfileName,
+                                overflow: TextOverflow.ellipsis,
                                 style: MyTextStyles.poppins24w700,
                                 textAlign: TextAlign.center,
                               ),
                             ),
                             Container(
                               child: Text(
-                                ' ,21',
+                                ", $userAge",
                                 style: MyTextStyles.poppins24w400,
                                 textAlign: TextAlign.center,
                               ),
@@ -109,49 +115,49 @@ class DifferentUserProfilePagePreview extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                Text(
-                  'Recenzije korisnika',
-                  style: MyTextStyles.poppins24w700,
-                ),
-                Container(
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '5,0',
-                            style: MyTextStyles.poppins24w700,
-                          ),
-                          Text(
-                            '3 Recenzije',
-                            style: MyTextStyles.poppins16w400,
-                          )
-                        ],
-                      ),
-                      NumberOfRatingsIndicator(
-                        ratingCountPerCategory: 20,
-                        scoreCategory: '5',
-                      ),
-                      NumberOfRatingsIndicator(
-                        ratingCountPerCategory: 2,
-                        scoreCategory: '4',
-                      ),
-                      NumberOfRatingsIndicator(
-                        ratingCountPerCategory: 1,
-                        scoreCategory: '3',
-                      ),
-                      NumberOfRatingsIndicator(
-                        ratingCountPerCategory: 1,
-                        scoreCategory: '2',
-                      ),
-                      NumberOfRatingsIndicator(
-                        ratingCountPerCategory: 1,
-                        scoreCategory: '1',
-                      ),
-                    ],
-                  ),
-                )
+                // Text(
+                //   'Recenzije korisnika',
+                //   style: MyTextStyles.poppins24w700,
+                // ),
+                // Container(
+                //   child: Column(
+                //     children: [
+                //       Row(
+                //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //         children: [
+                //           Text(
+                //             '5,0',
+                //             style: MyTextStyles.poppins24w700,
+                //           ),
+                //           Text(
+                //             '3 Recenzije',
+                //             style: MyTextStyles.poppins16w400,
+                //           )
+                //         ],
+                //       ),
+                //       NumberOfRatingsIndicator(
+                //         ratingCountPerCategory: 20,
+                //         scoreCategory: '5',
+                //       ),
+                //       NumberOfRatingsIndicator(
+                //         ratingCountPerCategory: 2,
+                //         scoreCategory: '4',
+                //       ),
+                //       NumberOfRatingsIndicator(
+                //         ratingCountPerCategory: 1,
+                //         scoreCategory: '3',
+                //       ),
+                //       NumberOfRatingsIndicator(
+                //         ratingCountPerCategory: 1,
+                //         scoreCategory: '2',
+                //       ),
+                //       NumberOfRatingsIndicator(
+                //         ratingCountPerCategory: 1,
+                //         scoreCategory: '1',
+                //       ),
+                //     ],
+                //   ),
+                // )
               ],
             ),
           )),

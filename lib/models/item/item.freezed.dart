@@ -27,9 +27,9 @@ mixin _$Item {
   @JsonKey(name: 'category_list')
   List<String?> get categoryList => throw _privateConstructorUsedError;
   @JsonKey(name: 'price_range')
-  String get priceRange => throw _privateConstructorUsedError;
+  List<String?> get priceRange => throw _privateConstructorUsedError;
   @JsonKey(name: 'condition')
-  String get condition => throw _privateConstructorUsedError;
+  List<String?> get condition => throw _privateConstructorUsedError;
   @JsonKey(name: 'item_picture_list')
   List<String>? get itemPictureList => throw _privateConstructorUsedError;
   @JsonKey(name: 'user_ID')
@@ -53,8 +53,8 @@ abstract class $ItemCopyWith<$Res> {
       {@JsonKey(name: 'item_description') String itemDescription,
       @JsonKey(name: 'item_name') String itemName,
       @JsonKey(name: 'category_list') List<String?> categoryList,
-      @JsonKey(name: 'price_range') String priceRange,
-      @JsonKey(name: 'condition') String condition,
+      @JsonKey(name: 'price_range') List<String?> priceRange,
+      @JsonKey(name: 'condition') List<String?> condition,
       @JsonKey(name: 'item_picture_list') List<String>? itemPictureList,
       @JsonKey(name: 'user_ID') String userID,
       @JsonKey(name: 'item_ID') String itemID,
@@ -100,11 +100,11 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
       priceRange: null == priceRange
           ? _value.priceRange
           : priceRange // ignore: cast_nullable_to_non_nullable
-              as String,
+              as List<String?>,
       condition: null == condition
           ? _value.condition
           : condition // ignore: cast_nullable_to_non_nullable
-              as String,
+              as List<String?>,
       itemPictureList: freezed == itemPictureList
           ? _value.itemPictureList
           : itemPictureList // ignore: cast_nullable_to_non_nullable
@@ -135,8 +135,8 @@ abstract class _$$_ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
       {@JsonKey(name: 'item_description') String itemDescription,
       @JsonKey(name: 'item_name') String itemName,
       @JsonKey(name: 'category_list') List<String?> categoryList,
-      @JsonKey(name: 'price_range') String priceRange,
-      @JsonKey(name: 'condition') String condition,
+      @JsonKey(name: 'price_range') List<String?> priceRange,
+      @JsonKey(name: 'condition') List<String?> condition,
       @JsonKey(name: 'item_picture_list') List<String>? itemPictureList,
       @JsonKey(name: 'user_ID') String userID,
       @JsonKey(name: 'item_ID') String itemID,
@@ -176,13 +176,13 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
           : categoryList // ignore: cast_nullable_to_non_nullable
               as List<String?>,
       priceRange: null == priceRange
-          ? _value.priceRange
+          ? _value._priceRange
           : priceRange // ignore: cast_nullable_to_non_nullable
-              as String,
+              as List<String?>,
       condition: null == condition
-          ? _value.condition
+          ? _value._condition
           : condition // ignore: cast_nullable_to_non_nullable
-              as String,
+              as List<String?>,
       itemPictureList: freezed == itemPictureList
           ? _value._itemPictureList
           : itemPictureList // ignore: cast_nullable_to_non_nullable
@@ -210,13 +210,15 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
       {@JsonKey(name: 'item_description') required this.itemDescription,
       @JsonKey(name: 'item_name') required this.itemName,
       @JsonKey(name: 'category_list') required final List<String?> categoryList,
-      @JsonKey(name: 'price_range') required this.priceRange,
-      @JsonKey(name: 'condition') required this.condition,
+      @JsonKey(name: 'price_range') required final List<String?> priceRange,
+      @JsonKey(name: 'condition') required final List<String?> condition,
       @JsonKey(name: 'item_picture_list') final List<String>? itemPictureList,
       @JsonKey(name: 'user_ID') required this.userID,
       @JsonKey(name: 'item_ID') required this.itemID,
       @JsonKey(name: 'item_state') required this.itemState})
       : _categoryList = categoryList,
+        _priceRange = priceRange,
+        _condition = condition,
         _itemPictureList = itemPictureList;
 
   factory _$_Item.fromJson(Map<String, dynamic> json) => _$$_ItemFromJson(json);
@@ -236,12 +238,24 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
     return EqualUnmodifiableListView(_categoryList);
   }
 
+  final List<String?> _priceRange;
   @override
   @JsonKey(name: 'price_range')
-  final String priceRange;
+  List<String?> get priceRange {
+    if (_priceRange is EqualUnmodifiableListView) return _priceRange;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_priceRange);
+  }
+
+  final List<String?> _condition;
   @override
   @JsonKey(name: 'condition')
-  final String condition;
+  List<String?> get condition {
+    if (_condition is EqualUnmodifiableListView) return _condition;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_condition);
+  }
+
   final List<String>? _itemPictureList;
   @override
   @JsonKey(name: 'item_picture_list')
@@ -295,10 +309,10 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
                 other.itemName == itemName) &&
             const DeepCollectionEquality()
                 .equals(other._categoryList, _categoryList) &&
-            (identical(other.priceRange, priceRange) ||
-                other.priceRange == priceRange) &&
-            (identical(other.condition, condition) ||
-                other.condition == condition) &&
+            const DeepCollectionEquality()
+                .equals(other._priceRange, _priceRange) &&
+            const DeepCollectionEquality()
+                .equals(other._condition, _condition) &&
             const DeepCollectionEquality()
                 .equals(other._itemPictureList, _itemPictureList) &&
             (identical(other.userID, userID) || other.userID == userID) &&
@@ -314,8 +328,8 @@ class _$_Item with DiagnosticableTreeMixin implements _Item {
       itemDescription,
       itemName,
       const DeepCollectionEquality().hash(_categoryList),
-      priceRange,
-      condition,
+      const DeepCollectionEquality().hash(_priceRange),
+      const DeepCollectionEquality().hash(_condition),
       const DeepCollectionEquality().hash(_itemPictureList),
       userID,
       itemID,
@@ -340,8 +354,8 @@ abstract class _Item implements Item {
       {@JsonKey(name: 'item_description') required final String itemDescription,
       @JsonKey(name: 'item_name') required final String itemName,
       @JsonKey(name: 'category_list') required final List<String?> categoryList,
-      @JsonKey(name: 'price_range') required final String priceRange,
-      @JsonKey(name: 'condition') required final String condition,
+      @JsonKey(name: 'price_range') required final List<String?> priceRange,
+      @JsonKey(name: 'condition') required final List<String?> condition,
       @JsonKey(name: 'item_picture_list') final List<String>? itemPictureList,
       @JsonKey(name: 'user_ID') required final String userID,
       @JsonKey(name: 'item_ID') required final String itemID,
@@ -360,10 +374,10 @@ abstract class _Item implements Item {
   List<String?> get categoryList;
   @override
   @JsonKey(name: 'price_range')
-  String get priceRange;
+  List<String?> get priceRange;
   @override
   @JsonKey(name: 'condition')
-  String get condition;
+  List<String?> get condition;
   @override
   @JsonKey(name: 'item_picture_list')
   List<String>? get itemPictureList;

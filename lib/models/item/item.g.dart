@@ -12,8 +12,12 @@ _$_Item _$$_ItemFromJson(Map<String, dynamic> json) => _$_Item(
       categoryList: (json['category_list'] as List<dynamic>)
           .map((e) => e as String?)
           .toList(),
-      priceRange: json['price_range'] as String,
-      condition: json['condition'] as String,
+      priceRange: (json['price_range'] as List<dynamic>)
+          .map((e) => e as String?)
+          .toList(),
+      condition: (json['condition'] as List<dynamic>)
+          .map((e) => e as String?)
+          .toList(),
       itemPictureList: (json['item_picture_list'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),

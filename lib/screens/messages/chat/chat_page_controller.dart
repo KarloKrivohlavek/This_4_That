@@ -64,6 +64,13 @@ class ChatPageController extends GetxController {
     return false;
   }
 
+  bool isMessageMadeByDefaultUser() {
+    if (match.user1ID == FirebaseAuth.instance.currentUser?.uid) {
+      return true;
+    }
+    return false;
+  }
+
   String differentUserItemImageURL() {
     String differentUserImageURL;
     if (isCurrentUserFirstUserBool) {
@@ -90,10 +97,6 @@ class ChatPageController extends GetxController {
     differentUserImageURL = match.item1PictureURL;
     return differentUserImageURL;
   }
-
-  // controller.isCurrentUserFirstUserBool
-  // ? controller.match.user2Username
-  //     : controller.match.user1Username
 
   void checkArguments() {
     if (Get.arguments != null) {

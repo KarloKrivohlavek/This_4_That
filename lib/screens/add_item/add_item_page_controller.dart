@@ -23,8 +23,8 @@ class AddItemPageController extends GetxController {
       itemPictureList: [],
       itemName: 'itemName',
       itemDescription: 'itemDescription',
-      priceRange: 'priceRange',
-      condition: 'condition',
+      priceRange: [],
+      condition: [],
       userID: 'userID',
       itemID: 'itemID',
       itemState: 'itemState',
@@ -175,14 +175,15 @@ class AddItemPageController extends GetxController {
   void saveSelectedIndexPrice() {
     logger.w(selectedIndexPrice);
     newItem = newItem.copyWith(
-        priceRange: MyConstants.buttonValuesPrice[selectedIndexPrice]);
+        priceRange: MyConstants.buttonValuesPriceListMap[selectedIndexPrice]);
     logger.e(newItem);
   }
 
   void saveSelectedIndexCondition() {
     logger.w(selectedIndexCondition);
     newItem = newItem.copyWith(
-        condition: MyConstants.buttonValuesCondition[selectedIndexCondition],
+        condition:
+            MyConstants.buttonValuesConditionListMap[selectedIndexCondition],
         userID: FirebaseAuth.instance.currentUser!.uid,
         itemState: 'active');
     logger.e(newItem);
@@ -272,8 +273,8 @@ class AddItemPageController extends GetxController {
         itemPictureList: [],
         itemName: 'itemName',
         itemDescription: 'itemDescription',
-        priceRange: 'priceRange',
-        condition: 'condition',
+        priceRange: [],
+        condition: [],
         userID: 'userID',
         itemID: 'itemID',
         itemState: 'itemState',

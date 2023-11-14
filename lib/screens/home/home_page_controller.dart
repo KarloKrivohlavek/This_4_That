@@ -19,6 +19,7 @@ class HomePageController extends GetxController {
   /// DEPENDENCIES
 
   final firebaseService = Get.find<FirebaseService>();
+  final logger = Get.find<LoggerService>();
 
   ///REACTIVE VARIABLES
 
@@ -27,6 +28,10 @@ class HomePageController extends GetxController {
   final RxInt _currentIndex = 0.obs;
   int get currentIndex => _currentIndex.value;
   set currentIndex(int value) => _currentIndex.value = value;
+
+  final RxBool _isLoaderLoading = true.obs;
+  bool get isLoaderLoading => _isLoaderLoading.value;
+  set isLoaderLoading(bool value) => _isLoaderLoading.value = value;
 
   final RxInt _numberOfCardsDisplayed = 1.obs;
   int get numberOfCardsDisplayed => _numberOfCardsDisplayed.value;
@@ -59,7 +64,7 @@ class HomePageController extends GetxController {
   // set selectedPriceFilter(PriceFilter value) =>
   //     _selectedPriceFilter.value = value;
 
-  final List<String> filterListNames = MyConstants.buttonValuesPrice;
+  final List<String?> filterListNames = MyConstants.buttonValuesPrice;
 
   final List<PriceFilter> priceFilters = [
     PriceFilter(price: "0 - 50 €", isOn: true),
@@ -91,19 +96,19 @@ class HomePageController extends GetxController {
         item: SwipeItem(
             itemDescription: '',
             itemName: '',
-            condition: '',
+            condition: [],
             location: '',
             itemPictureList: [],
             userID: '',
             itemID: '',
             itemState: '',
             userPictureURL: 'default_user_profile_picture.png',
-            userName: ''))
+            userName: '',
+            userDescription: '',
+            userDateOfBirth: ''))
   ].obs;
   List<SwappablePage> get cards => _cards;
   set cards(List<SwappablePage> value) => _cards.assignAll(value);
-
-  final logger = Get.find<LoggerService>();
 
   final RxInt _selectedItemIndex = 0.obs;
   int get selectedItemIndex => _selectedItemIndex.value;
@@ -166,10 +171,10 @@ class HomePageController extends GetxController {
     cardswipercontroller = CardSwiperController();
     currentUserData = await firebaseService.getCurrentUserData();
     currentUserItems = await firebaseService.getCurrentUserItemsActive();
-    logger.wtf(currentUserItems);
+    // logger.wtf(currentUserItems);
     differentUserItems = await firebaseService.getDifferentUserItems();
     pickedCategoriesConstants = MyConstants.allCategories;
-    logger.wtf(pickedCategoriesConstants);
+    // logger.wtf(pickedCategoriesConstants);
     // List.generate(
     //     MyConstants.buttonValuesPrice.length,
     //     (index) => priceFilterList.add(PriceFilter(
@@ -204,8 +209,9 @@ class HomePageController extends GetxController {
   void updateSelectedPriceFilters(List<PriceFilter> allSelectedPriceFilters) {
     selectedPriceFilters.assignAll(
         allSelectedPriceFilters.where((priceFilter) => priceFilter.isOn));
-    firstSelectedPriceFilterValue.value =
-        selectedPriceFilters.isNotEmpty ? selectedPriceFilters[0].price : '';
+    firstSelectedPriceFilterValue.value = selectedPriceFilters.isNotEmpty
+        ? selectedPriceFilters[0].price
+        : 'Nijedan filter nije odabran';
   }
 
   void updateSelectedConditionFilters(
@@ -215,7 +221,7 @@ class HomePageController extends GetxController {
     firstSelectedConditionFilterValue.value =
         selectedConditionFilters.isNotEmpty
             ? selectedConditionFilters[0].price
-            : '';
+            : 'Nijedan filter nije odabran';
   }
 
   Future<MatchedItems> checkIfMatched(int previousIndex) async {
@@ -279,28 +285,45 @@ class HomePageController extends GetxController {
   // cards.assignall(filtered)
 
   Future<void> fillCardsList(List<String> matchedItems) async {
-    logger.e(matchedItems);
-    for (final item in differentUserItems) {
-      if (!matchedItems.contains(item.itemID)) {
-        logger.v(item);
-        final userData =
-            await firebaseService.getDifferentUserData(item.userID);
-        final swapItem = SwipeItem(
-            itemDescription: item.itemDescription,
-            itemName: item.itemName,
-            condition: item.condition,
-            location: userData.location,
-            userID: item.userID,
-            itemID: item.itemID,
-            itemState: item.itemState,
-            itemPictureList: item.itemPictureList!,
-            userPictureURL:
-                userData.profilePicture ?? 'default_user_profile_picture.png',
-            userName: userData.username);
-        final swapPage = SwappablePage(item: swapItem);
-        // cards.add(swapPage);
-        cards.insert(0, swapPage);
+    isLoaderLoading = true;
+    try {
+      logger.e(matchedItems);
+      for (final item in differentUserItems) {
+        if (!matchedItems.contains(item.itemID)) {
+          logger.v(item);
+          final userData =
+              await firebaseService.getDifferentUserData(item.userID);
+          String dobString = userData.dateOfBirth;
+          // Split the date of birth string into day, month, and year
+          List<String> parts = dobString.split('/');
+          int? year = int.tryParse(parts[2]);
+          // Get the current date
+          DateTime now = DateTime.now();
+          // Calculate the age
+          int ageValue = now.year - year!;
+          String ageValueString = ageValue.toString();
+
+          final swapItem = SwipeItem(
+              itemDescription: item.itemDescription,
+              itemName: item.itemName,
+              condition: item.condition,
+              location: userData.location,
+              userID: item.userID,
+              itemID: item.itemID,
+              itemState: item.itemState,
+              itemPictureList: item.itemPictureList!,
+              userPictureURL:
+                  userData.profilePicture ?? 'default_user_profile_picture.png',
+              userName: userData.username,
+              userDescription: userData.description,
+              userDateOfBirth: ageValueString);
+          final swapPage = SwappablePage(item: swapItem);
+          // cards.add(swapPage);
+          cards.insert(0, swapPage);
+        }
       }
+    } finally {
+      isLoaderLoading = false;
     }
   }
 
@@ -327,6 +350,7 @@ class HomePageController extends GetxController {
           .updateUserDataMatchedList(cards[previousIndex].item.itemID);
       final match = await checkIfMatched(previousIndex);
       logger.e(match);
+      logger.wtf(cards);
 
       removedItemsFromList.add(previousIndex);
 
@@ -377,6 +401,32 @@ class HomePageController extends GetxController {
     } else {
       buttonIsEnabled = false;
     }
+  }
+
+  Future<void> applyFilters() async {
+    List<String> selectedPrices = [];
+    List<String> selectedConditions = [];
+
+    selectedPriceFilters.forEach((price) {
+      if (price.isOn == true) {
+        selectedPrices.add(price.price);
+      }
+    });
+    selectedConditionFilters.forEach((condition) {
+      if (condition.isOn == true) {
+        selectedConditions.add(condition.price);
+      }
+    });
+    final filteredData = FilterItemsRequest(
+        price_range: selectedPrices,
+        condition: selectedConditions,
+        categories: pickedCategories);
+    final filteredItems =
+        await FirebaseService.instance.getFilteredItems(filteredData);
+    logger.w(filteredItems);
+    // cards.forEach((card){
+    //   if(card.item.itemID == filteredItems)
+    // }
   }
 
   void searchCategory(String query) {

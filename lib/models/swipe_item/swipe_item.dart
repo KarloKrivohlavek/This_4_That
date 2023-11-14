@@ -9,7 +9,7 @@ class SwipeItem with _$SwipeItem {
   factory SwipeItem({
     @JsonKey(name: 'item_description') required String itemDescription,
     @JsonKey(name: 'item_name') required String itemName,
-    @JsonKey(name: 'condition') required String condition,
+    @JsonKey(name: 'condition') required List<String?> condition,
     @JsonKey(name: 'location') required String location,
     @JsonKey(name: 'item_picture_list') required List<String> itemPictureList,
     @JsonKey(name: 'user_ID') required String userID,
@@ -17,6 +17,8 @@ class SwipeItem with _$SwipeItem {
     @JsonKey(name: 'item_state') required String itemState,
     @JsonKey(name: 'user_pictureURL') required String userPictureURL,
     @JsonKey(name: 'user_name') required String userName,
+    @JsonKey(name: 'user_description') required String userDescription,
+    @JsonKey(name: 'user_dateOfBirth') required String userDateOfBirth,
   }) = _SwipeItem;
 
   factory SwipeItem.fromJson(Map<String, dynamic> json) =>

@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:this_4_that/network/dependency_injection.dart';
 import 'package:this_4_that/pages.dart';
+import 'package:this_4_that/services/firebase_api.dart';
 import 'package:this_4_that/services/firebase_service.dart';
 import 'package:this_4_that/services/logger_service.dart';
 import 'package:this_4_that/services/storage_service.dart';
@@ -15,6 +16,7 @@ Future<void> main() async {
   await Firebase.initializeApp();
   Get.put(LoggerService());
   await GetStorage.init();
+  // await FirebaseApi().initNotifications();
   await SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const This4ThatApp());

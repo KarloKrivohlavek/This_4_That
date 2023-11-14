@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:this_4_that/constants/colors.dart';
+import 'package:this_4_that/pages.dart';
 import 'package:this_4_that/screens/messages/chat/widgets/custom_appbar.dart';
 import 'package:this_4_that/screens/messages/chat/widgets/message_bubble.dart';
 import 'package:this_4_that/services/firebase_service.dart';
@@ -35,23 +36,6 @@ class ChatPageScreen extends GetView<ChatPageController> {
                 ),
             body: Column(
               children: [
-                // GestureDetector(
-                //   onTap: () async {
-                //     final newMesssage = Message(
-                //         senderID: FirebaseAuth.instance.currentUser!.uid,
-                //         text: 'Ovo je nova poruka potpuno drugacija',
-                //         createdAt: DateTime.now().millisecondsSinceEpoch);
-                //     await FirebaseService.instance.firebaseFirestore
-                //         .collection('chats')
-                //         .doc(controller.chatID)
-                //         .collection('messages')
-                //         .add(newMesssage.toJson());s
-                //   },
-                //   child: Container(
-                //     color: Colors.red,
-                //     height: 120,
-                //   ),
-                // ),
                 StreamBuilder(
                     stream: FirebaseService.instance.firebaseFirestore
                         .collection('chats')
@@ -64,11 +48,6 @@ class ChatPageScreen extends GetView<ChatPageController> {
                       List<MessageBubble> messagesList = [];
                       if (snapshot.hasData) {
                         final messages = snapshot.data?.docs.reversed;
-                        // for (final message in messages!) {
-                        //   final messageTextKey = message.data()['text'];
-                        //   // final messageText =
-                        //   messagesList.add(Text(messageTextKey));
-                        // }
 
                         for (final message in messages!) {
                           final messageText = message.data()['text'];
@@ -84,6 +63,7 @@ class ChatPageScreen extends GetView<ChatPageController> {
                             text: messageText,
                             isMe: messageSender ==
                                 FirebaseAuth.instance.currentUser!.uid,
+                            isDefaultUser: messageSender == 'default',
                           );
                           messagesList.add(messageBubble);
                         }

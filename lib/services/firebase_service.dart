@@ -658,8 +658,8 @@ class FirebaseService extends GetxService {
           .collection('items')
           .where(Filter.and(
             Filter("item_state", isEqualTo: "active"),
-            Filter("price_range", isEqualTo: request.price_range),
-            Filter("condition", isEqualTo: request.condition),
+            Filter("price_range", arrayContainsAny: request.price_range),
+            Filter("condition", arrayContainsAny: request.condition),
             Filter("category_list", arrayContainsAny: request.categories),
           ))
           .snapshots()
@@ -675,8 +675,8 @@ class FirebaseService extends GetxService {
 }
 
 class FilterItemsRequest {
-  final String price_range;
-  final String condition;
+  final List<String> price_range;
+  final List<String> condition;
   final List<String> categories;
 
   const FilterItemsRequest({

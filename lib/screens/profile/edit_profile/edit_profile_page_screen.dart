@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -10,7 +9,6 @@ import 'package:this_4_that/widget/custom_dialog.dart';
 import 'package:this_4_that/widget/filled_color_button_widget.dart';
 import 'package:this_4_that/widget/profile_widget.dart';
 import 'package:this_4_that/widget/textfield_widget.dart';
-
 
 ///
 /// This is a screen in which we write widgets concerning [HelloScreen]
@@ -42,6 +40,7 @@ class EditProfilePageScreen extends GetView<ProfilePageController> {
               ),
               const SizedBox(height: 24),
               TextFieldWidget(
+                maxLength: 24,
                 controller: controller.userNameController,
                 label: 'Korisničko ime',
                 text: controller.currentUserData.username,
@@ -55,6 +54,7 @@ class EditProfilePageScreen extends GetView<ProfilePageController> {
                 text: controller.currentUserData.description,
                 maxLines: 5,
                 onChanged: (vo) {},
+                maxLength: 120,
               ),
               const SizedBox(height: 24),
               GestureDetector(

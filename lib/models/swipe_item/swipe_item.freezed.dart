@@ -25,7 +25,7 @@ mixin _$SwipeItem {
   @JsonKey(name: 'item_name')
   String get itemName => throw _privateConstructorUsedError;
   @JsonKey(name: 'condition')
-  String get condition => throw _privateConstructorUsedError;
+  List<String?> get condition => throw _privateConstructorUsedError;
   @JsonKey(name: 'location')
   String get location => throw _privateConstructorUsedError;
   @JsonKey(name: 'item_picture_list')
@@ -40,6 +40,10 @@ mixin _$SwipeItem {
   String get userPictureURL => throw _privateConstructorUsedError;
   @JsonKey(name: 'user_name')
   String get userName => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_description')
+  String get userDescription => throw _privateConstructorUsedError;
+  @JsonKey(name: 'user_dateOfBirth')
+  String get userDateOfBirth => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -55,14 +59,16 @@ abstract class $SwipeItemCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'item_description') String itemDescription,
       @JsonKey(name: 'item_name') String itemName,
-      @JsonKey(name: 'condition') String condition,
+      @JsonKey(name: 'condition') List<String?> condition,
       @JsonKey(name: 'location') String location,
       @JsonKey(name: 'item_picture_list') List<String> itemPictureList,
       @JsonKey(name: 'user_ID') String userID,
       @JsonKey(name: 'item_ID') String itemID,
       @JsonKey(name: 'item_state') String itemState,
       @JsonKey(name: 'user_pictureURL') String userPictureURL,
-      @JsonKey(name: 'user_name') String userName});
+      @JsonKey(name: 'user_name') String userName,
+      @JsonKey(name: 'user_description') String userDescription,
+      @JsonKey(name: 'user_dateOfBirth') String userDateOfBirth});
 }
 
 /// @nodoc
@@ -88,6 +94,8 @@ class _$SwipeItemCopyWithImpl<$Res, $Val extends SwipeItem>
     Object? itemState = null,
     Object? userPictureURL = null,
     Object? userName = null,
+    Object? userDescription = null,
+    Object? userDateOfBirth = null,
   }) {
     return _then(_value.copyWith(
       itemDescription: null == itemDescription
@@ -101,7 +109,7 @@ class _$SwipeItemCopyWithImpl<$Res, $Val extends SwipeItem>
       condition: null == condition
           ? _value.condition
           : condition // ignore: cast_nullable_to_non_nullable
-              as String,
+              as List<String?>,
       location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -130,6 +138,14 @@ class _$SwipeItemCopyWithImpl<$Res, $Val extends SwipeItem>
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
               as String,
+      userDescription: null == userDescription
+          ? _value.userDescription
+          : userDescription // ignore: cast_nullable_to_non_nullable
+              as String,
+      userDateOfBirth: null == userDateOfBirth
+          ? _value.userDateOfBirth
+          : userDateOfBirth // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -144,14 +160,16 @@ abstract class _$$_SwipeItemCopyWith<$Res> implements $SwipeItemCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'item_description') String itemDescription,
       @JsonKey(name: 'item_name') String itemName,
-      @JsonKey(name: 'condition') String condition,
+      @JsonKey(name: 'condition') List<String?> condition,
       @JsonKey(name: 'location') String location,
       @JsonKey(name: 'item_picture_list') List<String> itemPictureList,
       @JsonKey(name: 'user_ID') String userID,
       @JsonKey(name: 'item_ID') String itemID,
       @JsonKey(name: 'item_state') String itemState,
       @JsonKey(name: 'user_pictureURL') String userPictureURL,
-      @JsonKey(name: 'user_name') String userName});
+      @JsonKey(name: 'user_name') String userName,
+      @JsonKey(name: 'user_description') String userDescription,
+      @JsonKey(name: 'user_dateOfBirth') String userDateOfBirth});
 }
 
 /// @nodoc
@@ -175,6 +193,8 @@ class __$$_SwipeItemCopyWithImpl<$Res>
     Object? itemState = null,
     Object? userPictureURL = null,
     Object? userName = null,
+    Object? userDescription = null,
+    Object? userDateOfBirth = null,
   }) {
     return _then(_$_SwipeItem(
       itemDescription: null == itemDescription
@@ -186,9 +206,9 @@ class __$$_SwipeItemCopyWithImpl<$Res>
           : itemName // ignore: cast_nullable_to_non_nullable
               as String,
       condition: null == condition
-          ? _value.condition
+          ? _value._condition
           : condition // ignore: cast_nullable_to_non_nullable
-              as String,
+              as List<String?>,
       location: null == location
           ? _value.location
           : location // ignore: cast_nullable_to_non_nullable
@@ -217,6 +237,14 @@ class __$$_SwipeItemCopyWithImpl<$Res>
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
               as String,
+      userDescription: null == userDescription
+          ? _value.userDescription
+          : userDescription // ignore: cast_nullable_to_non_nullable
+              as String,
+      userDateOfBirth: null == userDateOfBirth
+          ? _value.userDateOfBirth
+          : userDateOfBirth // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -230,7 +258,7 @@ class _$_SwipeItem with DiagnosticableTreeMixin implements _SwipeItem {
       @JsonKey(name: 'item_name')
           required this.itemName,
       @JsonKey(name: 'condition')
-          required this.condition,
+          required final List<String?> condition,
       @JsonKey(name: 'location')
           required this.location,
       @JsonKey(name: 'item_picture_list')
@@ -244,8 +272,13 @@ class _$_SwipeItem with DiagnosticableTreeMixin implements _SwipeItem {
       @JsonKey(name: 'user_pictureURL')
           required this.userPictureURL,
       @JsonKey(name: 'user_name')
-          required this.userName})
-      : _itemPictureList = itemPictureList;
+          required this.userName,
+      @JsonKey(name: 'user_description')
+          required this.userDescription,
+      @JsonKey(name: 'user_dateOfBirth')
+          required this.userDateOfBirth})
+      : _condition = condition,
+        _itemPictureList = itemPictureList;
 
   factory _$_SwipeItem.fromJson(Map<String, dynamic> json) =>
       _$$_SwipeItemFromJson(json);
@@ -256,9 +289,15 @@ class _$_SwipeItem with DiagnosticableTreeMixin implements _SwipeItem {
   @override
   @JsonKey(name: 'item_name')
   final String itemName;
+  final List<String?> _condition;
   @override
   @JsonKey(name: 'condition')
-  final String condition;
+  List<String?> get condition {
+    if (_condition is EqualUnmodifiableListView) return _condition;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_condition);
+  }
+
   @override
   @JsonKey(name: 'location')
   final String location;
@@ -286,10 +325,16 @@ class _$_SwipeItem with DiagnosticableTreeMixin implements _SwipeItem {
   @override
   @JsonKey(name: 'user_name')
   final String userName;
+  @override
+  @JsonKey(name: 'user_description')
+  final String userDescription;
+  @override
+  @JsonKey(name: 'user_dateOfBirth')
+  final String userDateOfBirth;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'SwipeItem(itemDescription: $itemDescription, itemName: $itemName, condition: $condition, location: $location, itemPictureList: $itemPictureList, userID: $userID, itemID: $itemID, itemState: $itemState, userPictureURL: $userPictureURL, userName: $userName)';
+    return 'SwipeItem(itemDescription: $itemDescription, itemName: $itemName, condition: $condition, location: $location, itemPictureList: $itemPictureList, userID: $userID, itemID: $itemID, itemState: $itemState, userPictureURL: $userPictureURL, userName: $userName, userDescription: $userDescription, userDateOfBirth: $userDateOfBirth)';
   }
 
   @override
@@ -306,7 +351,9 @@ class _$_SwipeItem with DiagnosticableTreeMixin implements _SwipeItem {
       ..add(DiagnosticsProperty('itemID', itemID))
       ..add(DiagnosticsProperty('itemState', itemState))
       ..add(DiagnosticsProperty('userPictureURL', userPictureURL))
-      ..add(DiagnosticsProperty('userName', userName));
+      ..add(DiagnosticsProperty('userName', userName))
+      ..add(DiagnosticsProperty('userDescription', userDescription))
+      ..add(DiagnosticsProperty('userDateOfBirth', userDateOfBirth));
   }
 
   @override
@@ -318,8 +365,8 @@ class _$_SwipeItem with DiagnosticableTreeMixin implements _SwipeItem {
                 other.itemDescription == itemDescription) &&
             (identical(other.itemName, itemName) ||
                 other.itemName == itemName) &&
-            (identical(other.condition, condition) ||
-                other.condition == condition) &&
+            const DeepCollectionEquality()
+                .equals(other._condition, _condition) &&
             (identical(other.location, location) ||
                 other.location == location) &&
             const DeepCollectionEquality()
@@ -331,7 +378,11 @@ class _$_SwipeItem with DiagnosticableTreeMixin implements _SwipeItem {
             (identical(other.userPictureURL, userPictureURL) ||
                 other.userPictureURL == userPictureURL) &&
             (identical(other.userName, userName) ||
-                other.userName == userName));
+                other.userName == userName) &&
+            (identical(other.userDescription, userDescription) ||
+                other.userDescription == userDescription) &&
+            (identical(other.userDateOfBirth, userDateOfBirth) ||
+                other.userDateOfBirth == userDateOfBirth));
   }
 
   @JsonKey(ignore: true)
@@ -340,14 +391,16 @@ class _$_SwipeItem with DiagnosticableTreeMixin implements _SwipeItem {
       runtimeType,
       itemDescription,
       itemName,
-      condition,
+      const DeepCollectionEquality().hash(_condition),
       location,
       const DeepCollectionEquality().hash(_itemPictureList),
       userID,
       itemID,
       itemState,
       userPictureURL,
-      userName);
+      userName,
+      userDescription,
+      userDateOfBirth);
 
   @JsonKey(ignore: true)
   @override
@@ -370,7 +423,7 @@ abstract class _SwipeItem implements SwipeItem {
       @JsonKey(name: 'item_name')
           required final String itemName,
       @JsonKey(name: 'condition')
-          required final String condition,
+          required final List<String?> condition,
       @JsonKey(name: 'location')
           required final String location,
       @JsonKey(name: 'item_picture_list')
@@ -384,7 +437,11 @@ abstract class _SwipeItem implements SwipeItem {
       @JsonKey(name: 'user_pictureURL')
           required final String userPictureURL,
       @JsonKey(name: 'user_name')
-          required final String userName}) = _$_SwipeItem;
+          required final String userName,
+      @JsonKey(name: 'user_description')
+          required final String userDescription,
+      @JsonKey(name: 'user_dateOfBirth')
+          required final String userDateOfBirth}) = _$_SwipeItem;
 
   factory _SwipeItem.fromJson(Map<String, dynamic> json) =
       _$_SwipeItem.fromJson;
@@ -397,7 +454,7 @@ abstract class _SwipeItem implements SwipeItem {
   String get itemName;
   @override
   @JsonKey(name: 'condition')
-  String get condition;
+  List<String?> get condition;
   @override
   @JsonKey(name: 'location')
   String get location;
@@ -419,6 +476,12 @@ abstract class _SwipeItem implements SwipeItem {
   @override
   @JsonKey(name: 'user_name')
   String get userName;
+  @override
+  @JsonKey(name: 'user_description')
+  String get userDescription;
+  @override
+  @JsonKey(name: 'user_dateOfBirth')
+  String get userDateOfBirth;
   @override
   @JsonKey(ignore: true)
   _$$_SwipeItemCopyWith<_$_SwipeItem> get copyWith =>

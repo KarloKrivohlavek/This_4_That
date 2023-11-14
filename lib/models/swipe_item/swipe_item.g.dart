@@ -9,7 +9,9 @@ part of 'swipe_item.dart';
 _$_SwipeItem _$$_SwipeItemFromJson(Map<String, dynamic> json) => _$_SwipeItem(
       itemDescription: json['item_description'] as String,
       itemName: json['item_name'] as String,
-      condition: json['condition'] as String,
+      condition: (json['condition'] as List<dynamic>)
+          .map((e) => e as String?)
+          .toList(),
       location: json['location'] as String,
       itemPictureList: (json['item_picture_list'] as List<dynamic>)
           .map((e) => e as String)
@@ -19,6 +21,8 @@ _$_SwipeItem _$$_SwipeItemFromJson(Map<String, dynamic> json) => _$_SwipeItem(
       itemState: json['item_state'] as String,
       userPictureURL: json['user_pictureURL'] as String,
       userName: json['user_name'] as String,
+      userDescription: json['user_description'] as String,
+      userDateOfBirth: json['user_dateOfBirth'] as String,
     );
 
 Map<String, dynamic> _$$_SwipeItemToJson(_$_SwipeItem instance) =>
@@ -33,4 +37,6 @@ Map<String, dynamic> _$$_SwipeItemToJson(_$_SwipeItem instance) =>
       'item_state': instance.itemState,
       'user_pictureURL': instance.userPictureURL,
       'user_name': instance.userName,
+      'user_description': instance.userDescription,
+      'user_dateOfBirth': instance.userDateOfBirth,
     };

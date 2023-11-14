@@ -1,10 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/pages.dart';
-
 
 class ProfilePageEditProfilePreviewWidget extends StatelessWidget {
   ProfilePageEditProfilePreviewWidget(
@@ -41,9 +41,10 @@ class ProfilePageEditProfilePreviewWidget extends StatelessWidget {
                 image: DecorationImage(
                     fit: BoxFit.fill,
                     image: imagePath == null
-                        ? const AssetImage('images/default_user_profile_picture.png')
+                        ? const AssetImage(
+                                'images/default_user_profile_picture.png')
                             as ImageProvider
-                        : NetworkImage(imagePath!))),
+                        : CachedNetworkImageProvider(imagePath!))),
             // child: ProfileWidget(
             //   imagePath: imagePath,
             //   onClicked: () {},

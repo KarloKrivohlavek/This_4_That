@@ -1,4 +1,3 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
@@ -91,15 +90,15 @@ class AuthentificationController extends GetxController {
   }
 
   void saveFirstNameAndLastName() {
-    logger.w(firstAndLastNameController.text);
+    // logger.w(firstAndLastNameController.text);
     currentUserData =
         currentUserData.copyWith(fullName: firstAndLastNameController.text);
-    logger.e(currentUserData);
+    // logger.e(currentUserData);
     Get.to(() => const AuthentificationScreen3Username());
   }
 
   void saveUsername() {
-    logger.w(usernameController.text);
+    // logger.w(usernameController.text);
     currentUserData =
         currentUserData.copyWith(username: usernameController.text);
     logger.e(currentUserData);
@@ -132,12 +131,12 @@ class AuthentificationController extends GetxController {
   }
 
   void saveLocation({String location = 'Zagreb'}) {
-    logger.w(descriptionController.text);
+    // logger.w(descriptionController.text);
     currentUserData = currentUserData.copyWith(
         location: location,
         userID: FirebaseAuth.instance.currentUser!.uid,
         email: FirebaseAuth.instance.currentUser!.email!);
-    logger.e(currentUserData);
+    // logger.e(currentUserData);
     // Get.to(() => AuthentificationScreen6Location());
   }
 

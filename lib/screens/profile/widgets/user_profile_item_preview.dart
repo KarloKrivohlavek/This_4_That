@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:this_4_that/constants/colors.dart';
@@ -36,7 +37,8 @@ class UserProfileItemPreview extends GetView<ProfilePageController> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         image: DecorationImage(
-                            fit: BoxFit.cover, image: NetworkImage(pictureURL)),
+                            fit: BoxFit.cover,
+                            image: CachedNetworkImageProvider(pictureURL)),
                       ),
                     ),
                     const SizedBox(
@@ -67,22 +69,21 @@ class UserProfileItemPreview extends GetView<ProfilePageController> {
                             child: isActiveButtonOn
                                 //Ovo je row za aktivne predmete
                                 ? Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      GestureDetector(
-                                        onTap: () {},
-                                        child: Container(
-                                          margin:
-                                              const EdgeInsets.only(bottom: 5),
-                                          width: 35,
-                                          height: 35,
-                                          decoration: const BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: MyColors.orange),
-                                          child: const Icon(MdiIcons.pencil),
-                                        ),
-                                      ),
+                                      // GestureDetector(
+                                      //   onTap: () {},
+                                      //   child: Container(
+                                      //     margin:
+                                      //         const EdgeInsets.only(bottom: 5),
+                                      //     width: 35,
+                                      //     height: 35,
+                                      //     decoration: const BoxDecoration(
+                                      //         shape: BoxShape.circle,
+                                      //         color: MyColors.orange),
+                                      //     child: const Icon(MdiIcons.pencil),
+                                      //   ),
+                                      // ),
                                       GestureDetector(
                                         onTap: () {
                                           Get.dialog(CustomDialog(
@@ -140,19 +141,19 @@ class UserProfileItemPreview extends GetView<ProfilePageController> {
                                           child: const Icon(MdiIcons.upload),
                                         ),
                                       ),
-                                      GestureDetector(
-                                        onTap: () {},
-                                        child: Container(
-                                          margin:
-                                              const EdgeInsets.only(bottom: 5),
-                                          width: 35,
-                                          height: 35,
-                                          decoration: const BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: MyColors.orange),
-                                          child: const Icon(MdiIcons.pencil),
-                                        ),
-                                      ),
+                                      // GestureDetector(
+                                      //   onTap: () {},
+                                      //   child: Container(
+                                      //     margin:
+                                      //         const EdgeInsets.only(bottom: 5),
+                                      //     width: 35,
+                                      //     height: 35,
+                                      //     decoration: const BoxDecoration(
+                                      //         shape: BoxShape.circle,
+                                      //         color: MyColors.orange),
+                                      //     child: const Icon(MdiIcons.pencil),
+                                      //   ),
+                                      // ),
                                       GestureDetector(
                                         onTap: () async {
                                           Get.dialog(CustomDialog(

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,9 +29,10 @@ class SwappablePageDifferentUserPreview extends StatelessWidget {
               shape: BoxShape.circle,
               image: DecorationImage(
                 image: userProfilePicture!.contains('default')
-                    ? const AssetImage('images/default_user_profile_picture.png')
+                    ? const AssetImage(
+                            'images/default_user_profile_picture.png')
                         as ImageProvider
-                    : NetworkImage(userProfilePicture!),
+                    : CachedNetworkImageProvider(userProfilePicture!),
               )),
         ),
         Container(
@@ -40,46 +42,46 @@ class SwappablePageDifferentUserPreview extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 15.h,
+                height: 35.h,
               ),
               SizedBox(
                 width: 150.w,
                 child: Text(
                   userProfileName,
                   style: GoogleFonts.poppins(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontWeight: FontWeight.w700,
                   ),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
                 ),
               ),
-              Row(
-                children: [
-                  Text(
-                    userProfileRating.toString(),
-                    style: GoogleFonts.poppins(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                  RatingBar.builder(
-                    itemSize: 25,
-                    ignoreGestures: true,
-                    initialRating: userProfileRating,
-                    minRating: 1,
-                    direction: Axis.horizontal,
-                    allowHalfRating: true,
-                    itemCount: 5,
-                    itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    itemBuilder: (context, _) => const Icon(
-                      Icons.star,
-                      color: Colors.amber,
-                    ),
-                    onRatingUpdate: (rating) {},
-                  ),
-                ],
-              )
+              // Row(
+              //   children: [
+              //     Text(
+              //       userProfileRating.toString(),
+              //       style: GoogleFonts.poppins(
+              //         fontSize: 24,
+              //         fontWeight: FontWeight.w700,
+              //       ),
+              //     ),
+              //     RatingBar.builder(
+              //       itemSize: 25,
+              //       ignoreGestures: true,
+              //       initialRating: userProfileRating,
+              //       minRating: 1,
+              //       direction: Axis.horizontal,
+              //       allowHalfRating: true,
+              //       itemCount: 5,
+              //       itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+              //       itemBuilder: (context, _) => const Icon(
+              //         Icons.star,
+              //         color: Colors.amber,
+              //       ),
+              //       onRatingUpdate: (rating) {},
+              //     ),
+              //   ],
+              // )
             ],
           ),
         )

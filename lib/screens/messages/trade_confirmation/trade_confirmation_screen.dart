@@ -7,9 +7,8 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/constants/text_styles.dart';
 import 'package:this_4_that/pages.dart';
+import 'package:this_4_that/screens/messages/chat/chat_page_controller.dart';
 import 'package:this_4_that/screens/messages/chat/widgets/custom_appbar.dart';
-import 'package:this_4_that/screens/messages/chat/widgets/message_bubble.dart';
-import 'package:this_4_that/services/firebase_service.dart';
 import 'package:this_4_that/widget/outlined_color_button_widget.dart';
 
 import 'trade_confirmation_controller.dart';
@@ -18,7 +17,9 @@ import 'trade_confirmation_controller.dart';
 /// This is a screen in which we write widgets concerning [HelloScreen]
 ///
 
-class TradeConfirmationScreen extends GetView<TradeConfirmationController> {
+// var data = Get.arguments;
+
+class TradeConfirmationScreen extends GetView<ChatPageController> {
   const TradeConfirmationScreen({super.key});
 
   @override
@@ -34,28 +35,45 @@ class TradeConfirmationScreen extends GetView<TradeConfirmationController> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
+                      // Container(
+                      //   height: 144.h,
+                      //   width: 144.w,
+                      //   decoration: BoxDecoration(
+                      //       shape: BoxShape.circle,
+                      //       image: DecorationImage(
+                      //           fit: BoxFit.fill,
+                      //           image: AssetImage(
+                      //               'images/default_user_profile_picture.png')
+                      //           imagePath == null
+                      //               ? const AssetImage(
+                      //                       'images/default_user_profile_picture.png')
+                      //                   as ImageProvider
+                      //               : NetworkImage(imagePath!)
+                      //           )),
+                      //   // child: ProfileWidget(
+                      //   //   imagePath: imagePath,
+                      //   //   onClicked: () {},
+                      //   // ),
+                      // ),
                       Container(
-                        height: 144.h,
                         width: 144.w,
+                        height: 144.h,
                         decoration: BoxDecoration(
                             shape: BoxShape.circle,
                             image: DecorationImage(
-                                fit: BoxFit.fill,
-                                image: AssetImage(
-                                    'images/default_user_profile_picture.png')
-                                // imagePath == null
-                                //     ? const AssetImage(
-                                //             'images/default_user_profile_picture.png')
-                                //         as ImageProvider
-                                //     : NetworkImage(imagePath!)
-                                )),
-                        // child: ProfileWidget(
-                        //   imagePath: imagePath,
-                        //   onClicked: () {},
-                        // ),
+                              image: controller
+                                      .differentUserItemImageURL()!
+                                      .contains('default')
+                                  ? const AssetImage(
+                                          'images/default_user_profile_picture.png')
+                                      as ImageProvider
+                                  : NetworkImage(
+                                      controller.differentUserItemImageURL()!),
+                            )),
                       ),
                       Text(
-                        'Placeholder Username',
+                        controller.differentUserUsername(),
+                        // controller.differentUserUsername(),
                         style: MyTextStyles.poppins24w700,
                       ),
                       Text(
@@ -116,7 +134,9 @@ class TradeConfirmationScreen extends GetView<TradeConfirmationController> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          Get.offAllNamed(MyRoutes.messagesPageScreen);
+                          Get.offAllNamed(
+                            MyRoutes.messagesPageScreen,
+                          );
                         },
                         child: OutlinedColorButtonWidget(
                             buttonHeight: 50.h,
@@ -129,6 +149,7 @@ class TradeConfirmationScreen extends GetView<TradeConfirmationController> {
                       ),
                       GestureDetector(
                         onTap: () {
+                          Get.back();
                           Get.back();
                         },
                         child: OutlinedColorButtonWidget(

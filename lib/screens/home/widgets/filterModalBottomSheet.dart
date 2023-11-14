@@ -5,6 +5,7 @@ import 'package:this_4_that/constants/colors.dart';
 import 'package:this_4_that/constants/text_styles.dart';
 import 'package:this_4_that/screens/home/home_page_controller.dart';
 import 'package:this_4_that/screens/home/widgets/filter_widget_preview.dart';
+import 'package:this_4_that/services/firebase_service.dart';
 import 'package:this_4_that/widget/custom_divider.dart';
 import 'package:this_4_that/widget/filled_color_button_widget.dart';
 
@@ -335,7 +336,9 @@ class filterModalBottomSheet extends StatelessWidget {
                     child: Obx(
                       () => FilterWidgetPreview(
                           filterType: 'Kategorija',
-                          filterValue: controller.pickedCategories[0]),
+                          filterValue: controller.pickedCategories.isEmpty
+                              ? 'Nijedan filter nije odabran'
+                              : controller.pickedCategories[0]),
                     ),
                   ),
                 ),
@@ -350,6 +353,7 @@ class filterModalBottomSheet extends StatelessWidget {
                 padding: const EdgeInsets.all(10),
                 child: GestureDetector(
                   onTap: () {
+                    controller.applyFilters();
                     Get.back();
                   },
                   child: FilledColorButtonWidget(

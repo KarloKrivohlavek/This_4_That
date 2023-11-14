@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class TextFieldWidget extends StatefulWidget {
   final int maxLines;
+  final int maxLength;
   final String label;
   final String text;
   final ValueChanged<String> onChanged;
@@ -13,7 +14,8 @@ class TextFieldWidget extends StatefulWidget {
       required this.label,
       required this.text,
       required this.onChanged,
-      required this.controller})
+      required this.controller,
+      required this.maxLength})
       : super(key: key);
 
   @override
@@ -41,6 +43,7 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
           ),
           const SizedBox(height: 8),
           TextField(
+            maxLength: widget.maxLength,
             controller: widget.controller,
             decoration: InputDecoration(
               border: OutlineInputBorder(

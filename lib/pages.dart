@@ -87,7 +87,7 @@ final pages = [
   GetPage(
     name: MyRoutes.tradeConfirmationScreen,
     page: TradeConfirmationScreen.new,
-    binding: TradeConfirmationBinding(),
+    binding: ChatPageBinding(),
   ),
 ];
 

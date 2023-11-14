@@ -22,6 +22,7 @@ class AddItemPage2 extends GetView<AddItemPageController> {
                 height: 20,
               ),
               TextField(
+                maxLength: 20,
                 onTap: () {
                   FocusScope.of(context).requestFocus(controller.node1);
                 },
@@ -63,6 +64,7 @@ class AddItemPage2 extends GetView<AddItemPageController> {
               SizedBox(
                 height: 120,
                 child: TextField(
+                  maxLength: 120,
                   onTap: () {
                     FocusScope.of(context).requestFocus(controller.node2);
                   },

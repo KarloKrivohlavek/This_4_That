@@ -1,4 +1,4 @@
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class ProfileWidget extends StatelessWidget {
@@ -28,7 +28,7 @@ class ProfileWidget extends StatelessWidget {
 
   Widget buildImage() {
     final image = imagePath!.isNotEmpty
-        ? NetworkImage(imagePath!)
+        ? CachedNetworkImageProvider(imagePath!)
         : const AssetImage('images/default_user_profile_picture.png');
 
     return ClipOval(

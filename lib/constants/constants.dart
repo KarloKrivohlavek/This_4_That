@@ -10,6 +10,8 @@ class MyConstants {
     "1000 - 1500 €",
     "1500+ €",
   ];
+  static List<List<String>> buttonValuesPriceListMap =
+      buttonValuesPrice.map((value) => [value]).toList();
 
   static List<String> buttonValuesCondition = [
     "Novo neraspakirano",
@@ -19,6 +21,9 @@ class MyConstants {
     "Rabljeno s defektima",
     "Potrgano / neispravno",
   ];
+
+  static List<List<String>> buttonValuesConditionListMap =
+      buttonValuesCondition.map((value) => [value]).toList();
 
   static List<CategoryType> allCategories = [
     CategoryType(category: 'Namještaj', isOn: false),
