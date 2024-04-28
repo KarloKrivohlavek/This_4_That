@@ -29,11 +29,13 @@ class SnappableBottomSheet extends StatelessWidget {
                     BorderRadius.vertical(top: Radius.circular(25.0))),
             context: context,
             builder: (context) {
-              return Container(
-                height: Get.height * 0.5,
-                child: Material(
-                  type: MaterialType.transparency,
-                  child: Wrap(
+              return Obx(
+                () => Container(
+                  height: controller.currentUserItems.length > 2
+                      ? Get.height * 0.8
+                      : Get.height * 0.5,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -111,10 +113,6 @@ class SnappableBottomSheet extends StatelessWidget {
                                                       ),
                                                     ),
                                                   ),
-                                                  // child: Image.asset(
-                                                  //   _images[index]['url'],
-                                                  //   fit: BoxFit.cover,
-                                                  // ),
                                                 ),
                                                 Container(
                                                     padding:

@@ -80,9 +80,9 @@ class ProfilePageController extends GetxController {
     currentUserData = await firebaseService.getCurrentUserData();
     currentUserItems = await firebaseService.getCurrentUserItems();
     sortCurrentUserItems();
-    logger.wtf(currentUserItemsActive);
-    logger.w(currentUserItemsArchived);
-    logger.e(currentUserItems);
+    // logger.wtf(currentUserItemsActive);
+    // logger.w(currentUserItemsArchived);
+    // logger.e(currentUserItems);
     // final userID = FirebaseAuth.instance.currentUser!.uid;
 
     // allItems = await firebaseService.getAllItems() ?? [];
@@ -90,7 +90,7 @@ class ProfilePageController extends GetxController {
     userNameController.text = currentUserData.username;
     descriptionController.text = currentUserData.description;
     profileImage = currentUserData.profilePicture ?? '';
-    logger.e(currentUserData);
+    // logger.e(currentUserData);
   }
 
   ///

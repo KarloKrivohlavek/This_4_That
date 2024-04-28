@@ -168,10 +168,10 @@ class HomePageController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
+    logger.wtf(currentUserItems);
     cardswipercontroller = CardSwiperController();
     currentUserData = await firebaseService.getCurrentUserData();
     currentUserItems = await firebaseService.getCurrentUserItemsActive();
-    // logger.wtf(currentUserItems);
     differentUserItems = await firebaseService.getDifferentUserItems();
     pickedCategoriesConstants = MyConstants.allCategories;
     // logger.wtf(pickedCategoriesConstants);
@@ -181,7 +181,7 @@ class HomePageController extends GetxController {
     //         price: MyConstants.buttonValuesPrice[index], isOn: false)));
 
     await fillCardsList(currentUserData.matchedItemListIds ?? []);
-    logger.w(cards);
+    // logger.w(cards);
     cards.removeLast();
     if (cards.length > 1) {
       numberOfCardsDisplayed = 2;
