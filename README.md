@@ -31,7 +31,7 @@ This4That is a mobile app designed to facilitate item trading between users. Wit
 To run This4That locally, follow these steps:
 
 1. Clone the repository.
-  git clone [https://github.com/your_username/This4That.git](https://github.com/KarloKrivohlavek/This_4_That)
+  git clone [https://github.com/KarloKrivohlavek/This_4_That](https://github.com/KarloKrivohlavek/This_4_That)
 2. Navigate to the project directory.
   cd This4That
 3. Install dependencies.
@@ -46,10 +46,4 @@ flutter run
 
 Contributions are welcome! If you have any ideas for improvements or new features, feel free to submit a pull request.
 
-## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Contact
-
-For any inquiries or issues, please contact [your_email](mailto:your_email).
