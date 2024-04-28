@@ -1,25 +1,16 @@
 # this_4_that
 
+![lOGo 512](https://github.com/KarloKrivohlavek/This_4_That/assets/131522524/f3259256-a4ee-47cf-aebc-42ebbaf8de9d)
 
-Flutter template project - A simple TODO list app. This template provides simple UI and scalable project structure that goes beyond the simple counter example. 
-
-The app has basic login and signup screens, task list, task details, and settings screen. It supports multiple languages and in-app language change, and light and dark theme. 
 
 It's configured with [GetX] for state management, [Firebase] for backend and DB solution.
 
-<br />
-<div>
-  &emsp;&emsp;&emsp;
-  <img src="https://github.com/webfactorymk/flutter-template/blob/main/diagrams/light_theme.png" alt="Light theme" width="330">
-  &emsp;&emsp;&emsp;&emsp;
-  <img src="https://github.com/webfactorymk/flutter-template/blob/main/diagrams/dark_theme.jpg" alt="Dark theme" width="320">  
-</div>
-<br />
+
 
 ![Snimka zaslona 2024-04-28 140317](https://github.com/KarloKrivohlavek/This_4_That/assets/131522524/d11f559a-c696-473b-899d-7b3f61eb3c9d)
 ![Snimka zaslona 2024-04-28 140341](https://github.com/KarloKrivohlavek/This_4_That/assets/131522524/0826d72a-e2f6-4a6e-8aeb-58b48f775771)
 ![Snimka zaslona 2024-04-28 140402](https://github.com/KarloKrivohlavek/This_4_That/assets/131522524/35b17462-ed6b-4c70-9073-586e57c0cc99)
-![Snimka zaslona 2024-04-28 140425](https://github.com/KarloKrivohlavek/This_4_That/assets/131522524/3ef3e0bf-2528-4590-8acd-80dfeebc6956)
+
 
 # First Run
 
