@@ -1,12 +1,13 @@
 # This4That
+<img src="https://github.com/KarloKrivohlavek/This_4_That/assets/131522524/4ad4da9b-58f0-4efb-a7d5-5edf3c3562a3" alt="Your Image" width="300px">
 
-[![This4That Logo](path_to_logo.png)](link_to_your_app)
+![lOGo 512](https://github.com/KarloKrivohlavek/This_4_That/assets/131522524/4ad4da9b-58f0-4efb-a7d5-5edf3c3562a3)
+
 
 This4That is a mobile app designed to facilitate item trading between users. With This4That, you can exchange items you no longer need for something you do, fostering a community of sharing and sustainability.
 
 ## Screenshots
 
-Here are some screenshots of the app:
 
 ![Snimka zaslona 2024-04-28 140317](https://github.com/KarloKrivohlavek/This_4_That/assets/131522524/af2db29b-7ecf-4b65-bc2e-c1c55332a6ee)
 ![Snimka zaslona 2024-04-28 140402](https://github.com/KarloKrivohlavek/This_4_That/assets/131522524/c505ee40-4f39-4114-bc9c-f16f975ed721)
