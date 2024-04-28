@@ -1,7 +1,7 @@
 # This4That
 <img src="https://github.com/KarloKrivohlavek/This_4_That/assets/131522524/4ad4da9b-58f0-4efb-a7d5-5edf3c3562a3" alt="Your Image" width="300px">
 
-![lOGo 512](https://github.com/KarloKrivohlavek/This_4_That/assets/131522524/4ad4da9b-58f0-4efb-a7d5-5edf3c3562a3)
+
 
 
 This4That is a mobile app designed to facilitate item trading between users. With This4That, you can exchange items you no longer need for something you do, fostering a community of sharing and sustainability.
@@ -31,7 +31,7 @@ This4That is a mobile app designed to facilitate item trading between users. Wit
 To run This4That locally, follow these steps:
 
 1. Clone the repository.
-  git clone https://github.com/your_username/This4That.git
+  git clone [https://github.com/your_username/This4That.git](https://github.com/KarloKrivohlavek/This_4_That)
 2. Navigate to the project directory.
   cd This4That
 3. Install dependencies.
