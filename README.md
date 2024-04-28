@@ -5,7 +5,7 @@ Flutter template project - A simple TODO list app. This template provides simple
 
 The app has basic login and signup screens, task list, task details, and settings screen. It supports multiple languages and in-app language change, and light and dark theme. 
 
-It's configured with [BLoC] for state management, [Chopper] for networking, [Navigation 2.0], [GetIt] as service locator, UserManager, Repository Pattern, Logger, and util and convenience methods. 
+It's configured with [GetX] for state management, [Firebase] for backend and DB solution.
 
 <br />
 <div>
@@ -16,6 +16,10 @@ It's configured with [BLoC] for state management, [Chopper] for networking, [Nav
 </div>
 <br />
 
+![Snimka zaslona 2024-04-28 140317](https://github.com/KarloKrivohlavek/This_4_That/assets/131522524/d11f559a-c696-473b-899d-7b3f61eb3c9d)
+![Snimka zaslona 2024-04-28 140341](https://github.com/KarloKrivohlavek/This_4_That/assets/131522524/0826d72a-e2f6-4a6e-8aeb-58b48f775771)
+![Snimka zaslona 2024-04-28 140402](https://github.com/KarloKrivohlavek/This_4_That/assets/131522524/35b17462-ed6b-4c70-9073-586e57c0cc99)
+![Snimka zaslona 2024-04-28 140425](https://github.com/KarloKrivohlavek/This_4_That/assets/131522524/3ef3e0bf-2528-4590-8acd-80dfeebc6956)
 
 # First Run
 
